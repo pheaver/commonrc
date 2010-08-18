@@ -1,0 +1,36 @@
+#-*-sh-*-*
+
+#PWD=`pwd`
+#THISFILE="$PWD/$0"
+#SHARE=${THISFILE//PWD/}
+#SHARE=${SHARE//`basename $0`/}
+
+[ -z $SHARE ] && SHARE=${HOME}/commonrc
+
+if [ ! -d ${SHARE} ]; then
+    echo ${SHARE} does not exist
+    exit 1
+fi
+
+cd ${HOME}
+
+mkdir -p ~/local/share/emacs/site-lisp
+
+ln -sf ${SHARE}/zshrc .zshrc
+ln -sf ${SHARE}/bashrc .bashrc
+ln -sf ${SHARE}/bashrc .bash_profile
+ln -sf ${SHARE}/zshenv .zshenv
+
+ln -sf ${SHARE}/.screenrc
+ln -sf ${SHARE}/.gitconfig
+
+mkdir -p .subversion
+(cd .subversion >/dev/null && ln -sf ${SHARE}/.subversion/config)
+
+chmod a+x ${SHARE}/bin/*
+chmod a+x ${SHARE}/setup
+
+if [ ! -e ~/.emacs.d/init.el ]; then
+    mkdir -p ~/.emacs.d
+    echo '(load-file "~/commonrc/emacs/emacs.el")' > ~/.emacs.d/init.el
+fi

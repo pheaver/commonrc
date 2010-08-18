@@ -1,0 +1,66 @@
+[user]
+	name = Philip Weaver
+	email = philip.weaver@gmail.com
+[alias]
+	ci = commit
+	cia = commit -a
+	cim = commit -m
+	ciam = commit -a -m
+	co = checkout
+	diffi = diff --color-words
+	diffw = diff -w
+	diffx = diff -w --color-words
+	up = pull --rebase
+	st = status
+#	d = diff --name-status
+	d = diff --stat
+
+	slog = log --pretty=oneline --abbrev-commit
+	l = log --stat
+	unstage = reset HEAD --
+	last = log -1 HEAD
+
+# svn stuff
+	dc = svn dcommit
+	sc = svn dcommit
+#	up = svn rebase
+#	up2 = !git stash && git svn rebase && git stash apply
+#	sc2 = !git stash && git sc && git stash apply
+#	up = !git pull && git submodule update
+[gc]
+	auto = 6700 # default is 6700
+	autopacklimit = 50 # default is 50
+[format]
+	pretty = medium # default is medium
+[log]
+	date = local
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[receive]
+        denyCurrentBranch = refuse
+[push]
+	default = tracking
+#[color "branch"]
+#	current = yellow reverse
+#	local = yellow
+#	remote = green
+#[color "diff"]
+#	plain = white
+#	meta = yellow bold
+#	frag = magenta bold
+#	old = red bold
+#	new = green bold
+#[color "status"]
+#	header = white
+#	added = yellow
+#	changed = green
+#	untracked = cyan
+
+[svn]
+	rmdir = true
+[github]
+	user = * 
+	token = *
+

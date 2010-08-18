@@ -1,0 +1,36 @@
+#-*-sh-*-
+
+test -z ${EC2_HOME} && export EC2_HOME=~/.ec2
+pathmunge ${EC2_HOME}/bin
+
+export EC2_PRIVATE_KEY=~/.ec2/pk-4GS4ZOKSSI7D2V67TWRUDGI6VPEOGYP3.pem
+export EC2_CERT=~/.ec2/cert-4GS4ZOKSSI7D2V67TWRUDGI6VPEOGYP3.pem
+
+function ec2-host {
+    test -z ${1} && echo missing argument ||
+    tail -n 1 ~/.ec2/host_${1}
+}
+
+function ec2-ssh {
+    host=${1}
+    shift
+    test -z ${host} && echo missing argument ||
+    ssh `ec2-host ${host}` ${@}
+}
+
+function ec2-ssh-root {
+    host=${1}
+    shift
+    test -z ${host} && echo missing argument ||
+    ssh -i ~/.ec2/id_rsa-signali1 root@`ec2-host ${host}` ${@}
+}
+
+function ec2-run {
+    test -z ${1} && echo missing argument ||
+    ~/signali/ec2/run ${1}
+}
+
+function ec2-shutdown {
+    test -z ${1} && echo missing argument ||
+    ~/signali/ec2/shutdown ${1}
+}

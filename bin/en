@@ -1,0 +1,15 @@
+#!/bin/sh
+
+edit=`which edit`
+if [ -z $edit ]; then
+    edit="emacs -nw"
+fi
+
+if [ -e "$1" ]; then
+    $edit "$1"
+else
+    echo \#\!/bin/sh > "$1"
+    echo >> "$1"
+    chmod +x "$1"
+    $edit +3 "$1"
+fi

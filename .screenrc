@@ -1,0 +1,18 @@
+# -------------------
+escape ^oo
+bindkey -k F1 command
+
+defscrollback 5000
+
+# -------------------
+# old stuff
+
+#multiuser on
+
+#bindkey -k kb stuff ^?
+#bindkey -k ^H stuff ^?
+
+#termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+#shelltitle "$SHELL:"
+# -------------------

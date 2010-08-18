@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rm -rf .svn
+for i in * .??*; do
+    if [[ -d "$i" ]]; then
+	if [[ ! -L "$i" ]]; then
+	    cd "$i"
+	    svn_unversion
+	    cd ..
+	fi
+    fi
+done

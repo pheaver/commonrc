@@ -1,0 +1,18 @@
+[submodule "emacs/quattro"]
+	path = emacs/quattro
+	url = signali:/home/signali/git/emacs
+[submodule "emacs/maxframe-el.git"]
+	path = emacs/maxframe-el.git
+	url = git://github.com/rmm5t/maxframe-el.git
+[submodule "emacs/auto-complete.git"]
+	path = emacs/auto-complete.git
+	url = git://github.com/pheaver/auto-complete.git
+[submodule "emacs/itimer-el.git"]
+	path = emacs/itimer-el.git
+	url = git://github.com/pheaver/itimer.el.git
+[submodule "emacs/haskell-mode.git"]
+	path = emacs/haskell-mode.git
+	url = git://github.com/pheaver/haskell-mode.git
+[submodule "emacs/magit.git"]
+	path = emacs/magit.git
+	url = git://github.com/philjackson/magit.git
