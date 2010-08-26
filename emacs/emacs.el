@@ -335,7 +335,7 @@
   (eval-after-load "verilog"
     (when (require 'auto-complete-verilog nil t)
       (add-hook 'verilog-mode-hook
-		'(lambda () (add-to-list 'ac-sources 'ac-source-verilog)))))
+                '(lambda () (add-to-list 'ac-sources 'ac-source-verilog)))))
 
   (setq ac-auto-start 2)
   (setq ac-delay 1.0)
@@ -458,7 +458,7 @@ except uses `forward-line' instead of `forward-sentence'."
   (push-mark
    (save-excursion
      (if (and (eq last-command this-command) (mark t))
-	 (goto-char (mark)))
+         (goto-char (mark)))
      (forward-line arg)
      (point))
    nil t))

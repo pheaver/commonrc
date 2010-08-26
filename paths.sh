@@ -24,9 +24,9 @@ generic-pathmunge() {
 
     # variable indirection is different on bash and zsh
     case ${shell} in
-	bash) old_path=${!name};;
-	zsh) old_path=${(P)name};;
-	*) echo "In generic-pathmunge, bad value: shell=$shell"; return 1;;
+        bash) old_path=${!name};;
+        zsh) old_path=${(P)name};;
+        *) echo "In generic-pathmunge, bad value: shell=$shell"; return 1;;
     esac
 
     # make sure directory exist.
@@ -34,11 +34,11 @@ generic-pathmunge() {
     if [[ -d "${pathdir}" && "${old_path}" != "*${pathdir}*" ]]; then
 
         if [ -z "${old_path}" ]; then
-	    export $name="${pathdir}"
+            export $name="${pathdir}"
         elif [ "$3" = "after" ]; then
-	    export $name="${old_path}":"${pathdir}"
+            export $name="${old_path}":"${pathdir}"
         else
-	    export $name="${pathdir}":"${old_path}"
+            export $name="${pathdir}":"${old_path}"
         fi
         return 0
     else

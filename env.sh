@@ -17,7 +17,7 @@ export CLICOLOR=yes
 
 export LESS=FRX
 
-# for LaTeX 
+# for LaTeX
 export TEXINPUTS=.:${RC}/tex:$TEXINPUTS
 export BSTINPUTS=.:${RC}/tex:$BSTINPUTS
 export BIBINPUTS=.:${RC}/tex:$BIBINPUTS
@@ -63,10 +63,10 @@ alias gentags="/usr/bin/find . -iname \*.\*hs | xargs hasktags -a -e "
 
 function h {
 #    if [ "`which cabal`" ]; then
-#	cabal $@
+#       cabal $@
 #    else
-	ghc --make Setup && 
-	if [[ ! -z "$@" ]]; then ./Setup $@; fi
+        ghc --make Setup &&
+        if [[ ! -z "$@" ]]; then ./Setup $@; fi
 #    fi
 }
 
@@ -104,8 +104,8 @@ function glocate {
 function submit_torrents
 {
     for i in *.torrent; do
-	scp -- "$i" pjw:~/downloads/torrents/watch &&
-	rm -- "$i"
+        scp -- "$i" pjw:~/downloads/torrents/watch &&
+        rm -- "$i"
     done
 }
 
@@ -163,12 +163,12 @@ alias kill-emacs="${emacsclient} -e '(kill-emacs)'"
 
 # if we're inside emacs shell-mode, but not term-mode
 if [[ "$EMACS" == "t" ]]; then
-  function man { 
+  function man {
       if [[ "$2" == "" ]]; then
-	  ea -e "(man \"$1\")"
+          ea -e "(man \"$1\")"
       else
-	  ea -e "(man \"$2($1)\")"
-      fi 
+          ea -e "(man \"$2($1)\")"
+      fi
   }
 
   export PAGER="cat"

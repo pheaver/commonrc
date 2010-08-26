@@ -10,20 +10,20 @@ else # TODO: refuse to execute for anybody but pweaver
     [ -f ~/.agent ] && . ~/.agent
 
     if [ "$HOSTNAME" != "silver" ]; then
-	ssh silver title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
+        ssh silver title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
     fi
-    
+
     if [ "$HOSTNAME" != "tux" ]; then
-	ssh tux title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
+        ssh tux title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
     fi
-    
+
     if [ "$HOSTNAME" != "white" ]; then
-	ssh white title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 ||
-	ssh white2 title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
+        ssh white title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 ||
+        ssh white2 title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
     fi
-    
+
     if [ "$HOSTNAME" != "macbook" ]; then
-	ssh macbook title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
+        ssh macbook title=$HOSTNAME osd_echo "$@" 1>/dev/null 2>&1 &
     fi
 
 fi

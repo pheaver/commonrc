@@ -1,5 +1,5 @@
 #-*-sh-*-
-# 
+#
 # This file is sourced by all *interactive* bash shells on startup,
 # including some apparently interactive shells such as scp and rcp
 # that can't tolerate any output.
@@ -31,12 +31,12 @@ export PS1
 unset PROMPT_COMMAND
 case $TERM in
     *term | rxvt )
-	PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD}\007"' ;;
+        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD}\007"' ;;
     *)
 esac
 
-#xtitle () 
-#{ 
+#xtitle ()
+#{
 #    echo -n -e "\033]0;$*\007"
 #}
 

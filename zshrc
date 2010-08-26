@@ -76,32 +76,32 @@ PS1="${PR_NO_COLOR}[%m %D{%I:%M:%S}${jobs}${exitstatus}] ${PR_USER} ${PR_DIR}
 #PS4="+%N:%i> " # execution trace prompt
 
 ########################################################
-# dynamic terminal title 
+# dynamic terminal title
 
 if test "$EMACS" == "t"; then
     unsetopt zle
     export TERM=xterm-color
 else
     precmd () {
-	case $TERM in 
-	    xterm*|rxvt|vt*)
-		print -Pn "\e]0;%m : %3~\a"
-		;;
-	    screen)
-		print -Pn "\e]0;%m : %3~\a\ek%m : %3~\e\\"
-		;;
-	esac
+        case $TERM in
+            xterm*|rxvt|vt*)
+                print -Pn "\e]0;%m : %3~\a"
+                ;;
+            screen)
+                print -Pn "\e]0;%m : %3~\a\ek%m : %3~\e\\"
+                ;;
+        esac
     }
-    
+
     preexec () {
-	case $TERM in 
-	    xterm*|rxvt|vt*)
-		print -Pn "\e]0;%m : $1\a"
-		;;
-	    screen)
-		print -Pn "\e]0;%m : $1\a\ek%m : $1\e\\"
-		;; 
-	esac
+        case $TERM in
+            xterm*|rxvt|vt*)
+                print -Pn "\e]0;%m : $1\a"
+                ;;
+            screen)
+                print -Pn "\e]0;%m : $1\a\ek%m : $1\e\\"
+                ;;
+        esac
     }
 fi
 

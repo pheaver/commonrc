@@ -7,15 +7,15 @@ if [ $UID -eq 0 ]; then
 
 else # TODO: refuse to execute as anything but pweaver
     if [ $# -gt 0 ]; then
-	osd_echo_all "$@" &
+        osd_echo_all "$@" &
     fi
 
 #    for host in tux; do
-#	if [ "$HOSTNAME" == "$host" ]; then
-#	    aplay /home/pweaver/local/share/sounds/done.wav &
-#	else
-#	    ssh $host aplay /home/pweaver/local/share/sounds/done.wav -q 2> /dev/null &
-#	fi
+#       if [ "$HOSTNAME" == "$host" ]; then
+#           aplay /home/pweaver/local/share/sounds/done.wav &
+#       else
+#           ssh $host aplay /home/pweaver/local/share/sounds/done.wav -q 2> /dev/null &
+#       fi
 #    done
 
 fi

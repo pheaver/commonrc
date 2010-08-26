@@ -138,6 +138,6 @@
   (if (= n 0)
       (setq mew-biff-string nil)
     (if (and mew-use-biff-bell (eq mew-biff-string nil))
-	(beep))
+        (beep))
     (setq mew-biff-string (format "Mail(%d)" n))
     (notify mew-biff-string "")))

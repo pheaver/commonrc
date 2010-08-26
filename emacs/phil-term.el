@@ -62,14 +62,14 @@
 (defun phil-term-yank ()
   (interactive)
   (progn (term-line-mode)
-	 (yank)
-	 (term-char-mode)))
+         (yank)
+         (term-char-mode)))
 
 ;; (defun phil-ido-select (desc alist)
 ;;   (let* ((x (ido-completing-read desc (mapcar 'car alist)))
-;; 	 (y (assoc-string x alist)))
+;;       (y (assoc-string x alist)))
 ;;     (if y
-;; 	(cdr y)
+;;      (cdr y)
 ;;       x)))
 
 ;; (defun phil-create-term-buffer (name)

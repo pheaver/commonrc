@@ -1,12 +1,12 @@
 #!/bin/sh
 
 commit=$1;
-#git rev-list $commit.. 
+#git rev-list $commit..
 revlist=`git rev-list $commit.. | tac`
 git reset --hard $commit
 git reset --hard HEAD~1
 for rev in $revlist
 do
-	git cherry-pick $rev
+        git cherry-pick $rev
 done
 
