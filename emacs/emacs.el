@@ -636,8 +636,8 @@ advice like this:
 
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
-(setq auto-mode-alist
-   (cons '("\\.md" . markdown-mode) auto-mode-alist))
+(push '("\\.md" . markdown-mode) auto-mode-alist)
+(push '("\\.markdown" . markdown-mode) auto-mode-alist)
 
 ;; ---------------------------------------------
 ;; organizer, planner, todo list
