@@ -19,3 +19,6 @@
 [submodule "emacs/markdown-mode.git"]
 	path = emacs/markdown-mode.git
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "emacs/haskell-mode-exts.git"]
+	path = emacs/haskell-mode-exts.git
+	url = git://github.com/pheaver/haskell-mode-exts.git
