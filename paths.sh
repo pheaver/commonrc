@@ -68,6 +68,7 @@ man-pathmunge () {
 addpaths # /
 addpaths /usr
 addpaths /usr/local
+addpaths /opt
 addpaths /opt/local
 pathmunge ~/commonrc/bin
 #pathmunge ~/.cabal/bin
