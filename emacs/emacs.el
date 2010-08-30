@@ -219,6 +219,8 @@
 ;; do not blink the cursor
 (blink-cursor-mode (- (*) (*) (*)))
 
+(setq set-mark-command-repeat-pop t)
+
 ;; enable hl-line-mode for all major modes except these:
 ;; (defvar hl-line-disabled-mode-list '()
 ;;   "List of major modes in which `hl-line-mode' should be disabled.
@@ -250,6 +252,8 @@
   (list (parent-dir (commonrc))))
 
 (add-hook 'find-file-hook 'find-tags-table)
+
+(setq tags-revert-without-query t)
 
 (defun find-tags-table (&optional filename)
   (interactive)
@@ -642,7 +646,10 @@ advice like this:
 ;; ---------------------------------------------
 ;; organizer, planner, todo list
 
-(require 'org-install)
+(when (require 'org-install "org-install" t)
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+  (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
+  )
 
 (setq org-agenda-files '("~/Documents"))
 
@@ -664,8 +671,6 @@ advice like this:
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
 (defun find-org-files () (interactive)
   (require 'org)
   (let* ((alist (mapcar (lambda (x) (cons (file-name-nondirectory x) x)) (org-agenda-files)))
@@ -681,9 +686,6 @@ advice like this:
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c S-l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-
-(global-font-lock-mode 1)                     ; for all buffers
-(add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 
 ;(setq org-log-done t)
 
@@ -755,22 +757,23 @@ advice like this:
 ;; ---------------------------------------------
 ;; haskell stuff
 
-(load "haskell-site-file")
+(when (load "haskell-site-file" 'noerror)
 
-(add-hook 'haskell-mode-hook 'turn-on-font-lock)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+  (add-hook 'haskell-mode-hook 'turn-on-font-lock)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  ;(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
 
-;; choose one of these indentation modes:
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-(setq haskell-indent-offset 2)
+  ;; choose one of these indentation modes:
+  ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+  (setq haskell-indent-offset 2)
 
-(global-set-key (kbd "C-c h") 'haskell-hoogle)
+  (global-set-key (kbd "C-c h") 'haskell-hoogle)
 
-;(setq haskell-literate-default 'latex)
+  ;(setq haskell-literate-default 'latex)
+)
 
 ; hpaste
 (autoload 'hpaste-paste-buffer "hpaste" "hpaste" t)
@@ -880,8 +883,6 @@ advice like this:
 (when (functionp 'size-indication-mode) (size-indication-mode 1))
 (when (functionp 'transient-mark-mode) (transient-mark-mode 0))
 (when (functionp 'savehist-mode) (savehist-mode 1))
-
-(setq tags-revert-without-query t)
-(setq set-mark-command-repeat-pop t)
-
+(when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 ;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
+
