@@ -9,7 +9,7 @@
 	url = git://github.com/pheaver/auto-complete.git
 [submodule "emacs/itimer-el.git"]
 	path = emacs/itimer-el.git
-	url = git://github.com/pheaver/itimer.el.git
+	url = git://github.com/pheaver/itimer-el.git
 [submodule "emacs/haskell-mode.git"]
 	path = emacs/haskell-mode.git
 	url = git://github.com/pheaver/haskell-mode.git
