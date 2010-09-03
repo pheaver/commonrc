@@ -78,18 +78,6 @@ alias hall="hconf && hbuild && hinstall"
 
 alias c="./configure --prefix=${HOME}/local"
 
-# ssh aliases
-#alias barry="ssh barry -Y"
-alias tux="ssh tux -Y"
-
-alias barry="ssh barry -t screen -D -R"
-alias nas="ssh nas -t screen -D -R"
-alias deb="ssh deb -t screen -D -R"
-alias pjw="ssh pjw -t screen -D -R"
-
-alias sunfire="ssh sunfire -t screen -D -R"
-alias signali="ssh signali -t screen -D -R"
-
 # remove, reload, etc...
 alias remove-temp="rm -f 0 .*~ *~ ~* \#*\# svn-*.tmp core.?????"
 alias rm-temp="remove-temp"
@@ -107,6 +95,40 @@ function submit_torrents
         scp -- "$i" pjw:~/downloads/torrents/watch &&
         rm -- "$i"
     done
+}
+
+# -----------------------------------------------
+# ssh and local network
+
+max=192.168.1.40
+deb=192.168.1.50
+nas=192.168.1.60
+
+# ssh aliases
+#alias barry="ssh barry -Y"
+alias tux="ssh tux -Y"
+
+alias barry="ssh barry -t screen -D -R"
+alias nas="ssh nas -t screen -D -R"
+alias deb="ssh deb -t screen -D -R"
+alias pjw="ssh pjw -t screen -D -R"
+
+alias sunfire="ssh sunfire -t screen -D -R"
+alias signali="ssh signali -t screen -D -R"
+
+# -----------------------------------------------
+# transmission
+
+alias tra="transmission-remote $nas"
+
+alias reload-transmission="killall -HUP transmission-daemon"
+
+function tl {
+  if [ -z $1 ]; then
+    tra -l
+  else
+    tra -l | grep -i $1
+  fi
 }
 
 # -----------------------------------------------

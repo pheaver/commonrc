@@ -20,6 +20,15 @@ function unix {
     fi
 }
 
+function dlink {
+    [[ -z $HOST ]] && export HOST=`hostname`
+    if [[ $HOST == dlink* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 function interactive {
     if [[ $- == *i* ]]; then
         return 0
