@@ -248,8 +248,10 @@
 ;; ---------------------------------------------
 ;; tags and expansion
 
-(setq tags-table-list
-  (list (parent-dir (commonrc))))
+(eval-after-load "etags"
+  '(let ((dir (parent-dir (commonrc))))
+     (when (file-exists-p dir)
+       (add-to-list 'tags-table-list dir))))
 
 (add-hook 'find-file-hook 'find-tags-table)
 
@@ -324,17 +326,24 @@
 
 (setq my-default-ac-sources
   '(ac-source-abbrev
-    ac-source-words-in-buffer
+    ;; ac-source-words-in-buffer
+    ac-source-words-in-same-mode-buffers
+    ac-source-dictionary
     ac-source-files-in-current-dir
-    ac-source-filename))
+    ))
 
-(when (require 'auto-complete nil t)
-  (set-default 'ac-sources my-default-ac-sources)
+(when (and (require 'auto-complete nil t) (require 'auto-complete-config nil t))
+
+  (add-to-list 'ac-dictionary-directories (commonrc "auto-complete.git/dict"))
 
   (when (and (require 'etags nil t) (require 'auto-complete-etags nil t))
     (add-to-list 'my-default-ac-sources 'ac-source-etags 'append)
     (set-face-foreground 'ac-etags-candidate-face "orange")
+    (setq ac-etags-ignore-empty-table-list t)
     )
+
+  (ac-config-default)
+  (setq-default ac-sources my-default-ac-sources)
 
   (eval-after-load "verilog"
     (when (require 'auto-complete-verilog nil t)
@@ -343,26 +352,10 @@
 
   (setq ac-auto-start 2)
   (setq ac-delay 1.0)
+  ;; (setq ac-auto-show-menu 0.8)
 
-  (add-hook 'lisp-interaction-mode
-            '(lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
-  (add-hook 'emacs-lisp-mode-hook
-            '(lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
+  (ac-set-trigger-key "TAB")
 
-  (add-to-list 'ac-modes 'verilog-mode)
-  (add-to-list 'ac-modes 'haskell-mode)
-
-  ;; defaults, not sure if i like them
-  (define-key ac-complete-mode-map (kbd "TAB") 'ac-expand)
-  (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
-
-  (define-key ac-complete-mode-map "\M-n" 'ac-next)
-  (define-key ac-complete-mode-map "\M-p" 'ac-previous)
-  ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-
-  (ac-set-trigger-key "M-TAB")
-
-  (global-auto-complete-mode t)
   )
 
 ;; ---------------------------------------------
