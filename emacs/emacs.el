@@ -19,7 +19,7 @@
                "-a emacs -t \"" title "\" -m \"" msg "\"")
        nil nil)
       )
-  (defun notify (title msg)
+  (defun notify (title msg &optional sticky)
     (message msg)
     ))
 
