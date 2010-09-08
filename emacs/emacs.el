@@ -36,6 +36,7 @@
 (global-set-key (kbd "C-x r L") 'list-registers)
 (global-set-key (kbd "C-x /") 'point-to-register)  ;; also bound to C-x r SPC
 (global-set-key (kbd "C-x j") 'register-to-point)  ;; also bound to C-x r j
+(global-set-key (kbd "C-x F") 'find-file-at-point)
 
 ;; ---------------------------------------------
 ;; miscellaneous keybindings
