@@ -15,3 +15,4 @@
       (save-buffer buffer1)
       (kill-buffer buffer1))))
 
+(provide phil-dired)
