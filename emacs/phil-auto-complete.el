@@ -33,6 +33,7 @@
   (setq ac-delay 1.0)
   ;; (setq ac-auto-show-menu 0.8)
   (setq ac-fuzzy-enable t)
+  (setq ac-use-menu-map t)
   (ac-set-trigger-key "TAB")
   )
 
