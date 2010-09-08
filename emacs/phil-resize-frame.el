@@ -37,3 +37,6 @@
 ;;  (global-set-key (kbd "<C-M-return>") 'maximize-frame)
 
 ;; ----------------------------------------
+
+(provide 'phil-resize-frame)
+

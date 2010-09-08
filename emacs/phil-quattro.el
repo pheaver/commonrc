@@ -1,7 +1,7 @@
 ;; ----------------------------------------
 ;; my cryptol/quattro settings
 
-(require 'phil-init)
+(require 'phil-paths)
 
 (load "cryptol-site-file" 'noerror)
 

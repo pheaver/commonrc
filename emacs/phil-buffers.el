@@ -106,3 +106,6 @@ advice like this:
 ;; (setq ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
 
 ;; ----------------------------------------
+
+(provide 'phil-buffers)
+
