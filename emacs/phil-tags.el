@@ -8,7 +8,7 @@
 
 (eval-after-load "etags"
   '(let ((dir (parent-dir (commonrc))))
-     (when (file-exists-p dir)
+     (when (file-exists-p (concat dir "/" "TAGS"))
        (add-to-list 'tags-table-list dir))))
 
 (add-hook 'find-file-hook 'find-tags-table)
