@@ -9,6 +9,7 @@
 (require 'cc-mode)
 (require 'cl)
 (require 'phil-auto-complete)
+(require 'phil-buffers)
 ;; (require 'phil-erc)
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
@@ -83,6 +84,9 @@
       `((,(expand-file-name "~/signali") . "~/signali/.emacs_backups")
         ("." . "~/.emacs_backups")))
 
+;; use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
 (setq-default fill-column 80)
 
 (setq require-final-newline t)
@@ -91,6 +95,18 @@
 
 ;; tail
 (autoload 'tail-file "tail" "tail" t)
+
+;; draw block cursor as wide as the glyph under it
+(setq x-stretch-cursor t)
+
+;; make the mark visible
+;(when (require 'visible-mark nil 'noerror)
+;  (global-visible-mark-mode 1))
+
+;; do not blink the cursor
+(blink-cursor-mode (- (*) (*) (*)))
+
+(setq set-mark-command-repeat-pop t)
 
 ;; use aspell instead of ispell
 (setq-default ispell-program-name "aspell")
@@ -117,45 +133,6 @@
 (defun find-file-sudo (filename)
   (interactive)
   (find-file (concat "/sudo::" filename)))
-
-;; ---------------------------------------------
-;; appearance - cursor, highlighting, colors
-
-;; draw block cursor as wide as the glyph under it
-(setq x-stretch-cursor t)
-
-;; make the mark visible
-;(when (require 'visible-mark nil 'noerror)
-;  (global-visible-mark-mode 1))
-
-;; do not blink the cursor
-(blink-cursor-mode (- (*) (*) (*)))
-
-(setq set-mark-command-repeat-pop t)
-
-;; enable hl-line-mode for all major modes except these:
-;; (defvar hl-line-disabled-mode-list '()
-;;   "List of major modes in which `hl-line-mode' should be disabled.
-;; In all other modes, `hl-line-mode' is enabled")
-
-;; (setq hl-line-disabled-mode-list '(phil-term-mode magit-mode term-mode))
-;; (setq hl-line-sticky-flag nil)
-
-;; (defun maybe-hl-line-mode (&optional buffer)
-;;   "Enable or disable `hl-line-mode' in BUFFER, based on the
-;; whether BUFFER's major-mode is in `hl-line-disabled-mode-list'.
-;; If BUFFER is nil, use current buffer"
-;;   (interactive)
-;;   (let ((mode (buffer-local-value 'major-mode (or buffer (current-buffer)))))
-;;     (if (member mode hl-line-disabled-mode-list)
-;;         (hl-line-mode 0)
-;;       (hl-line-mode 1))))
-
-;; ;; setup hl-line
-;; (when (require 'hl-line)
-;;   (global-hl-line-mode 1)
-;;   (set-face-background 'hl-line "khaki1")
-;;   (add-hook 'after-change-major-mode-hook 'maybe-hl-line-mode))
 
 ;; ---------------------------------------------
 ;; macro query
@@ -200,115 +177,7 @@ except uses `forward-line' instead of `forward-sentence'."
 
 
 ;; ---------------------------------------------
-;; ibuffer, iswitch, ido
-
-(if (require 'ibuffer nil t)
-    (global-set-key (kbd "C-x C-b") 'ibuffer))
-
-(if (require 'ido nil t)
-    (ido-mode t)
-  (if (require 'iswitchb nil t)
-      (iswitchb-mode t)))
-
-(eval-after-load "ido"
-  '(progn
-     (ido-everywhere t)
-     (defalias 'read-buffer 'ido-read-buffer)
-     (defalias 'read-directory-name 'ido-read-directory-name)
-     (defalias 'read-file-name 'ido-read-file-name)))
-
-(defvar ido-enable-replace-completing-read t
-  "If t, use ido-completing-read instead of completing-read if possible.
-
-Set it to nil using let in around-advice for functions where the
-original completing-read is required.  For example, if a function
-foo absolutely must use the original completing-read, define some
-advice like this:
-
-(defadvice foo (around original-completing-read-only activate)
-  (let (ido-enable-replace-completing-read) ad-do-it))")
-
-;; Replace completing-read wherever possible, unless directed otherwise
-(defadvice completing-read
-  (around use-ido-when-possible activate)
-  (if (or (not ido-enable-replace-completing-read) ; Manual override disable ido
-          (boundp 'ido-cur-list)) ; Avoid infinite loop from ido calling this
-      ad-do-it
-    (let ((allcomp (all-completions "" collection predicate)))
-      (if allcomp
-          (setq ad-return-value
-                (ido-completing-read prompt
-                               allcomp
-                               nil require-match initial-input hist def))
-        ad-do-it))))
-
-(setq ido-execute-command-cache nil)
-
-(defun ido-execute-command ()
-  (interactive)
-  (call-interactively
-   (intern
-    (ido-completing-read
-     "M-x "
-     (progn
-       (unless ido-execute-command-cache
-         (mapatoms (lambda (s)
-                     (when (commandp s)
-                       (setq ido-execute-command-cache
-                             (cons (format "%S" s) ido-execute-command-cache))))))
-       ido-execute-command-cache)))))
-
-(global-set-key (kbd "M-X") 'ido-execute-command)
-
-;(setq ido-enable-flex-matching nil)
-
-;; (when (and darwin-system window-system)
-;;     (add-hook 'ido-setup-hook
-;;            '(lambda ()
-;;               (set-face-attribute 'ido-first-match '() :foreground "blue4" :weight 'bold)
-;;               (set-face-attribute 'ido-subdir '() :foreground "khaki")
-;;               ))
-;; )
-
-;(setq iswitchb-buffer-ignore
-;      '("^ " "*Buffer" "*Help*" "*Messages" "*Shell Command Output" "*Completions"))
-(setq ido-ignore-buffers
-      '("^ " "*Buffer" "*Help*" "*Messages" "*Shell Command Output" "*Completions"))
-
-(setq ido-max-prospects 30)
-(setq ido-max-window-height 2) ;; nil means use max-mini-window-height
-
-(setq ido-decorations '("" "" "," " ..." "[" "]" " [No match]" " [Matched]"))
-
-;; kinda neat:
-;; (setq ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
-
-;; ---------------------------------------------
 ;; buffer stuff
-
-;; TODO: swap buffers
-;; TODO: scroll other window?
-;; TODO: kill current buffer, kill other buffer?
-
-(global-set-key (kbd "C-M-;")
- (lambda () (interactive) (switch-to-buffer (other-buffer)))) ;; nil means (other-buffer)
-(global-set-key (kbd "C-M-'")
- (lambda () (interactive) (display-buffer (other-buffer) 'not-this-window)))
-;; (lambda () (interactive) (set-window-buffer (next-window) (other-buffer))))
-
-;(global-set-key (kbd "C-M-;")
-; (lambda () (interactive) (display-buffer (other-buffer))))
-
-; this one is insane; call it three times to swap
-; (lambda () (interactive) (switch-to-buffer-other-window (other-buffer))))
-
-;; (global-set-key [(control tab)]
-;;  (lambda () (interactive) (other-window 1)))
-;; (global-set-key [(control shift tab)]
-;;  (lambda () (interactive) (other-window -1)))
-
-;; use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
 
 (defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
   (interactive "P")
