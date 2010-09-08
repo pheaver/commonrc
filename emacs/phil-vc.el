@@ -33,8 +33,10 @@
 
 (setq magit-repo-dirs-depth 1)
 (eval-after-load "magit"
-  '(when (fboundp 'ido-completing-read)
-     (setq magit-completing-read 'ido-completing-read)))
+  '(progn
+     (require 'ido nil t)
+     (when (fboundp 'ido-completing-read)
+       (setq magit-completing-read 'ido-completing-read))))
 
 (setq magit-repo-dirs
   (list "~" (commonrc) user-emacs-directory "~/signali"))
