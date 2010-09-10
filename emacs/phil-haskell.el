@@ -29,6 +29,12 @@
       (haskell-sort-imports)
       (goto-char (+ (point) col))))) ;; Restore the column.
 
+(push '("\\.[hg]s$" . haskell-mode) auto-mode-alist)
+(push '("\\.hi$" . haskell-mode) auto-mode-alist)
+(push '("\\.l[hg]s$" . literate-haskell-mode) auto-mode-alist)
+(push '("\\.lang" . haskell-mode) auto-mode-alist)
+(push '("\\.monad" . haskell-mode) auto-mode-alist)
+
 ; hpaste
 (autoload 'hpaste-paste-buffer "hpaste" "hpaste" t)
 (autoload 'hpaste-paste-region "hpaste" "hpaste" t)

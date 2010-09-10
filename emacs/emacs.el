@@ -306,13 +306,7 @@ except uses `forward-line' instead of `forward-sentence'."
 (push '("\\.a$" . ada-mode) auto-mode-alist)
 (push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
 (push '("\\.vhd$" . vhdl-mode) auto-mode-alist)
-(push '("\\.[hg]s$" . haskell-mode) auto-mode-alist)
-(push '("\\.hi$" . haskell-mode) auto-mode-alist)
-(push '("\\.l[hg]s$" . literate-haskell-mode) auto-mode-alist)
 (push '("\\.html$" . html-helper-mode) auto-mode-alist)
-(push '("\\.lang" . haskell-mode) auto-mode-alist)
-(push '("\\.monad" . haskell-mode) auto-mode-alist)
-(push '("\\.org\\'" . org-mode) auto-mode-alist)
 
 ;; ----------------------------
 ;; set some minor modes

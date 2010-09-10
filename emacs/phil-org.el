@@ -1,6 +1,8 @@
 ;; ---------------------------------------------
 ;; organizer, planner, todo list
 
+(push '("\\.org\\'" . org-mode) auto-mode-alist)
+
 (when (require 'org-install "org-install" t)
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
   (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
