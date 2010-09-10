@@ -73,6 +73,15 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 
+;;;; some buffer commands
+(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
+  (interactive "P")
+  (revert-buffer ignore-auto t preserve-modes))
+
+(global-set-key (kbd "C-M-]") 'bury-buffer)
+(global-set-key (kbd "C-x g") 'revert-buffer)
+(global-set-key (kbd "C-x G") 'revert-buffer-noconfirm)
+
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
@@ -264,26 +273,28 @@ except uses `forward-line' instead of `forward-sentence'."
       (occur (if isearch-regexp isearch-string
                (regexp-quote isearch-string))))))
 
-
-;; ---------------------------------------------
-;; buffer stuff
-
-(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
-  (interactive "P")
-  (revert-buffer ignore-auto t preserve-modes))
-
-(global-set-key (kbd "C-M-]") 'bury-buffer)
-(global-set-key (kbd "C-x g") 'revert-buffer)
-(global-set-key (kbd "C-x G") 'revert-buffer-noconfirm)
-
-; TODO: use (dired-get-file-for-visit) to call "open" on a file
-(defun open-file () (interactive) (shell-command-on-file "open"))
+;; --------------------------------------------
+;; shell command on file
 
 (defun shell-command-on-file (command) (interactive)
   (let ((n (buffer-file-name)))
     (if (null n)
         (message (concat "Not a file: " (buffer-name)))
         (shell-command (concat command " " n)))))
+
+;;;; on os x, open a file using the "open" command
+; TODO: use (dired-get-file-for-visit) to call "open" on a file
+(when darwin-system
+  (defun open-file () (interactive) (shell-command-on-file "open")))
+
+;; ---------------------------------------------
+;; shell stuff
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+; don't echo passwords
+(add-hook 'comint-output-filter-functions
+          'comint-watch-for-password-prompt)
 
 ;; (autoload 'shell-toggle "shell-toggle"
 ;;   "Toggles between the *shell* buffer and whatever buffer you are editing."  t)
@@ -302,11 +313,5 @@ except uses `forward-line' instead of `forward-sentence'."
 ;; create shell in new buffer with unique name
 
 ;(setenv "TERM" "emacs")
-
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-; don't echo passwords
-(add-hook 'comint-output-filter-functions
-          'comint-watch-for-password-prompt)
 
 ;; ---------------------------------------------
