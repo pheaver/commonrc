@@ -18,6 +18,17 @@
   ;(setq haskell-literate-default 'latex)
 )
 
+(autoload 'haskell-sort-imports "haskell-sort-imports" "haskell-sort-imports" t)
+(autoload 'haskell-align-imports "haskell-align-imports" "haskell-align-imports" t)
+
+(define-key haskell-mode-map (kbd "C-c .")
+  (lambda ()
+    (interactive)
+    (let ((col (current-column))) ;; Save the column.
+      (haskell-align-imports)
+      (haskell-sort-imports)
+      (goto-char (+ (point) col))))) ;; Restore the column.
+
 ; hpaste
 (autoload 'hpaste-paste-buffer "hpaste" "hpaste" t)
 (autoload 'hpaste-paste-region "hpaste" "hpaste" t)
