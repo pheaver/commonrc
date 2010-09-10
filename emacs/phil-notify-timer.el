@@ -27,6 +27,8 @@
 ;; phil's itimer mode
 (autoload 'itimer-list-timers "itimer" "itimer" t)
 
+(global-set-key (kbd "C-c L") 'itimer-list-timers)
+
 ;; ----------------------------------------
 
 (provide 'phil-notify-timer)
