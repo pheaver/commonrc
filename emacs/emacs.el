@@ -88,7 +88,7 @@
   (lambda () (local-set-key (kbd "C-c k") 'server-edit)))
 
 ;;;; flymake
-(setq flymake-no-changes-timeout 0)
+(setq flymake-no-changes-timeout nil)
 (setq flymake-start-syntax-check-on-newline nil)
 
 ;;;; tail
