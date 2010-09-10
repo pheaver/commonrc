@@ -9,6 +9,8 @@
 (autoload 'haskell-sort-imports "haskell-sort-imports" "haskell-sort-imports" t)
 (autoload 'haskell-align-imports "haskell-align-imports" "haskell-align-imports" t)
 
+(autoload 'ghc-init "ghc" nil t)
+
 (defun my-haskell-cleanup-imports ()
   (interactive)
   (let ((col (current-column))) ;; Save the column.
@@ -20,6 +22,8 @@
   '(progn
      (define-key haskell-mode-map (kbd "C-c h") 'haskell-hoogle)
      (define-key haskell-mode-map (kbd "C-c .") 'my-haskell-cleanup-imports)))
+
+(add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 (add-hook 'haskell-mode-hook 'turn-on-font-lock)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)

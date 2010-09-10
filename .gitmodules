@@ -22,3 +22,6 @@
 [submodule "emacs/haskell-mode-exts.git"]
 	path = emacs/haskell-mode-exts.git
 	url = git://github.com/pheaver/haskell-mode-exts.git
+[submodule "emacs/ghc-mod.git"]
+	path = emacs/ghc-mod.git
+	url = git://github.com/kazu-yamamoto/ghc-mod.git
