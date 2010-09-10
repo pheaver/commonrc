@@ -5,6 +5,14 @@
 ;; TODO: scroll other window?
 ;; TODO: kill current buffer, kill other buffer?
 
+(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
+  (interactive "P")
+  (revert-buffer ignore-auto t preserve-modes))
+
+(global-set-key (kbd "C-M-]") 'bury-buffer)
+(global-set-key (kbd "C-x g") 'revert-buffer)
+(global-set-key (kbd "C-x G") 'revert-buffer-noconfirm)
+
 (global-set-key (kbd "C-M-;")
  (lambda () (interactive) (switch-to-buffer (other-buffer)))) ;; nil means (other-buffer)
 (global-set-key (kbd "C-M-'")

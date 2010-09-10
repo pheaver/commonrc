@@ -73,15 +73,6 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 
-;;;; some buffer commands
-(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
-  (interactive "P")
-  (revert-buffer ignore-auto t preserve-modes))
-
-(global-set-key (kbd "C-M-]") 'bury-buffer)
-(global-set-key (kbd "C-x g") 'revert-buffer)
-(global-set-key (kbd "C-x G") 'revert-buffer-noconfirm)
-
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
