@@ -265,11 +265,19 @@ except uses `forward-line' instead of `forward-sentence'."
 ;; ---------------------------------------------
 ;; C and c++ modes
 
+(setq-default c-basic-offset 2)
+
 (defun my-c-mode-common-hook ()
-  (setq c-basic-offset 4)
-  (c-set-offset 'substatement-open 0)
-  )
-;;(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+  (c-set-offset 'substatement-open 0))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+(push '("\\.c$" . c-mode) auto-mode-alist)
+(push '("\\.h$" . c-mode) auto-mode-alist)
+(push '("\\.cc$" . c++-mode) auto-mode-alist)
+(push '("\\.icc$" . c++-mode) auto-mode-alist)
+(push '("\\.C$" . c++-mode) auto-mode-alist)
+(push '("\\.hh$" . c++-mode) auto-mode-alist)
 
 ;; -----------------------------
 ;; mew mail
@@ -299,15 +307,9 @@ except uses `forward-line' instead of `forward-sentence'."
 (add-hook 'latex-mode-hook 'outline-minor-mode)
 
 ;; ---------------------------------------------
-;; Activate modes based on file extension
+;; miscellaneous auto-mode-alist settings
 
 (push '("\\.zsh$" . sh-mode) auto-mode-alist)
-(push '("\\.c$" . c-mode) auto-mode-alist)
-(push '("\\.h$" . c-mode) auto-mode-alist)
-(push '("\\.cc$" . c++-mode) auto-mode-alist)
-(push '("\\.icc$" . c++-mode) auto-mode-alist)
-(push '("\\.C$" . c++-mode) auto-mode-alist)
-(push '("\\.hh$" . c++-mode) auto-mode-alist)
 (push '("\\.txt$" . text-mode) auto-mode-alist)
 (push '("\\.a$" . ada-mode) auto-mode-alist)
 (push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
