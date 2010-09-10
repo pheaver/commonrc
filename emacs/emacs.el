@@ -5,12 +5,11 @@
 (setq inhibit-startup-screen 1)
 (setq initial-scratch-message nil)
 
-;; required by a lot of things
+;;;; required by a lot of things
 (require 'cc-mode)
 (require 'cl)
 
-;; ----------------------------------------
-
+;;;; initial stuff
 (when (not (boundp 'user-emacs-directory))
   (setq user-emacs-directory "~/.emacs.d/"))
 
@@ -35,8 +34,7 @@
 
 (provide 'phil-paths)
 
-;; ----------------------------------------
-
+;;;; load my other files
 (require 'phil-auto-complete)
 (require 'phil-buffers)
 ;; (require 'phil-erc)
@@ -52,9 +50,7 @@
 (require 'phil-vc)
 (require 'phil-wspace)
 
-;; ---------------------------------------------
-;; registers
-
+;;;; registers
 (setq common-init-file (abbreviate-file-name load-file-name))
 
 (set-register ?i (cons 'file user-init-file))
@@ -67,9 +63,7 @@
 (global-set-key (kbd "C-x j") 'register-to-point)  ;; also bound to C-x r j
 (global-set-key (kbd "C-x F") 'find-file-at-point)
 
-;; ---------------------------------------------
-;; miscellaneous keybindings
-
+;;;; miscellaneous keybindings
 (global-set-key (kbd "M-g") 'goto-line) ;; default is M-g Mg
 (global-set-key [wheel-up] (lambda () (interactive) (scroll-down 10)))
 (global-set-key [wheel-down] (lambda () (interactive) (scroll-up 10)))
@@ -79,84 +73,145 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 
-;; ---------------------------------------------
-
+;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
-
 (setq undo-tree-visualizer-quit-action 'save-and-restore)
 
-;; ---------------------------------------------
-;; browse-kill-ring
-
+;;;; browse-kill-ring
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings)
   (setq browse-kill-ring-quit-action 'save-and-restore))
 
-;; ---------------------------------------------
-
+;;;; server-edit
 (add-hook 'server-switch-hook
   (lambda () (local-set-key (kbd "C-c k") 'server-edit)))
 
-;; ---------------------------------------------
-;; flymake
-
+;;;; flymake
 (setq flymake-no-changes-timeout 0)
 (setq flymake-start-syntax-check-on-newline nil)
 
-;; ---------------------------------------------
-;; miscellaneous
+;;;; tail
+(autoload 'tail-file "tail" "tail" t)
 
+;;;; uniquify
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+;;;; saveplace
 (require 'saveplace)
 (setq-default save-place t)
 
-;; save backup files in ~/.emacs_backup instead of current directory
+;;;; save backup files in ~/.emacs_backup instead of current directory
 (setq backup-directory-alist
       `((,(expand-file-name "~/signali") . "~/signali/.emacs_backups")
         ("." . "~/.emacs_backups")))
 
-;; use spaces instead of tabs
+;;;; use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
+;;;; miscellaneous
 (setq-default fill-column 80)
-
+(setq set-mark-command-repeat-pop t)
 (setq require-final-newline t)
-
 ;;(setq kill-whole-line t)
 
-;; tail
-(autoload 'tail-file "tail" "tail" t)
-
-;; draw block cursor as wide as the glyph under it
+;;;; draw block cursor as wide as the glyph under it
 (setq x-stretch-cursor t)
 
-;; make the mark visible
+;;;; make the mark visible
 ;(when (require 'visible-mark nil 'noerror)
 ;  (global-visible-mark-mode 1))
 
-;; do not blink the cursor
+;;;; do not blink the cursor
 (blink-cursor-mode (- (*) (*) (*)))
 
-(setq set-mark-command-repeat-pop t)
-
-;; use aspell instead of ispell
+;;;; use aspell instead of ispell
 (setq-default ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
-;; enable some stuff that is normally disabled
+;;;; enable some stuff that is normally disabled
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; -------------------
-
+;;;; wikipedia mode
 (autoload 'wikipedia-mode "wikipedia-mode.el"
 "Major mode for editing documents in Wikipedia markup." t)
+
+;;;; set some minor modes
+(when (functionp 'column-number-mode) (column-number-mode 1))
+(when (functionp 'display-time-mode) (display-time-mode 0))
+(when (functionp 'tool-bar-mode) (tool-bar-mode 0))
+(when (functionp 'scroll-bar-mode) (scroll-bar-mode 0))
+(when (functionp 'show-paren-mode) (show-paren-mode 1))
+(when (functionp 'size-indication-mode) (size-indication-mode 1))
+(when (functionp 'transient-mark-mode) (transient-mark-mode 0))
+(when (functionp 'savehist-mode) (savehist-mode 1))
+(when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
+;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
+
+;; ---------------------------------------------
+;; markdown mode
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(push '("\\.md" . markdown-mode) auto-mode-alist)
+(push '("\\.markdown" . markdown-mode) auto-mode-alist)
+
+;; ---------------------------------------------
+;; C and c++ modes
+
+(setq-default c-basic-offset 2)
+
+(defun my-c-mode-common-hook ()
+  (c-set-offset 'substatement-open 0))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+(push '("\\.c$" . c-mode) auto-mode-alist)
+(push '("\\.h$" . c-mode) auto-mode-alist)
+(push '("\\.cc$" . c++-mode) auto-mode-alist)
+(push '("\\.icc$" . c++-mode) auto-mode-alist)
+(push '("\\.C$" . c++-mode) auto-mode-alist)
+(push '("\\.hh$" . c++-mode) auto-mode-alist)
+
+;; ---------------------------------------------
+;; miscellaneous auto-mode-alist settings
+
+(push '("\\.zsh$" . sh-mode) auto-mode-alist)
+(push '("\\.txt$" . text-mode) auto-mode-alist)
+(push '("\\.a$" . ada-mode) auto-mode-alist)
+(push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
+(push '("\\.vhd$" . vhdl-mode) auto-mode-alist)
+(push '("\\.html$" . html-helper-mode) auto-mode-alist)
+
+;; -----------------------------
+;; mew mail
+
+(autoload 'mew "mew" nil t)
+(autoload 'mew-send "mew" nil t)
+(global-set-key "\C-xm" 'mew)
+(setq mew-rc-file (commonrc "mewrc.el"))
+
+;; -----------------------------
+;; auctex, latex, tex
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
+
+; for AUCTeX LaTeX mode
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+
+; for Emacs latex mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)
+(add-hook 'latex-mode-hook 'outline-minor-mode)
 
 ;; -------------------
 ;; open file as sudo
@@ -255,77 +310,3 @@ except uses `forward-line' instead of `forward-sentence'."
           'comint-watch-for-password-prompt)
 
 ;; ---------------------------------------------
-;; markdown mode
-
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(push '("\\.md" . markdown-mode) auto-mode-alist)
-(push '("\\.markdown" . markdown-mode) auto-mode-alist)
-
-;; ---------------------------------------------
-;; C and c++ modes
-
-(setq-default c-basic-offset 2)
-
-(defun my-c-mode-common-hook ()
-  (c-set-offset 'substatement-open 0))
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-(push '("\\.c$" . c-mode) auto-mode-alist)
-(push '("\\.h$" . c-mode) auto-mode-alist)
-(push '("\\.cc$" . c++-mode) auto-mode-alist)
-(push '("\\.icc$" . c++-mode) auto-mode-alist)
-(push '("\\.C$" . c++-mode) auto-mode-alist)
-(push '("\\.hh$" . c++-mode) auto-mode-alist)
-
-;; -----------------------------
-;; mew mail
-
-(autoload 'mew "mew" nil t)
-(autoload 'mew-send "mew" nil t)
-
-(global-set-key "\C-xm" 'mew)
-
-(setq mew-rc-file (commonrc "mewrc.el"))
-
-;; -----------------------------
-;; auctex, latex, tex
-
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-
-(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
-
-; for AUCTeX LaTeX mode
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-
-; for Emacs latex mode
-(add-hook 'latex-mode-hook 'turn-on-reftex)
-(add-hook 'latex-mode-hook 'outline-minor-mode)
-
-;; ---------------------------------------------
-;; miscellaneous auto-mode-alist settings
-
-(push '("\\.zsh$" . sh-mode) auto-mode-alist)
-(push '("\\.txt$" . text-mode) auto-mode-alist)
-(push '("\\.a$" . ada-mode) auto-mode-alist)
-(push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
-(push '("\\.vhd$" . vhdl-mode) auto-mode-alist)
-(push '("\\.html$" . html-helper-mode) auto-mode-alist)
-
-;; ----------------------------
-;; set some minor modes
-
-(when (functionp 'column-number-mode) (column-number-mode 1))
-(when (functionp 'display-time-mode) (display-time-mode 0))
-(when (functionp 'tool-bar-mode) (tool-bar-mode 0))
-(when (functionp 'scroll-bar-mode) (scroll-bar-mode 0))
-(when (functionp 'show-paren-mode) (show-paren-mode 1))
-(when (functionp 'size-indication-mode) (size-indication-mode 1))
-(when (functionp 'transient-mark-mode) (transient-mark-mode 0))
-(when (functionp 'savehist-mode) (savehist-mode 1))
-(when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
-;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
