@@ -5,7 +5,7 @@
 
 (load "cryptol-site-file" 'noerror)
 
-(when darwin-system
+(when (string= system-type "darwin")
   (add-hook 'compilation-finish-functions
     (lambda (buffer str) (notify "Compile" str))))
 

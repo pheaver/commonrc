@@ -1,7 +1,5 @@
 ;; ----------------------------------------
 
-(require 'phil-darwin)
-
 ;; (defun fullscreen () (interactive)
 ;;   (set-frame-parameter nil 'fullscreen
 ;;                        (if (frame-parameter nil 'fullscreen)
@@ -32,9 +30,8 @@
     ('x (raise-frame frame))
     ))
 
-(when darwin-system
+(when (fboundp 'ns-toggle-fullscreen)
   (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen))
-;;  (global-set-key (kbd "<C-M-return>") 'maximize-frame)
 
 ;; ----------------------------------------
 

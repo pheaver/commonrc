@@ -38,6 +38,7 @@
 (require 'phil-auto-complete)
 (require 'phil-buffers)
 ;; (require 'phil-erc)
+(require 'phil-darwin)
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
 (require 'phil-notify-timer)
@@ -272,11 +273,6 @@ except uses `forward-line' instead of `forward-sentence'."
     (if (null n)
         (message (concat "Not a file: " (buffer-name)))
         (shell-command (concat command " " n)))))
-
-;;;; on os x, open a file using the "open" command
-; TODO: use (dired-get-file-for-visit) to call "open" on a file
-(when darwin-system
-  (defun open-file () (interactive) (shell-command-on-file "open")))
 
 ;; ---------------------------------------------
 ;; shell stuff

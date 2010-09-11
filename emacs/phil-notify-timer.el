@@ -1,18 +1,14 @@
 ;; ----------------------------------------
 ;; my notification and timer settings
 
-(require 'phil-darwin)
-
-(if darwin-system
-    (defun notify (title msg &optional sticky)
-      (shell-command
-       (concat "growlnotify"
-               (if sticky " -s " " ")
-               "-a emacs -t \"" title "\" -m \"" msg "\"")
-       nil nil)
-      )
-  (defun notify (title msg &optional sticky)
-    (message msg)
+(defun notify (title msg &optional sticky)
+  (message (concat title ": " msg))
+  (when (string= system-type "darwin")
+    (shell-command
+     (concat "growlnotify"
+             (if sticky " -s " " ")
+             "-a emacs -t \"" title "\" -m \"" msg "\"")
+     nil nil)
     ))
 
 (defun notify-timer (time msg)
