@@ -34,3 +34,5 @@ if [ ! -e ~/.emacs.d/init.el ]; then
     mkdir -p ~/.emacs.d
     echo '(load-file "~/commonrc/emacs/emacs.el")' > ~/.emacs.d/init.el
 fi
+
+make -C ${SHARE}/emacs
