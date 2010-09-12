@@ -84,6 +84,10 @@
 ;;;; use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
+;;; allow windows to be split horizontally
+;;; default is 160
+(setq split-width-threshold 150)
+
 ;;;; miscellaneous
 (setq-default fill-column 80)
 (setq set-mark-command-repeat-pop t)
