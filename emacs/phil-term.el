@@ -1,5 +1,5 @@
 
-(require 'multi-term)
+(autoload 'multi-term "multi-term" nil t)
 
 (setq multi-term-program "/bin/bash")
 ;(setq multi-term-program "/opt/local/bin/bash")
@@ -84,12 +84,14 @@
 
 (defun multi-term-other-window ()
   (interactive)
+  (require 'multi-term)
   (let ((term-buffer (multi-term-get-buffer)))
     (set-buffer term-buffer)
     (multi-term-internal)
     (switch-to-buffer-other-window term-buffer)))
 
 (defun phil-term (other-window create-new)
+  (require 'multi-term)
   (let ((buffers (multi-term-list)))
     (if (or create-new (null buffers))
         (if other-window
