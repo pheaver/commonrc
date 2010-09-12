@@ -24,6 +24,8 @@
   (ac-config-default)
   (setq-default ac-sources my-default-ac-sources)
 
+  (define-key ac-completing-map (kbd "TAB") 'auto-complete)
+
   (eval-after-load "verilog"
     (when (require 'auto-complete-verilog nil t)
       (add-hook 'verilog-mode-hook
