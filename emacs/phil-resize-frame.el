@@ -21,6 +21,7 @@
 
 (defun phil-new-frame-hook (frame)
   (interactive)
+  (require 'cl) ;; provides 'case'
   (case (framep frame)
     ('ns (when (require 'maxframe "maxframe" 'noerror)
            (select-frame frame)
