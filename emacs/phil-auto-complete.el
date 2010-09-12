@@ -3,7 +3,7 @@
 
 (require 'phil-paths)
 
-(setq my-default-ac-sources
+(defvar my-default-ac-sources
   '(ac-source-abbrev
     ;; ac-source-words-in-buffer
     ac-source-words-in-same-mode-buffers
