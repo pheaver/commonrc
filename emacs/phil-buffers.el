@@ -32,7 +32,9 @@
 
 ;; ----------
 
-(if (require 'ibuffer nil t)
+;; emacs should have ibuffer set to autoload, so this will bind C-x C-b when
+;; ibuffer is available, even if it's not yet loaded.
+(if (fboundp 'ibuffer)
     (global-set-key (kbd "C-x C-b") 'ibuffer))
 
 (if (require 'ido nil t)
