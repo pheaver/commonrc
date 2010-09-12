@@ -33,14 +33,14 @@
 ;;;; load my other files
 (require 'phil-auto-complete)
 (require 'phil-buffers)
-;; (require 'phil-erc)
 (require 'phil-darwin)
+;; (require 'phil-erc) ;; not used
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
 (require 'phil-notify-timer)
 (require 'phil-org)
 (require 'phil-quattro)
-(require 'phil-recentf)
+;; (require 'phil-recentf) ;; increases startup time, and i don't even use it
 (require 'phil-resize-frame)
 (require 'phil-tags)
 (require 'phil-term)
