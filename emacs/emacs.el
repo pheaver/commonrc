@@ -18,7 +18,7 @@
 (require 'phil-org)
 (require 'phil-quattro)
 ;; (require 'phil-recentf) ;; increases startup time, and i don't even use it
-(require 'phil-resize-frame)
+(require 'phil-frames)
 (require 'phil-tags)
 (require 'phil-term)
 (require 'phil-vc)

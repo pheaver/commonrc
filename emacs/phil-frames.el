@@ -36,5 +36,5 @@
 
 ;; ----------------------------------------
 
-(provide 'phil-resize-frame)
+(provide 'phil-frames)
 
