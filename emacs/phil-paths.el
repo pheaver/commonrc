@@ -6,7 +6,8 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
-(setq commonrc-dir (file-name-directory load-file-name))
+(defvar commonrc-dir
+  (file-name-directory load-file-name))
 
 (defun commonrc (&optional path)
   (if (null path)
