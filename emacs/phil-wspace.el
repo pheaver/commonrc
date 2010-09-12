@@ -1,5 +1,35 @@
 (require 'whitespace)
 
+;; ------------------------------
+;; stuff from ethan-wspace.el
+;; ------------------------------
+
+(defvar buffer-whitespace-was-clean nil
+  "Keep track, per-buffer, whether the whitespace was clean initially.
+
+Used by clean-whitespace-tentative and show-ws.")
+(make-variable-buffer-local 'buffer-whitespace-was-clean)
+
+(defun buffer-whitespace-clean-p ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (not (or
+         ;; (re-search-forward "\t" nil t)
+         (re-search-forward "[ \t]+$" nil t)))
+    ))
+
+(defun clean-whitespace-check ()
+  "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace.
+
+Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
+  ; FIXME: weird buffers, like if you open a binary file?
+  ; FIXME: if interactive, report current status of ws
+  (interactive)
+  (setq buffer-whitespace-was-clean (buffer-whitespace-clean-p)))
+
+;; ------------------------------
+
 ;; my preferred settings.
 (setq whitespace-style
   '(trailing tabs space-before-tab::tab space-before-tab::space))
@@ -40,35 +70,5 @@
 ;;   space-mark
 ;;   tab-mark
 ;;   newline-mark
-
-;; ------------------------------
-;; stuff from ethan-wspace.el
-;; ------------------------------
-
-(defvar buffer-whitespace-was-clean nil
-  "Keep track, per-buffer, whether the whitespace was clean initially.
-
-Used by clean-whitespace-tentative and show-ws.")
-(make-variable-buffer-local 'buffer-whitespace-was-clean)
-
-(defun buffer-whitespace-clean-p ()
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (not (or
-         ;; (re-search-forward "\t" nil t)
-         (re-search-forward "[ \t]+$" nil t)))
-    ))
-
-(defun clean-whitespace-check ()
-  "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace.
-
-Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
-  ; FIXME: weird buffers, like if you open a binary file?
-  ; FIXME: if interactive, report current status of ws
-  (interactive)
-  (setq buffer-whitespace-was-clean (buffer-whitespace-clean-p)))
-
-;; ------------------------------
 
 (provide 'phil-wspace)
