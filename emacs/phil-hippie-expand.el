@@ -14,7 +14,7 @@
     p))
 
 (defun try-expand-tag (old)
-  (unless  old
+  (unless (or old (null tags-table-list))
     (he-init-string (he-tag-beg) (point))
     (setq he-expand-list (sort
                           (all-completions he-search-string 'tags-complete-tag) 'string-lessp)))
