@@ -5,10 +5,6 @@
 (setq inhibit-startup-screen 1)
 (setq initial-scratch-message nil)
 
-;;;; required by a lot of things
-(require 'cc-mode)
-(require 'cl)
-
 ;;;; initial stuff
 (when (not (boundp 'user-emacs-directory))
   (setq user-emacs-directory "~/.emacs.d/"))
