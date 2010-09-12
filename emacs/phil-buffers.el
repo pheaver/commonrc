@@ -39,7 +39,7 @@
 
 (setq ibuffer-default-sorting-mode 'major-mode)
 (setq ibuffer-always-compile-formats t)
-(setq ibuffer-use-other-window t)
+(setq ibuffer-use-other-window nil)
 
 (if (require 'ido nil t)
     (ido-mode t)
