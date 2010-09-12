@@ -2,6 +2,7 @@
 ;; my cryptol/quattro settings
 
 (require 'phil-paths)
+(require 'phil-notify-timer)
 
 (load "cryptol-site-file" 'noerror)
 
