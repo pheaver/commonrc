@@ -37,6 +37,10 @@
 (if (fboundp 'ibuffer)
     (global-set-key (kbd "C-x C-b") 'ibuffer))
 
+(setq ibuffer-default-sorting-mode 'major-mode)
+(setq ibuffer-always-compile-formats t)
+(setq ibuffer-use-other-window t)
+
 (if (require 'ido nil t)
     (ido-mode t)
   (if (require 'iswitchb nil t)
