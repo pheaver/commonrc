@@ -238,15 +238,6 @@ except uses `forward-line' instead of `forward-sentence'."
       (occur (if isearch-regexp isearch-string
                (regexp-quote isearch-string))))))
 
-;; --------------------------------------------
-;; shell command on file
-
-(defun shell-command-on-file (command) (interactive)
-  (let ((n (buffer-file-name)))
-    (if (null n)
-        (message (concat "Not a file: " (buffer-name)))
-        (shell-command (concat command " " n)))))
-
 ;; ---------------------------------------------
 ;; shell stuff
 

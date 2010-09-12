@@ -2,6 +2,13 @@
 
 (defvar darwin-system (string= system-type "darwin"))
 
+;;;; not used anywhere but here, so for now this is where it's defined
+(defun shell-command-on-file (command) (interactive)
+  (let ((n (buffer-file-name)))
+    (if (null n)
+        (message (concat "Not a file: " (buffer-name)))
+        (shell-command (concat command " " n)))))
+
 (when darwin-system
   (setq ns-command-modifier 'super)
   (setq ns-option-modifier 'meta)
