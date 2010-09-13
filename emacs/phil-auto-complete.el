@@ -24,6 +24,11 @@
   (ac-config-default)
   (setq-default ac-sources my-default-ac-sources)
 
+  (add-hook 'haskell-mode-hook
+     (lambda ()
+       (when (require 'ghc-mod nil t)
+         (add-to-list 'ac-sources 'ac-source-ghc-mod))))
+
   (define-key ac-completing-map (kbd "TAB") 'auto-complete)
 
   (eval-after-load "verilog"
