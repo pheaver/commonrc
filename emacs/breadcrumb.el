@@ -188,6 +188,10 @@
   :group 'editing
   :prefix "bc-")
 
+(defcustom bc-switch-buffer-func 'switch-to-buffer
+  "*Function to use to switch to a buffer"
+  :group 'breadcrumb)
+
 (defcustom bc-bookmark-limit 16
   "*Maximum numbers of breadcrumb bookmarks to keep in the queue."
   :type 'integer
@@ -477,7 +481,7 @@ BOOKMARK is the bookmark to jump to, which has the form (FILENAME . POSITION)."
           (filename (bc-bookmark-filename bookmark))
           (position (bc-bookmark-position bookmark)))
       (if (null switch-buffer-func)
-          (setq switch-buffer-func 'switch-to-buffer))
+          (setq switch-buffer-func bc-switch-buffer-func))
       (cond
        ((or (eq type bc--type-file)
             (eq type bc--type-dired))
