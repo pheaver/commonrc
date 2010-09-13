@@ -9,6 +9,7 @@
 
 ;;;; load my other files
 (require 'phil-auto-complete)
+(require 'phil-breadcrumb)
 (require 'phil-buffers)
 (require 'phil-darwin)
 ;; (require 'phil-erc) ;; not used
