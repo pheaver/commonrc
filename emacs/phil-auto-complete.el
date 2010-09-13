@@ -26,7 +26,7 @@
 
   (add-hook 'haskell-mode-hook
      (lambda ()
-       (when (require 'ghc-mod nil t)
+       (when (featurep 'ghc) ;; (require 'ghc-mod nil t)
          (add-to-list 'ac-sources 'ac-source-ghc-mod))))
 
   (define-key ac-completing-map (kbd "TAB") 'auto-complete)
