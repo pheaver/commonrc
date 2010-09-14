@@ -20,6 +20,7 @@
 ;; (require 'phil-erc) ;; not used
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
+;; (require 'phil-mew) ;; disabled because I don't use it
 (require 'phil-notify-timer)
 (require 'phil-org)
 (require 'phil-quattro)
@@ -169,14 +170,6 @@
 (push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
 (push '("\\.vhd$" . vhdl-mode) auto-mode-alist)
 (push '("\\.html$" . html-helper-mode) auto-mode-alist)
-
-;; -----------------------------
-;; mew mail
-
-(autoload 'mew "mew" nil t)
-(autoload 'mew-send "mew" nil t)
-(global-set-key "\C-xm" 'mew)
-(setq mew-rc-file (commonrc "mewrc.el"))
 
 ;; -----------------------------
 ;; auctex, latex, tex
