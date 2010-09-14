@@ -1,0 +1,15 @@
+#!/bin/sh
+
+rm -f TAGS
+if [ `which hasktags` >/dev/null ]; then
+    /usr/bin/find . -iname \*.\*hs | xargs hasktags -e
+    mv TAGS TAGS.haskell
+else
+    echo "hasktags not installed, skipping" >&2
+fi
+
+if [ `which etags` >/dev/null ]; then
+    etags -R .
+else
+    echo "etags not installed, skipping" >&2
+fi
