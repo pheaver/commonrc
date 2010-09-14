@@ -5,7 +5,12 @@
 (setq inhibit-startup-screen 1)
 (setq initial-scratch-message nil)
 
-(load-file (concat (file-name-directory load-file-name) "/" "phil-paths.el"))
+;;;; some stuff that I'd prefer to have in phil-paths.el,
+;;;; but there's a chicken-and-the-egg problem.
+(setq common-init-file (abbreviate-file-name load-file-name))
+(setq commonrc-dir (file-name-directory common-init-file))
+
+(load-file (concat commonrc-dir "phil-paths.el"))
 
 ;;;; load my other files
 (require 'phil-auto-complete)
@@ -26,11 +31,9 @@
 (require 'phil-wspace)
 
 ;;;; registers
-(setq common-init-file (abbreviate-file-name load-file-name))
-
 (set-register ?i (cons 'file user-init-file))
 (set-register ?e (cons 'file common-init-file))
-(set-register ?l (cons 'file local-init-file))
+(set-register ?l (cons 'file local-rc-file))
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
