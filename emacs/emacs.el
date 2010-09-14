@@ -18,6 +18,7 @@
 (require 'phil-buffers)
 (require 'phil-darwin)
 ;; (require 'phil-erc) ;; not used
+(require 'phil-flymake)
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
 ;; (require 'phil-mew) ;; disabled because I don't use it
@@ -65,10 +66,6 @@
 ;;;; server-edit
 (add-hook 'server-switch-hook
   (lambda () (local-set-key (kbd "C-c k") 'server-edit)))
-
-;;;; flymake
-(setq flymake-no-changes-timeout nil)
-(setq flymake-start-syntax-check-on-newline nil)
 
 ;;;; tail
 (autoload 'tail-file "tail" "tail" t)
