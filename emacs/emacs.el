@@ -30,7 +30,7 @@
 
 (set-register ?i (cons 'file user-init-file))
 (set-register ?e (cons 'file common-init-file))
-(set-register ?l (cons 'file "~/.localrc"))
+(set-register ?l (cons 'file local-init-file))
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)

@@ -3,6 +3,12 @@
 (when (not (boundp 'user-emacs-directory))
   (setq user-emacs-directory "~/.emacs.d/"))
 
+(when (not (boundp 'user-init-file))
+  (setq user-init-file (concat user-emacs-directory "init.el")))
+
+(when (not (boundp 'local-init-file))
+  (setq local-init-file "~/.localrc"))
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
