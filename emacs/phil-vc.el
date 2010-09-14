@@ -3,6 +3,9 @@
 
 (require 'phil-paths)
 
+(unless (daemonp)
+  (setq vc-handled-backends nil))
+
 (defun diff-cur-buffer ()
   (interactive)
   (diff-buffer-with-file (current-buffer)))
