@@ -3,11 +3,17 @@
 (defvar darwin-system (string= system-type "darwin"))
 
 ;;;; not used anywhere but here, so for now this is where it's defined
-(defun shell-command-on-file (command) (interactive)
-  (let ((n (buffer-file-name)))
+(defun shell-command-on-file
+  (command &optional filename output-buffer error-buffer)
+  (interactive
+   (list (read-shell-command "Shell command: " nil nil)
+         nil
+         current-prefix-arg
+         shell-command-default-error-buffer))
+  (let ((n (or filename (buffer-file-name))))
     (if (null n)
         (message (concat "Not a file: " (buffer-name)))
-        (shell-command (concat command " " n)))))
+      (shell-command (concat command " " n) output-buffer error-buffer))))
 
 (when darwin-system
   (setq ns-command-modifier 'super)
