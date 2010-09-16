@@ -12,21 +12,23 @@
 
 (defvar quattro-source-dir nil)
 
-(defun set-quattro-source-dir ()
+(defvar quattro-source-dirs
+  '("~/Quattro" "~/signali/Quattro")
+  "List of directories to search for Quattro source.")
+
+(defun quattro-source-dir-p (dir)
+  "Return non-nil if DIR is a Quattro source directory"
+  (file-exists-p (concat dir "/quattro.cabal")))
+
+(defun quattro-source-dir ()
   (interactive)
   (or quattro-source-dir
-      (let ((dirs '("~/Quattro" "~/signali/Quattro")))
-        (while (and dirs (not quattro-source-dir))
-          (when (file-directory-p (concat (car dirs) "/base"))
-            (setq quattro-source-dir (car dirs)))
-          (pop dirs))
-        quattro-source-dir)))
-
-(set-quattro-source-dir)
+      (setq quattro-source-dir
+            (find-if 'quattro-source-dir-p quattro-source-dirs))))
 
 (defun compile-quattro ()
   (interactive)
-  (if (set-quattro-source-dir)
+  (if (quattro-source-dir)
       (compile (concat "cd " quattro-source-dir " && make -k") t)
     (error "quattro-source-dir is not set")))
 
