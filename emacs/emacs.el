@@ -226,6 +226,13 @@ except uses `forward-line' instead of `forward-sentence'."
      (point))
    nil t))
 
+(defun mark-end-of-line-previous (arg)
+  (interactive "p")
+  (mark-end-of-line (- 0 arg)))
+
+(global-set-key (kbd "M-N") 'mark-end-of-line)
+(global-set-key (kbd "M-P") 'mark-end-of-line-previous)
+
 ;; ---------------------------------------------
 ;; isearch show all occurrancs
 
