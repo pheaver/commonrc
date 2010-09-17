@@ -4,6 +4,8 @@ rm -f TAGS
 if [ `which hasktags` >/dev/null ]; then
     /usr/bin/find . -iname \*.\*hs | xargs hasktags -e
     mv TAGS TAGS.haskell
+    chmod -x TAGS.haskell
+    chmod a+r TAGS.haskell
 else
     echo "hasktags not installed, skipping" >&2
 fi
