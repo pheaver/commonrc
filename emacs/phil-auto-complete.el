@@ -11,7 +11,10 @@
     ac-source-files-in-current-dir
     ))
 
-(when (and (require 'auto-complete nil t) (require 'auto-complete-config nil t))
+(defun phil-auto-complete-setup ()
+  (interactive)
+  (require 'auto-complete)
+  (require 'auto-complete-config)
 
   (add-to-list 'ac-dictionary-directories (commonrc "auto-complete.git/dict"))
 
@@ -51,6 +54,9 @@
   ;; enable fuzzy matching
   (setq ac-fuzzy-enable t)
   )
+
+(when (daemonp)
+  (phil-auto-complete-setup))
 
 ;; ----------------------------------------
 
