@@ -29,19 +29,27 @@
        (when (featurep 'ghc) ;; (require 'ghc-mod nil t)
          (add-to-list 'ac-sources 'ac-source-ghc-mod))))
 
-  (define-key ac-completing-map (kbd "TAB") 'auto-complete)
-
   (eval-after-load "verilog"
     (when (require 'auto-complete-verilog nil t)
       (add-hook 'verilog-mode-hook
                 '(lambda () (add-to-list 'ac-sources 'ac-source-verilog)))))
 
-  (setq ac-auto-start 2)
-  (setq ac-delay 1.0)
-  ;; (setq ac-auto-show-menu 0.8)
-  (setq ac-fuzzy-enable t)
-  (setq ac-use-menu-map t)
+  ;; (define-key ac-completing-map (kbd "TAB") 'ac-expand)
+  ;; (define-key ac-completing-map (kbd "<C-tab>") 'auto-complete)
+
+  ;; never start showing completions automatically;
+  ;; wait until I hit "TAB"
+  (setq ac-auto-start nil)
   (ac-set-trigger-key "TAB")
+  ;; (setq ac-delay 0.1)
+
+  ;; when completions start, immediately popup the menu,
+  ;; and support local keybindings in the menu (like C-n and C-p)
+  (setq ac-auto-show-menu t)
+  (setq ac-use-menu-map t)
+
+  ;; enable fuzzy matching
+  (setq ac-fuzzy-enable t)
   )
 
 ;; ----------------------------------------
