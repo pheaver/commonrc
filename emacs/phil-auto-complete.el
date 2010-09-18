@@ -37,14 +37,21 @@
       (add-hook 'verilog-mode-hook
                 '(lambda () (add-to-list 'ac-sources 'ac-source-verilog)))))
 
+  ;; this is default.  it makes TAB cycle through menu elements
   ;; (define-key ac-completing-map (kbd "TAB") 'ac-expand)
-  ;; (define-key ac-completing-map (kbd "<C-tab>") 'auto-complete)
+
+  ;; can be helpful when ac-delay is high and the menu doesn't update.
+  ;; this will start the auto-complete over on whatever you've typed,
+  ;; which has the same effect as when ac-delay expires.
+  ;; by default, M-TAB is bound to this, but that key isn't always available.
+  (define-key ac-completing-map (kbd "<C-tab>") 'auto-complete)
 
   ;; never start showing completions automatically;
   ;; wait until I hit "TAB"
   (setq ac-auto-start nil)
   (ac-set-trigger-key "TAB")
-  ;; (setq ac-delay 0.1)
+  (setq ac-delay 0.1) ;; while auto-complete is active, this will
+                      ;; cause the menu to update its results as you type.
 
   ;; when completions start, immediately popup the menu,
   ;; and support local keybindings in the menu (like C-n and C-p)
