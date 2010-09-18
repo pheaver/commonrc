@@ -55,7 +55,7 @@
   (setq ac-fuzzy-enable t)
   )
 
-(when (daemonp)
+(when (and (fboundp 'daemonp) (daemonp))
   (phil-auto-complete-setup))
 
 ;; ----------------------------------------

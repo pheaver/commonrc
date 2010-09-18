@@ -23,7 +23,7 @@
      (define-key haskell-mode-map (kbd "C-c h") 'haskell-hoogle)
      (define-key haskell-mode-map (kbd "C-c .") 'my-haskell-cleanup-imports)))
 
-(when (daemonp)
+(when (and (fboundp 'daemonp) (daemonp))
   (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode))))
 
 (add-hook 'haskell-mode-hook 'turn-on-font-lock)

@@ -3,7 +3,7 @@
 
 (require 'phil-paths)
 
-(unless (daemonp)
+(unless (and (fboundp 'daemonp) (daemonp))
   (setq vc-handled-backends nil))
 
 (defun diff-cur-buffer ()
