@@ -1,17 +1,16 @@
 ;; ----------------------------------------
 
-;; utility functions
-(defun parent-dir (path)
+(defun phil/parent-dir (path)
   (interactive)
   (file-name-directory (directory-file-name path)))
 
-(defun parent-dirs (path)
+(defun phil/parent-dirs (path)
   (interactive)
-  (let ((parent (parent-dir path)))
+  (let ((parent (phil/parent-dir path)))
     (cond
      ((null parent) ())
      ((string= parent path) ())
-     (t (cons parent (parent-dirs parent))))))
+     (t (cons parent (phil/parent-dirs parent))))))
 
 ;; ----------------------------------------
 

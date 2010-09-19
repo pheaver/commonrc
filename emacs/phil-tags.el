@@ -1,7 +1,6 @@
 ;; ----------------------------------------
 
 (require 'phil-paths)
-(require 'phil-parent-dirs)
 
 (defun find-tags-table (&optional filename)
   (interactive)
@@ -24,7 +23,8 @@ If EXT is non-nil, then also search for TAGS.EXT in each directory, in addition
 to TAGS."
 
   (interactive)
-  (let ((all-dirs (parent-dirs path))
+  (require 'phil-parent-dirs)
+  (let ((all-dirs (phil/parent-dirs path))
         (suffixes (if (null ext) '("") `("" ,(concat "." ext))))
         (dirs nil))
     (if parents
