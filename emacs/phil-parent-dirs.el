@@ -1,9 +1,11 @@
 ;; ----------------------------------------
 
+;;;###autoload
 (defun phil/parent-dir (path)
   (interactive)
   (file-name-directory (directory-file-name path)))
 
+;;;###autoload
 (defun phil/parent-dirs (path)
   (interactive)
   (let ((parent (phil/parent-dir path)))
