@@ -64,6 +64,12 @@ except uses `forward-line' instead of `forward-sentence'."
       (save-buffer buffer1)
       (kill-buffer buffer1))))
 
+(defun phil/dired-cleanup-marked-files ()
+  (interactive)
+  (eval-when-compile (require 'dired))
+  (let ((files (dired-get-marked-files nil nil)))
+    (mapc 'phil/cleanup files)))
+
 ;; ----------------------------------------
 
 (provide 'phil-utils)

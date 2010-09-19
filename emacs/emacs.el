@@ -195,10 +195,11 @@
 ;; ---------------------------------------------
 ;; miscellaneous stuff from phil-utils
 
-(autoload 'phil/macro-query               "phil-utils" nil t)
-(autoload 'phil/mark-end-of-line          "phil-utils" nil t)
-(autoload 'phil/mark-end-of-line-previous "phil-utils" nil t)
-(autoload 'phil/isearch-occur             "phil-utils" nil t)
+(autoload 'phil/macro-query                "phil-utils" nil t)
+(autoload 'phil/mark-end-of-line           "phil-utils" nil t)
+(autoload 'phil/mark-end-of-line-previous  "phil-utils" nil t)
+(autoload 'phil/isearch-occur              "phil-utils" nil t)
+(autoload 'phil/dired-cleanup-marked-files "phil-utils" nil t)
 
 (global-set-key "\C-xQ" 'phil/macro-query)
 (global-set-key (kbd "M-N") 'phil/mark-end-of-line)
@@ -206,6 +207,9 @@
 
 (when (< emacs-major-version 23)
   (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
+
+(eval-after-load "dired"
+  '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
 
 ;; ---------------------------------------------
 ;; shell stuff
