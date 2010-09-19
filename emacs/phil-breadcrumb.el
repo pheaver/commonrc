@@ -17,14 +17,8 @@
 (global-set-key (kbd "C-c N"  ) 'bc-local-next)
 (global-set-key (kbd "C-c C-l") 'bc-list)
 
-(setq bc-switch-buffer-func 'my-switch-to-buffer)
-
-;; this is defined here because it's only used here.
-;; maybe i should put this in phil-buffers.el.
-(defun my-switch-to-buffer (buffer)
-  (let ((w (get-buffer-window buffer)))
-    (if w (select-window w)
-      (switch-to-buffer buffer))))
+(autoload 'phil/switch-to-buffer "phil-utils" nil t)
+(setq bc-switch-buffer-func 'phil/switch-to-buffer)
 
 ;; ----------------------------------------
 

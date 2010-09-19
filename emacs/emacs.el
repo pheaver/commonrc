@@ -193,54 +193,19 @@
   (find-file (concat "/sudo::" filename)))
 
 ;; ---------------------------------------------
-;; macro query
+;; miscellaneous stuff from phil-utils
 
-(defun my-macro-query (arg)
-  "Prompt for input using minibuffer during kbd macro execution.
-With prefix argument, allows you to select what prompt string to use.
-If the input is non-empty, it is inserted at point."
-  (interactive "P")
-  (let* ((prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
-          (input (minibuffer-with-setup-hook (lambda () (kbd-macro-query t))
-                     (read-from-minibuffer prompt))))
-    (unless (string= "" input) (insert input))))
+(autoload 'phil/macro-query               "phil-utils" nil t)
+(autoload 'phil/mark-end-of-line          "phil-utils" nil t)
+(autoload 'phil/mark-end-of-line-previous "phil-utils" nil t)
+(autoload 'phil/isearch-occur             "phil-utils" nil t)
 
-(global-set-key "\C-xQ" 'my-macro-query)
-
-;; ---------------------------------------------
-
-(defun mark-end-of-line (arg)
-  "Put mark at end of line.  Arg works as in `forward-line'.
-If this command is repeated, it marks the next ARG lines after
-the ones already marked.  Identical to `mark-end-of-sentence',
-except uses `forward-line' instead of `forward-sentence'."
-  (interactive "p")
-  (push-mark
-   (save-excursion
-     (if (and (eq last-command this-command) (mark t))
-         (goto-char (mark)))
-     (forward-line arg)
-     (point))
-   nil t))
-
-(defun mark-end-of-line-previous (arg)
-  (interactive "p")
-  (mark-end-of-line (- 0 arg)))
-
-(global-set-key (kbd "M-N") 'mark-end-of-line)
-(global-set-key (kbd "M-P") 'mark-end-of-line-previous)
-
-;; ---------------------------------------------
-;; isearch show all occurrancs
+(global-set-key "\C-xQ" 'phil/macro-query)
+(global-set-key (kbd "M-N") 'phil/mark-end-of-line)
+(global-set-key (kbd "M-P") 'phil/mark-end-of-line-previous)
 
 (when (< emacs-major-version 23)
-  (defun isearch-occur ()
-    (interactive)
-    (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string
-               (regexp-quote isearch-string)))))
-
-  (define-key isearch-mode-map (kbd "M-s o") 'isearch-occur))
+  (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
 
 ;; ---------------------------------------------
 ;; shell stuff

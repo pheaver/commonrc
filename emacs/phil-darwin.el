@@ -2,19 +2,6 @@
 
 (defvar darwin-system (string= system-type "darwin"))
 
-;;;; not used anywhere but here, so for now this is where it's defined
-(defun shell-command-on-file
-  (command &optional filename output-buffer error-buffer)
-  (interactive
-   (list (read-shell-command "Shell command: " nil nil)
-         nil
-         current-prefix-arg
-         shell-command-default-error-buffer))
-  (let ((n (or filename (buffer-file-name))))
-    (if (null n)
-        (message (concat "Not a file: " (buffer-name)))
-      (shell-command (concat command " " n) output-buffer error-buffer))))
-
 (when darwin-system
   (setq ns-command-modifier 'super)
   (setq ns-option-modifier 'meta)
@@ -30,7 +17,10 @@
 
   ;;;; on os x, open a file using the "open" command
   ; TODO: use (dired-get-file-for-visit) to call "open" on a file
-  (defun open-file () (interactive) (shell-command-on-file "open"))
+  (defun open-file ()
+    (interactive)
+    (require 'phil-utils)
+    (phil/shell-command-on-file "open"))
 
   ;;(add-hook 'server-switch-hook 'raise-emacs-on-aqua)
   )
