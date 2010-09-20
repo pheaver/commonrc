@@ -27,6 +27,8 @@
   (ac-config-default)
   (setq-default ac-sources my-default-ac-sources)
 
+  (add-to-list 'ac-modes 'makefile-gmake-mode)
+
   (add-hook 'haskell-mode-hook
      (lambda ()
        (when (featurep 'ghc) ;; (require 'ghc-mod nil t)
