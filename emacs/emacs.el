@@ -53,6 +53,9 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 
+;;; always select help window
+(setq help-window-select t)
+
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
