@@ -62,10 +62,6 @@
   (browse-kill-ring-default-keybindings)
   (setq browse-kill-ring-quit-action 'save-and-restore))
 
-;;;; server-edit
-(add-hook 'server-switch-hook
-  (lambda () (local-set-key (kbd "C-c k") 'server-edit)))
-
 ;;;; tail
 (autoload 'tail-file "tail" "tail" t)
 
