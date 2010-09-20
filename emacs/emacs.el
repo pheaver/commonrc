@@ -58,9 +58,11 @@
 (setq undo-tree-visualizer-quit-action 'save-and-restore)
 
 ;;;; browse-kill-ring
-(when (require 'browse-kill-ring nil 'noerror)
-  (browse-kill-ring-default-keybindings)
-  (setq browse-kill-ring-quit-action 'save-and-restore))
+(setq browse-kill-ring-quit-action 'save-and-restore)
+(autoload 'browse-kill-ring "browse-kill-ring")
+(global-set-key (kbd "C-c k") 'browse-kill-ring)
+(eval-after-load "browse-kill-ring"
+  '(browse-kill-ring-default-keybindings))
 
 ;;;; tail
 (autoload 'tail-file "tail" "tail" t)
