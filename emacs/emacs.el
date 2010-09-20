@@ -139,6 +139,14 @@
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 ;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
 
+;;;; advice split-window to display a different buffer
+(defadvice split-window (after split-window-advice)
+  (progn
+    (with-selected-window ad-return-value
+      (switch-to-buffer (other-buffer)))))
+
+(ad-activate 'split-window t)
+
 ;; ---------------------------------------------
 ;; markdown mode
 
