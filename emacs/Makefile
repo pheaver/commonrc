@@ -5,13 +5,21 @@ SRCS=auto-mark breadcrumb browse-kill-ring linum multi-term shell-toggle \
 ELS=$(foreach x,$(SRCS),$x.el)
 ELCS=$(ELS:.el=.elc)
 
-all: $(ELCS)
+LOADDEF_SRCS=phil-utils
+LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
+all: $(ELCS) $(LOADDEFS)
+
+EMACS:=emacs
+DO_EMACS:=$(EMACS) --batch --eval "(add-to-list 'load-path \"$(CURDIR)\")"
 
 %.elc: %.el
 	@echo "[C] $<"
-	@emacs --batch --eval "(add-to-list 'load-path \"$(CURDIR)\")" \
-	              --eval '(byte-compile-file "$<")'
+	@$(DO_EMACS) --eval '(byte-compile-file "$<")'
 
+%-loaddefs.el: %.el
+	@$(DO_EMACS) --eval '(update-file-autoloads "$<" t)'
+	@touch $@
 
 clean:
 	rm -fr $(ELCS)
+	rm -fr $(fLOADDEFS)
