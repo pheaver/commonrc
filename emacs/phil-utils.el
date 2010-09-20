@@ -6,6 +6,28 @@
 ;; but are only loaded on demand, such as by an autoload.
 
 ;;;###autoload
+(defun notify (title msg &optional sticky)
+  (message (concat title ": " msg))
+  (when (string= system-type "darwin")
+    (shell-command
+     (concat "growlnotify"
+             (if sticky " -s " " ")
+             "-a emacs -t \"" title "\" -m \"" msg "\"")
+     nil nil)
+    ))
+
+;;;###autoload
+(defun notify-timer (time msg)
+  "At time TIME, notify user with message MSG"
+  (interactive "sRun at time: \nsMessage: ")
+  (run-at-time time nil 'notify "Emacs Timer" msg t))
+
+;;;###autoload
+(defun tea-timer (time)
+  (interactive "sRun at time: ")
+  (notify-timer time "Tea is ready!"))
+
+;;;###autoload
 (defun phil/switch-to-buffer (buffer)
   (let ((w (get-buffer-window buffer)))
     (if w (select-window w)

@@ -22,7 +22,6 @@
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
 ;; (require 'phil-mew) ;; disabled because I don't use it
-(require 'phil-notify-timer)
 (require 'phil-org)
 (require 'phil-quattro)
 ;; (require 'phil-recentf) ;; increases startup time, and i don't even use it
@@ -63,6 +62,10 @@
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 (eval-after-load "browse-kill-ring"
   '(browse-kill-ring-default-keybindings))
+
+;;; phil's itimer mode
+(autoload 'itimer-list-timers "itimer" "itimer" t)
+(global-set-key (kbd "C-c L") 'itimer-list-timers)
 
 ;;;; tail
 (autoload 'tail-file "tail" "tail" t)

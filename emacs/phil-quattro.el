@@ -2,13 +2,14 @@
 ;; my cryptol/quattro settings
 
 (require 'phil-paths)
-(require 'phil-notify-timer)
 
 (load "cryptol-site-file" 'noerror)
 
 (when (string= system-type "darwin")
   (add-hook 'compilation-finish-functions
-    (lambda (buffer str) (notify "Compile" str))))
+    (lambda (buffer str)
+      (require 'phil-utils)
+      (notify "Compile" str))))
 
 (defvar quattro-source-dir nil)
 
