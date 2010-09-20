@@ -1,7 +1,7 @@
 #ELS=$(wildcard *.el)
 SRCS=auto-mark breadcrumb browse-kill-ring linum multi-term shell-toggle \
 	show-wspace tail visible-mark whitespace \
-	phil-parent-dirs phil-utils
+	phil-parent-dirs phil-utils phil-wspace
 ELS=$(foreach x,$(SRCS),$x.el)
 ELCS=$(ELS:.el=.elc)
 
