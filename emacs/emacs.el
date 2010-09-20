@@ -131,7 +131,7 @@
 (when (functionp 'scroll-bar-mode) (scroll-bar-mode 0))
 (when (functionp 'show-paren-mode) (show-paren-mode 1))
 (when (functionp 'size-indication-mode) (size-indication-mode 0))
-(when (functionp 'transient-mark-mode) (transient-mark-mode 0))
+(when (functionp 'transient-mark-mode) (transient-mark-mode 1))
 (when (functionp 'savehist-mode) (savehist-mode 1))
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 ;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
