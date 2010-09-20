@@ -32,6 +32,9 @@
 (require 'phil-vc)
 (require 'phil-wspace)
 
+;; autoloads for cl-* files
+(load "cl-loaddefs")
+
 ;;;; registers
 (set-register ?i (cons 'file user-init-file))
 (set-register ?e (cons 'file common-init-file))
