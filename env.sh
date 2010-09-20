@@ -153,7 +153,7 @@ function er {
 
 # open a function in emacs daemon with root priveleges using sudo
 function sem {
-    ${emacsclient} -e "(find-file-sudo \"$1\")"
+    ${emacsclient} -e "(phil/find-file-sudo \"$1\")"
 }
 
 if [ $UID -eq 0 ]; then

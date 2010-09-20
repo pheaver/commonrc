@@ -80,6 +80,14 @@ except uses `forward-line' instead of `forward-sentence'."
   (let ((files (dired-get-marked-files nil nil)))
     (mapc 'phil/cleanup files)))
 
+;; meant to be called from command line.
+;; only works for absolute paths
+;; TODO: use ido to make it easy to use interactively.
+;;;###autoload
+(defun phil/find-file-sudo (filename)
+  (interactive)
+  (find-file (concat "/sudo::" filename)))
+
 ;; ----------------------------------------
 
 (provide 'phil-utils)

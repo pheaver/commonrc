@@ -181,19 +181,10 @@
 (add-hook 'latex-mode-hook 'turn-on-reftex)
 (add-hook 'latex-mode-hook 'outline-minor-mode)
 
-;; -------------------
-;; open file as sudo
-
-;; meant to be called from command line.
-;; only works for absolute paths
-;; TODO: use ido to make it easy to use interactively.
-(defun find-file-sudo (filename)
-  (interactive)
-  (find-file (concat "/sudo::" filename)))
-
 ;; ---------------------------------------------
 ;; miscellaneous stuff from phil-utils
 
+(autoload 'phil/find-file-sudo             "phil-utils" nil t)
 (autoload 'phil/macro-query                "phil-utils" nil t)
 (autoload 'phil/mark-end-of-line           "phil-utils" nil t)
 (autoload 'phil/mark-end-of-line-previous  "phil-utils" nil t)
