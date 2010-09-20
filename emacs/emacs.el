@@ -17,19 +17,21 @@
 (require 'phil-breadcrumb)
 (require 'phil-buffers)
 (require 'phil-darwin)
-;; (require 'phil-erc) ;; not used
 (require 'phil-flymake)
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
-;; (require 'phil-mew) ;; disabled because I don't use it
 (require 'phil-org)
 (require 'phil-quattro)
-;; (require 'phil-recentf) ;; increases startup time, and i don't even use it
 (require 'phil-frames)
 (require 'phil-tags)
 (require 'phil-term)
 (require 'phil-vc)
 (require 'phil-wspace)
+
+;;;; disabled stuff that I don't use anymore
+;; (require 'phil-erc)
+;; (require 'phil-mew)
+;; (require 'phil-recentf)
 
 ;; autoloads for cl-* files
 (load "cl-loaddefs")
