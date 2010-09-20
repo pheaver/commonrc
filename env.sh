@@ -140,6 +140,7 @@ emacs_major_version=`emacsclient --version 2>&1 | awk '{ print substr($2,0,2) }'
 # emacs_major_version=`emacs --no-site-file --no-init-file --batch \
 #                      --eval "(princ (format \"%i\\n\" emacs-major-version))"`
 
+alias eq="${emacs} -nw -Q"
 alias ea="${emacsclient} -n"
 alias ec="${emacsclient} -n -c"
 
