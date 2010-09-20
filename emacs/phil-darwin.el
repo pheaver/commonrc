@@ -14,7 +14,7 @@
 
   ;;;; on os x, open a file using the "open" command
   ; TODO: use (dired-get-file-for-visit) to call "open" on a file
-  (defun open-file ()
+  (defun phil/open-file ()
     (interactive)
     (require 'phil-utils)
     (phil/shell-command-on-file "open"))
