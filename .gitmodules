@@ -25,3 +25,6 @@
 [submodule "emacs/ghc-mod.git"]
 	path = emacs/ghc-mod.git
 	url = git://github.com/kazu-yamamoto/ghc-mod.git
+[submodule "emacs/breadcrumb.git"]
+	path = emacs/breadcrumb.git
+	url = git://github.com/pheaver/breadcrumb.git

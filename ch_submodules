@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for d in auto-complete haskell-mode haskell-mode-exts itimer-el; do
+for d in auto-complete breadcrumb haskell-mode haskell-mode-exts itimer-el; do
     d=$d.git
     (cd emacs/${d} && git remote set-url origin git@github.com:pheaver/$d)
 done
