@@ -5,16 +5,18 @@
 ;; these should be functions that are not needed to load emacs,
 ;; but are only loaded on demand, such as by an autoload.
 
+(defvar growlnotify-path "growlnotify")
+
 ;;;###autoload
 (defun notify (title msg &optional sticky)
   (message (concat title ": " msg))
-  (when (string= system-type "darwin")
+  (let ((args (cond
+               ((eq system-type 'darwin)
+                (concat (if sticky " -s " " ") "-a emacs -t \"" title "\" -m \"" msg "\""))
+               ((eq system-type 'cygwin)
+                (concat (if sticky "/s:true" "/s:false") " /t:\"" title "\" \"" msg "\"")))))
     (shell-command
-     (concat "growlnotify"
-             (if sticky " -s " " ")
-             "-a emacs -t \"" title "\" -m \"" msg "\"")
-     nil nil)
-    ))
+     (concat (or growlnotify-path "growlnotify") " " args) nil nil)))
 
 ;;;###autoload
 (defun notify-timer (time msg)
