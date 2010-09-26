@@ -10,7 +10,8 @@
 (global-set-key (kbd "C-c N"  ) 'bc-local-next)
 (global-set-key (kbd "C-c C-l") 'bc-list)
 
-(autoload 'phil/switch-to-buffer "phil-utils" nil t)
+(or (require 'phil-utils-loaddefs nil 'noerror)
+    (require 'phil-utils))
 (setq bc-switch-buffer-func 'phil/switch-to-buffer)
 
 ;; ----------------------------------------

@@ -202,12 +202,8 @@
 ;; ---------------------------------------------
 ;; miscellaneous stuff from phil-utils
 
-(autoload 'phil/find-file-sudo             "phil-utils" nil t)
-(autoload 'phil/macro-query                "phil-utils" nil t)
-(autoload 'phil/mark-end-of-line           "phil-utils" nil t)
-(autoload 'phil/mark-end-of-line-previous  "phil-utils" nil t)
-(autoload 'phil/isearch-occur              "phil-utils" nil t)
-(autoload 'phil/dired-cleanup-marked-files "phil-utils" nil t)
+(or (require 'phil-utils-loaddefs nil 'noerror)
+    (require 'phil-utils))
 
 (global-set-key "\C-xQ" 'phil/macro-query)
 (global-set-key (kbd "M-N") 'phil/mark-end-of-line)
