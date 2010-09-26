@@ -5,7 +5,7 @@
 
 (load "cryptol-site-file" 'noerror)
 
-(when (string= system-type "darwin")
+(when (eq system-type 'darwin)
   (add-hook 'compilation-finish-functions
     (lambda (buffer str)
       (require 'phil-utils)

@@ -1,8 +1,6 @@
 ;; ----------------------------------------
 
-(defvar darwin-system (string= system-type "darwin"))
-
-(when darwin-system
+(when (eq system-type 'darwin)
   (setq ns-command-modifier 'super)
   (setq ns-option-modifier 'meta)
   (global-unset-key (kbd "s-q"))
