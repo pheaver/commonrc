@@ -78,7 +78,7 @@ advice like this:
                                nil require-match initial-input hist def))
         ad-do-it))))
 
-(setq ido-execute-command-cache nil)
+(defvar ido-execute-command-cache nil)
 
 (defun ido-execute-command ()
   (interactive)
