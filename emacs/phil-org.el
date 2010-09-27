@@ -34,7 +34,7 @@
 (defun find-org-files () (interactive)
   (require 'org)
   (let* ((alist (mapcar (lambda (x) (cons (file-name-nondirectory x) x)) (org-agenda-files)))
-         (name (ido-completing-read "Org file: " (mapcar 'car alist)))
+         (name (completing-read "Org file: " (mapcar 'car alist)))
          (file-name (cdr (assoc-string name alist)))
          (org-buffer (org-get-agenda-file-buffer file-name)))
     (switch-to-buffer org-buffer))
