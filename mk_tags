@@ -11,7 +11,9 @@ else
 fi
 
 if [ `which etags` >/dev/null ]; then
-    etags -R .
+    etags -R . ||
+    (/usr/bin/find . -iname \*.\*el | xargs etags &&
+     /usr/bin/find . -iname \*.\*sh | xargs etags -a)
 else
     echo "etags not installed, skipping" >&2
 fi
