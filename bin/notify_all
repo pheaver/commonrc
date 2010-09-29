@@ -1,0 +1,9 @@
+#!/bin/sh
+
+title="$1"
+shift
+message="$@"
+
+for host in 192.168.1.30 192.168.1.40 192.168.1.70; do
+    gntp-send -u -p phil -s $host "$title" "$message"
+done

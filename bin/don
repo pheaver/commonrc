@@ -1,22 +1,6 @@
 #!/bin/bash
 
-#echo $@
+# TODO optional play a sound
 
-if [ $UID -eq 0 ]; then
-    su pweaver -c "$0 $@"
-
-else # TODO: refuse to execute as anything but pweaver
-    if [ $# -gt 0 ]; then
-        osd_echo_all "$@" &
-    fi
-
-#    for host in tux; do
-#       if [ "$HOSTNAME" == "$host" ]; then
-#           aplay /home/pweaver/local/share/sounds/done.wav &
-#       else
-#           ssh $host aplay /home/pweaver/local/share/sounds/done.wav -q 2> /dev/null &
-#       fi
-#    done
-
-fi
+notify_all "Done" "$@" &
 

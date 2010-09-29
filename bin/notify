@@ -1,0 +1,8 @@
+#!/bin/sh
+
+title="$1"
+shift
+message="$@"
+
+gntp-send -u "$title" "$message"
+
