@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ $# -ne 2 ]; then
   echo "Usage: `basename $0` timestamp_src dest_file";
