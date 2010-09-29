@@ -15,7 +15,7 @@
 	url = git://github.com/pheaver/haskell-mode.git
 [submodule "emacs/magit.git"]
 	path = emacs/magit.git
-	url = git://github.com/philjackson/magit.git
+	url = git://github.com/pheaver/magit.git
 [submodule "emacs/markdown-mode.git"]
 	path = emacs/markdown-mode.git
 	url = git://jblevins.org/git/markdown-mode.git
