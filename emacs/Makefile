@@ -9,15 +9,16 @@ LOADDEF_SRCS=phil-utils
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
 all: $(ELCS) $(LOADDEFS)
 
-EMACS:=emacs
-DO_EMACS:=$(EMACS) --batch --eval "(add-to-list 'load-path \"$(CURDIR)\")"
+EMACS=emacs
+BATCH=$(EMACS) -batch -q -no-site-file -eval \
+  '(setq load-path (cons (expand-file-name ".") load-path))'
 
 %.elc: %.el
 	@echo "[C] $<"
-	@$(DO_EMACS) --eval '(byte-compile-file "$<")'
+	@$(BATCH) --eval '(byte-compile-file (expand-file-name "$<"))'
 
 %-loaddefs.el: %.el
-	@$(DO_EMACS) --eval '(update-file-autoloads "$<" t)'
+	@$(BATCH) --eval '(update-file-autoloads (expand-file-name "$<") t)'
 	@touch $@
 
 clean:
