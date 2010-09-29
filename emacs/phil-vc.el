@@ -3,8 +3,10 @@
 
 (require 'phil-paths)
 
-(unless (and (fboundp 'daemonp) (daemonp))
-  (setq vc-handled-backends nil))
+(setq vc-handled-backends/original vc-handled-backends)
+(setq vc-handled-backends nil)
+(phil/eval-at-init-level 3
+  '(setq vc-handled-backends vc-handled-backends/original))
 
 (defun diff-cur-buffer ()
   (interactive)

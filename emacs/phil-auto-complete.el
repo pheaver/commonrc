@@ -94,8 +94,8 @@
 (eval-after-load 'auto-complete
   '(phil-auto-complete-setup))
 
-(when (and (fboundp 'daemonp) (daemonp))
-  (require 'auto-complete nil t))
+(phil/eval-at-init-level 3
+  '(require 'auto-complete nil t))
 
 ;; ----------------------------------------
 

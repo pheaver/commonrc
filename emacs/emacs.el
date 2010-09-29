@@ -11,6 +11,9 @@
 (setq commonrc-dir (file-name-directory common-init-file))
 
 (load-file (concat commonrc-dir "phil-paths.el"))
+(require 'phil-init)
+
+(phil/eval-at-init-level 1 '(progn
 
 ;;;; load my other files
 (require 'phil-auto-complete)
@@ -243,3 +246,5 @@
 ;(setenv "TERM" "emacs")
 
 ;; ---------------------------------------------
+
+))
