@@ -140,9 +140,9 @@ emacs_major_version=`emacsclient --version 2>&1 | awk '{ print substr($2,0,2) }'
 # emacs_major_version=`emacs --no-site-file --no-init-file --batch \
 #                      --eval "(princ (format \"%i\\n\" emacs-major-version))"`
 
-alias eq="${emacs} -nw -Q"
-alias ea="${emacsclient} -n"
-alias ec="${emacsclient} -n -c"
+alias eq="\"${emacs}\" -nw -Q"
+alias ea="\"${emacsclient}\" -n"
+alias ec="\"${emacsclient}\" -n -c"
 
 function er {
     if [ ! -z "$1" ]; then
@@ -161,11 +161,11 @@ if [ $UID -eq 0 ]; then
     export EDITOR=emacs
 elif [[ ! -z "$EMACS" ]]; then
     # we are running a terminal inside emacs
-    export EDITOR="${emacsclient}"
+    export EDITOR="\"${emacsclient}\""
 elif [[ ${emacs_major_version} == "23" ]]; then
-    alias em="${emacsclient} -t"
-    export EDITOR="${emacsclient} -t"
-    export VISUAL="${emacsclient}"
+    alias em="\"${emacsclient}\" -t"
+    export EDITOR="\"${emacsclient}\" -t"
+    export VISUAL="\"${emacsclient}\""
 
     # emacsclient: try to run emacs --daemon if server is not running.
     export ALTERNATE_EDITOR=""
@@ -180,7 +180,7 @@ function emake {
     ${emacsclient} -e "(compile \"make $@\" t)"
 }
 
-alias kill-emacs="${emacsclient} -e '(kill-emacs)'"
+alias kill-emacs="\"${emacsclient}\" -e '(kill-emacs)'"
 
 #export VISUAL="${emacsclient}"
 
