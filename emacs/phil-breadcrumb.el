@@ -8,7 +8,7 @@
 (global-set-key (kbd "C-c n"  ) 'bc-next)
 (global-set-key (kbd "C-c P"  ) 'bc-local-previous)
 (global-set-key (kbd "C-c N"  ) 'bc-local-next)
-(global-set-key (kbd "C-c C-l") 'bc-list)
+(global-set-key (kbd "C-c M-l") 'bc-list)
 
 (or (require 'phil-utils-loaddefs nil 'noerror)
     (require 'phil-utils))

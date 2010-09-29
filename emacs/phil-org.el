@@ -44,7 +44,7 @@
 
 ; "C-cl" is bound in tex/latex mode, so we use C-s S-l also
 (global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c S-l") 'org-store-link)
+(global-set-key (kbd "C-c L") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 ;(setq org-log-done t)
