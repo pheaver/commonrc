@@ -13,6 +13,12 @@
 (load-file (concat commonrc-dir "phil-paths.el"))
 (require 'phil-init)
 
+;; this is pretty important, so execute it at all run levels
+(when (and (equal system-type 'windows-nt) (executable-find "cygpath"))
+  (require 'phil-file-modes)
+  (add-hook 'find-file-hook 'phil/file-modes-check)
+  (add-hook 'after-save-hook 'phil/file-modes-restore))
+
 (phil/eval-at-init-level 1 '(progn
 
 ;;;; load my other files
