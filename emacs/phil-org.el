@@ -1,6 +1,8 @@
 ;; ---------------------------------------------
 ;; organizer, planner, todo list
 
+(add-to-list 'load-path (commonrc "org-mode.git/lisp/"))
+
 (push '("\\.org\\'" . org-mode) auto-mode-alist)
 
 (when (require 'org-install "org-install" t)
