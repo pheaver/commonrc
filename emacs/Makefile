@@ -7,7 +7,14 @@ ELCS=$(ELS:.el=.elc)
 
 LOADDEF_SRCS=phil-utils
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
+
+SUBDIRS=auto-complete.git breadcrumb.git ghc-mod.git/elisp haskell-mode.git magit.git org-mode.git
+
 all: $(ELCS) $(LOADDEFS)
+
+.PHONY: subdirs
+subdirs:
+	@for d in $(SUBDIRS); do echo "[C]" $$d; $(MAKE) -C $$d; done
 
 EMACS=emacs
 BATCH=$(EMACS) -batch -q -no-site-file -eval \
