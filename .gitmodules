@@ -28,3 +28,6 @@
 [submodule "emacs/breadcrumb.git"]
 	path = emacs/breadcrumb.git
 	url = git://github.com/pheaver/breadcrumb.git
+[submodule "emacs/org-mode.git"]
+	path = emacs/org-mode.git
+	url = git://repo.or.cz/org-mode.git
