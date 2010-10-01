@@ -1,5 +1,3 @@
-;; -*- generated-autoload-file: "phil-utils-loaddefs.el" -*-
-
 ;; ----------------------------------------
 ;; miscellaneous utility functions.
 ;; these should be functions that are not needed to load emacs,

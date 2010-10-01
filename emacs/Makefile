@@ -22,11 +22,16 @@ BATCH=$(EMACS) -batch -q -no-site-file -eval \
 
 %.elc: %.el
 	@echo "[C] $<"
-	@$(BATCH) --eval '(byte-compile-file (expand-file-name "$<"))'
+	@$(BATCH) -f batch-byte-compile "$<"
 
+# borrowed from org-mode's Makefile
 %-loaddefs.el: %.el
-	@$(BATCH) --eval '(update-file-autoloads (expand-file-name "$<") t)'
-	@touch $@
+	@$(BATCH) --eval "(require 'autoload)" \
+                  --eval '(find-file (expand-file-name "$@"))' \
+                  --eval '(erase-buffer)' \
+                  --eval '(generate-file-autoloads (expand-file-name "$<"))' \
+                  --eval '(insert "\n(provide (quote $*-loaddefs))\n")' \
+                  --eval '(save-buffer)'
 
 clean:
 	rm -fr $(ELCS)
