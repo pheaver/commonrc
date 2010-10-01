@@ -4,17 +4,29 @@
 ;; but are only loaded on demand, such as by an autoload.
 
 (defvar growlnotify-path "growlnotify")
+(defvar gntp-send-path "gntp-send")
 
+;; TODO support using gntp-send
 ;;;###autoload
 (defun notify (title msg &optional sticky)
   (message (concat title ": " msg))
+  (or (notify-growlnotify title msg sticky)
+      (notify-gntp-send title msg sticky)))
+
+;; zzz gntp-send doesn't seem to support a sticky flag
+(defun notify-gntp-send (title msg &optional sticky)
+  (when (executable-find gntp-send-path)
+    (call-process gntp-send-path nil nil nil "-u" title msg)))
+
+(defun notify-growlnotify (title msg &optional sticky)
   (let ((args (cond
                ((eq system-type 'darwin)
-                (concat (if sticky " -s " " ") "-a emacs -t \"" title "\" -m \"" msg "\""))
-               ((eq system-type 'cygwin)
-                (concat (if sticky "/s:true" "/s:false") " /t:\"" title "\" \"" msg "\"")))))
-    (shell-command
-     (concat (or growlnotify-path "growlnotify") " " args) nil nil)))
+                (list (if sticky " -s " " ") "-a" "emacs" "-t" title "-m" msg))
+               ((memq system-type '(cygwin windows-nt))
+                (list (if sticky "/s:true" "/s:false") (concat "/t:" title) msg)))))
+
+    (when (and args (executable-find growlnotify-path))
+      (apply 'call-process growlnotify-path nil nil nil args))))
 
 ;;;###autoload
 (defun notify-timer (time msg)
