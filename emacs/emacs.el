@@ -148,13 +148,19 @@
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 ;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
 
-;;;; advice split-window to display a different buffer
-(defadvice split-window (after split-window-advice)
-  (progn
-    (with-selected-window ad-return-value
-      (switch-to-buffer (other-buffer)))))
+;;;; my tweak to the split-window functions
+(defun phil/split-window-vertically (&optional size)
+  (interactive "P")
+  (with-selected-window (split-window-vertically size)
+      (switch-to-buffer (other-buffer))))
 
-(ad-activate 'split-window t)
+(defun phil/split-window-horizontally (&optional size)
+  (interactive "P")
+  (with-selected-window (split-window-horizontally size)
+      (switch-to-buffer (other-buffer))))
+
+(define-key ctl-x-map "2" 'phil/split-window-vertically)
+(define-key ctl-x-map "3" 'phil/split-window-horizontally)
 
 ;; ---------------------------------------------
 ;; markdown mode
