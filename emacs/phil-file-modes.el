@@ -43,47 +43,61 @@
 ;; local variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar phil/default-file-modes 644) ;; 438
-(defvar phil/file-modes nil)
+(defvar phil/default-file-modes 644
+  "The permissions to assign to new files (when `phil/file-modes' is nil)")
+
+(defvar phil/file-modes nil
+  "The permissions to assign to the current buffer's file.")
 (make-variable-buffer-local 'phil/file-modes)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; some utility helper functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun phil/call-process-to-string (prg &rest args)
-  (interactive)
+(defun phil/call-process-to-string (program &rest args)
+  "Call PROGRAM synchronously in a separate process and pass it ARGS.
+Returns the output of the program as a string."
   (with-output-to-string
     (with-current-buffer standard-output
-      (eval (append (list 'call-process prg nil t nil) args)))))
+      (eval (append (list 'call-process program nil t nil) args)))))
 
-;; type can be dos, mixed, unix, or windows
-(defun phil/cygpath (file type)
-  (interactive)
+(defun phil/cygpath (path type)
+  "Use the \"cygpath\" program to convert PATH to a different format type.
+
+TYPE can be one of `dos', `mixed', `unix', or `windows'"
   (when (not (memq type '(dos mixed unix windows)))
     (error (concat "phil/cygpath, invalid type: " (symbol-name type))))
   (let ((flag (concat "--" (symbol-name type))))
     (replace-regexp-in-string "\n" ""
-      (phil/call-process-to-string "cygpath" flag file))))
+      (phil/call-process-to-string "cygpath" flag path))))
 
-(defun phil/file-modes-check ()
-  (interactive)
-  (let ((f (buffer-file-name)))
-    (setq phil/file-modes (and f (file-exists-p f) (phil/get-file-modes f)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; the two top-evel functions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;###autoload
+;; use the 'stat' command to get the permissions of a file
 (defun phil/get-file-modes (file)
-  (interactive)
+  "Use the \"stat\" program to fetch the permissions of FILE.
+Returns the permissions as a number."
   (string-to-number
    (replace-regexp-in-string "\n" ""
     (phil/call-process-to-string "stat" "--format=%a" file))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; the top-level functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;###autoload
+(defun phil/file-modes-check ()
+  "Fetch the permissions of the file associated with the current
+buffer and store it in the buffer-local variable
+`phil/file-modes'."
+  (interactive)
+  (let ((f (buffer-file-name)))
+    (setq phil/file-modes (and f (file-exists-p f) (phil/get-file-modes f)))))
+
 ;;;###autoload
 (defun phil/file-modes-restore ()
+  "Use \"chmod\" to set the permissions of the file associated
+with the current buffer to the value stored in `phil/file-modes'.
+Or, if `phil/file-modes' is nil, then fallback to
+`phil/default-file-modes'."
   (interactive)
   (let ((f (buffer-file-name))
         (file-modes (or phil/file-modes phil/default-file-modes)))
