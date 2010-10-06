@@ -68,7 +68,7 @@ advice like this:
 (defadvice completing-read
   (around use-ido-when-possible activate)
   (if (or (not ido-enable-replace-completing-read) ; Manual override disable ido
-          ido-cur-list) ; Avoid infinite loop from ido calling this
+          (and (boundp 'ido-cur-list) ido-cur-list)) ; Avoid infinite loop from ido calling this
       ad-do-it
     (let ((allcomp (all-completions "" collection predicate)))
       (if allcomp
