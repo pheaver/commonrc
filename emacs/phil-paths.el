@@ -41,6 +41,7 @@
 (add-load-path "~/local/share/emacs/site-lisp")
 (add-load-path commonrc-dir)
 (add-load-path user-emacs-directory)
+(add-load-path (concat dropbox-dir "emacs"))
 
 (provide 'phil-paths)
 
