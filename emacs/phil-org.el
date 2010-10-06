@@ -10,7 +10,8 @@
   (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
   )
 
-(setq org-agenda-files '("~/Documents"))
+(setq org-agenda-files
+      (list documents-dir (concat dropbox-dir "emacs")))
 
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
 

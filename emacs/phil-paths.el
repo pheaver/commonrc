@@ -6,6 +6,16 @@
 (when (not (boundp 'user-init-file))
   (setq user-init-file (concat user-emacs-directory "init.el")))
 
+(defvar documents-dir
+  (if (eq system-type 'windows-nt)
+      "c:/Documents/"
+    "~/Documents/"))
+
+(defvar dropbox-dir
+  (if (eq system-type 'windows-nt)
+      "c:/Documents/My Dropbox/"
+    "~/Dropbox/"))
+
 (defvar local-rc-file
   "~/.localrc"
   "Path to local shell file.")
