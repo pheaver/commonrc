@@ -174,7 +174,7 @@ else
     export EDITOR="emacs"
 fi
 
-export GIT_EDITOR="${EDITOR}"
+#export GIT_EDITOR="${EDITOR}"
 
 function emake {
     ${emacsclient} -e "(compile \"make $@\" t)"
