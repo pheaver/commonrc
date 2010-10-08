@@ -31,3 +31,6 @@
 [submodule "emacs/org-mode.git"]
 	path = emacs/org-mode.git
 	url = git://repo.or.cz/org-mode.git
+[submodule "emacs/media-files.el.git"]
+	path = emacs/media-files.el.git
+	url = git://github.com/pheaver/media-files.el.git

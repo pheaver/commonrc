@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-for d in auto-complete breadcrumb haskell-mode haskell-mode-exts itimer-el magit; do
+for d in auto-complete breadcrumb haskell-mode haskell-mode-exts itimer-el magit media-files.el; do
     d=$d.git
     (cd emacs/${d} && git remote set-url origin git@github.com:pheaver/$d)
 done
-
 
