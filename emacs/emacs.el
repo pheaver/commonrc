@@ -164,6 +164,15 @@
 (define-key ctl-x-map "3" 'phil/split-window-horizontally)
 
 ;; ---------------------------------------------
+;; media files
+
+(autoload 'display-media-files "media-files" nil t)
+(eval-after-load 'media-files
+  '(progn
+     (require 'media-files-config)
+     (media-files-setup)))
+
+;; ---------------------------------------------
 ;; markdown mode
 
 (autoload 'markdown-mode "markdown-mode"
