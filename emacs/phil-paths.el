@@ -7,12 +7,12 @@
   (setq user-init-file (concat user-emacs-directory "init.el")))
 
 (defvar documents-dir
-  (if (eq system-type 'windows-nt)
+  (if (memq system-type '(cygwin windows-nt))
       "c:/Documents/"
     "~/Documents/"))
 
 (defvar dropbox-dir
-  (if (eq system-type 'windows-nt)
+  (if (memq system-type '(cygwin windows-nt))
       "c:/Documents/My Dropbox/"
     "~/Dropbox/"))
 
