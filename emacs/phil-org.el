@@ -1,5 +1,5 @@
 ;; ---------------------------------------------
-;; organizer, planner, todo list
+;; organizer, diary, planner, todo list
 
 (add-to-list 'load-path (commonrc "org-mode.git/lisp/"))
 
@@ -25,6 +25,20 @@
 (setq org-special-ctrl-k t)
 (setq org-cycle-global-at-bob t)
 (setq org-use-speed-commands t)
+
+(setq org-agenda-window-setup 'other-window)
+(setq org-agenda-restore-windows-after-quit t)
+
+(add-to-list 'auto-mode-alist
+             '("diary$" . diary-mode))
+
+(setq diary-display-function 'diary-fancy-display)
+(add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
+(add-hook 'diary-list-entries-hook 'diary-sort-entries)
+
+(setq org-agenda-diary-file 'diary-file)
+(setq diary-file (concat dropbox-dir "emacs/diary"))
+(setq org-agenda-include-diary t)
 
 (setq org-completion-use-ido t)
 (setq org-completion-use-iswitchb t)
