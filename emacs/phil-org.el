@@ -1,7 +1,7 @@
 ;; ---------------------------------------------
 ;; organizer, diary, planner, todo list
 
-(add-to-list 'load-path (commonrc "org-mode.git/lisp/"))
+(add-to-list 'load-path (commonrc-dir "org-mode.git/lisp/"))
 
 (push '("\\.org\\'" . org-mode) auto-mode-alist)
 
@@ -11,7 +11,7 @@
   )
 
 (setq org-agenda-files
-      (list documents-dir (concat dropbox-dir "emacs")))
+      (list documents-dir (dropbox-dir "emacs")))
 
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
 
@@ -37,7 +37,7 @@
 (add-hook 'diary-list-entries-hook 'diary-sort-entries)
 
 (setq org-agenda-diary-file 'diary-file)
-(setq diary-file (concat dropbox-dir "emacs/diary"))
+(setq diary-file (dropbox-dir "emacs" "diary"))
 (setq org-agenda-include-diary t)
 
 (setq org-completion-use-ido t)

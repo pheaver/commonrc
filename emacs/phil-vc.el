@@ -18,7 +18,7 @@
 
 ; broken
 ;(global-set-key (kbd "C-x v s") 'git-status)
-;(add-load-path (commonrc "git-emacs"))
+;(add-load-path (commonrc-dir "git-emacs"))
 ;; (if (require 'vc-git nil t)
 ;;     (require 'git-emacs nil t))
 
@@ -44,7 +44,7 @@
        (setq magit-completing-read 'ido-completing-read))))
 
 (setq magit-repo-dirs
-  (list "~" "~/local/src" (commonrc) user-emacs-directory "~/signali"))
+  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/signali"))
 
 ;; over ssh on CentOS, C-/ behaves as C-_
 (global-set-key (kbd "C-x C-/") 'magit-status)

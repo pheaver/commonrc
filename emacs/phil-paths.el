@@ -30,8 +30,14 @@
   (concat commonrc-dir "emacs.el")
   "Path to my master shared emacs init file.  Should be set in that file.")
 
-(defun commonrc (&optional path)
-  (concat commonrc-dir path))
+(defun concatpaths (paths)
+  (mapconcat 'identity paths "/"))
+
+(defun commonrc-dir (&rest paths)
+  (concat commonrc-dir (concatpaths paths)))
+
+(defun dropbox-dir (&rest paths)
+  (concat dropbox-dir (concatpaths paths)))
 
 (defun add-load-path (path)
   (let ((default-directory path))

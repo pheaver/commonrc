@@ -89,7 +89,7 @@
 (add-hook 'mew-draft-mode-hook (function (lambda () (auto-fill-mode 1))))
 (add-hook 'mew-draft-mode-hook (function (lambda () (ispell-minor-mode 1))))
 
-;(defvar mew-path (commonrc "mew-6.1/"))
+;(defvar mew-path (commonrc-dir "mew-6.1/"))
 ;(defun mew-bin (name) (interactive) (concat mew-path "bin/" name))
 
 ;; global settings

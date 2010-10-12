@@ -29,7 +29,7 @@
   (require 'auto-complete)
   (require 'auto-complete-config)
 
-  (add-to-list 'ac-dictionary-directories (commonrc "auto-complete.git/dict"))
+  (add-to-list 'ac-dictionary-directories (commonrc-dir "auto-complete.git/dict"))
   (add-to-list 'ac-modes 'makefile-gmake-mode)
 
   (setq-default ac-sources my-default-ac-sources)

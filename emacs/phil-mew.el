@@ -6,7 +6,7 @@
 (autoload 'mew "mew" nil t)
 (autoload 'mew-send "mew" nil t)
 (global-set-key "\C-xm" 'mew)
-(setq mew-rc-file (commonrc "mewrc.el"))
+(setq mew-rc-file (commonrc-dir "mewrc.el"))
 
 ;; ----------------------------------------
 
