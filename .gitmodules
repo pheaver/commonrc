@@ -3,7 +3,7 @@
 	url = signali:/home/signali/git/emacs
 [submodule "emacs/maxframe-el.git"]
 	path = emacs/maxframe-el.git
-	url = git://github.com/rmm5t/maxframe-el.git
+	url = git://github.com/rmm5t/maxframe.el.git
 [submodule "emacs/auto-complete.git"]
 	path = emacs/auto-complete.git
 	url = git://github.com/pheaver/auto-complete.git
