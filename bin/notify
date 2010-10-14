@@ -4,5 +4,9 @@ title="$1"
 shift
 message="$@"
 
-gntp-send -u "$title" "$message"
+if [ `uname` = "Linux" ]; then
+  notify-send "$title" "$message"
+else
+  gntp-send -u "$title" "$message"
+fi
 

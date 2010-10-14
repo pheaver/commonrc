@@ -5,5 +5,14 @@ shift
 message="$@"
 
 for host in 192.168.1.30 192.168.1.40 192.168.1.70; do
-    gntp-send -u -p phil -s $host "$title" "$message"
+    gntp-send -u -p phil -s $host "$title" "$message" &
 done
+
+if [ `hostname` = "tux" ]; then
+  if [ `uname` = "Linux" ]; then
+    notify-send "$title" "$message"
+  fi
+else
+  ssh 192.168.1.30 DISPLAY=:0.0 notify-send "\"$title\"" "\"$message\"" &
+fi
+
