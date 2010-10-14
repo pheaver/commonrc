@@ -34,3 +34,6 @@
 [submodule "emacs/media-files.el.git"]
 	path = emacs/media-files.el.git
 	url = git://github.com/pheaver/media-files.el.git
+[submodule "gntp-send.git"]
+	path = gntp-send.git
+	url = git://github.com/mattn/gntp-send.git

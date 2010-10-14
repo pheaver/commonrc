@@ -8,6 +8,8 @@
 cond-source ${RC}/mail.sh
 cond-source ${RC}/agent.sh
 
+pathmunge ${RC}/gntp-send.git/bin
+
 # -------------------------------------
 
 # for ack
