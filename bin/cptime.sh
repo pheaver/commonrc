@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 2 ]; then
   echo "Usage: `basename $0` timestamp_src dest_file";
@@ -7,7 +7,11 @@ fi
 
 function printtimestamp()
 {
-  stat -n -f "%Sm" -t "%Y%m%d%H%M" "$1"
+  # OS X
+  # stat -n -f "%Sm" -t "%Y%m%d%H%M" "$1"
+
+  # Linux (Ubuntu)
+  stat --format "%y" "$1"
 }
 
 SRC=$1
@@ -20,4 +24,8 @@ fi;
 
 TIME_SRC=`printtimestamp "${SRC}"`;
 
-touch -t ${TIME_SRC} "${DST}"
+# OS X
+# touch -t ${TIME_SRC} "${DST}"
+
+# Linux (Ubuntu)
+touch -m --date="${TIME_SRC}" "${DST}"
