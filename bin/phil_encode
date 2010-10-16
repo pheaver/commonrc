@@ -63,21 +63,28 @@ function do_mpeg4()
 
 function do_x264()
 {
-    # vbitrate=768k is also good
-    test -z ${vbitrate} && vbitrate=1536k
+    test -z ${vbitrate} && vbitrate=768k
     test -z ${threads} && threads=0
 
-    # ipod320 is another option
+    # ultrafast, superfast, veryfast, faster, fast, medium,
+    # slow, slower, veryslow, placebo.
+    # placebo is god-awful slow, but veryslow is bearable.
+    test -z ${encoding_speed} && encoding_speed=slower
+
+    test -z ${preset} && preset=-vpre ipod640
+
+    # dst="${dst_base}_${encoding_speed}_${vbitrate}.${format}"
+
     ffmpeg \
         -i "${src}" -an -pass 1 \
-        -vcodec libx264 -vpre fastfirstpass -vpre ipod640 \
+        -vcodec libx264 -vpre ${encoding_speed}_firstpass ${preset} \
         -b ${vbitrate} -bt ${vbitrate} \
         -threads ${threads} -y -f ${format} /dev/null || exit 1
 
     ffmpeg \
         -i "${src}" -pass 2 \
         -acodec libfaac -ab ${abitrate} \
-        -vcodec libx264 -vpre hq -vpre ipod640 \
+        -vcodec libx264 -vpre ${encoding_speed} ${preset} \
         -b ${vbitrate} -bt ${vbitrate} \
         -threads ${threads} -y -f ${format} "${dst}" || exit 1
 }
