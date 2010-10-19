@@ -11,12 +11,14 @@
 	diffw = diff -w
 	diffx = diff -w --color-words
 	up = pull --rebase
+	ff = pull --ff-only
+	f = merge --ff-only
 	st = status
 #	d = diff --name-status
 	d = diff --stat
 
-	slog = log --pretty=oneline --abbrev-commit
-	l = log --stat
+	l = log --pretty=oneline --abbrev-commit
+#	l = log --stat
 	unstage = reset HEAD --
 	last = log -1 HEAD
 
@@ -61,10 +63,11 @@
 [svn]
 	rmdir = true
 [github]
-	user = * 
+	user = *
 	token = *
 
 [core]
 	safecrlf = true
 	autocrlf = false
 	eol = lf
+
