@@ -5,12 +5,13 @@
 
 (defvar growlnotify-path "growlnotify")
 (defvar gntp-send-path "gntp-send")
+(defvar notify-send-path "notify-send")
 
-;; TODO support using gntp-send
 ;;;###autoload
 (defun notify (title msg &optional sticky)
   (message (concat title ": " msg))
-  (or (notify-growlnotify title msg sticky)
+  (or (notify-notify-send title msg)
+      (notify-growlnotify title msg sticky)
       (notify-gntp-send title msg sticky)))
 
 ;; zzz gntp-send doesn't seem to support a sticky flag
@@ -27,6 +28,10 @@
 
     (when (and args (executable-find growlnotify-path))
       (apply 'call-process growlnotify-path nil nil nil args))))
+
+(defun notify-notify-send (title msg)
+  (when (executable-find notify-send-path)
+    (call-process notify-send-path nil nil nil title msg)))
 
 ;;;###autoload
 (defun notify-timer (time msg)
