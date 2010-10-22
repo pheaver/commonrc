@@ -42,7 +42,8 @@
 (defun add-load-path (path)
   (let ((default-directory path))
     (add-to-list 'load-path (abbreviate-file-name path))
-    (normal-top-level-add-subdirs-to-load-path)))
+    (when (file-directory-p path)
+      (normal-top-level-add-subdirs-to-load-path))))
 
 (add-load-path "~/local/share/emacs/site-lisp")
 (add-load-path commonrc-dir)
