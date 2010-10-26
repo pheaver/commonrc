@@ -12,8 +12,8 @@ export SHELL
 # ----------------------------------------
 
 function unix {
-    [[ -z $ARCH ]] && export ARCH=`uname`
-    if [[ $ARCH == Darwin || $ARCH == FreeBSD ]]; then
+    [[ -z $MYARCH ]] && export MYARCH=`uname`
+    if [[ $MYARCH == Darwin || $MYARCH == FreeBSD ]]; then
         return 0
     else
         return 1
