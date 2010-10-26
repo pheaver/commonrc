@@ -21,9 +21,15 @@
 (setq org-goto-auto-isearch nil)
 (setq org-archive-default-command 'org-archive-to-archive-sibling)
 
-(setq org-special-ctrl-a/e 'reversed)
+;; 1st C-a goes to beginning of line, next goes after heading and todo items
+;; 1st C-e goes in front of tags, next goes to end of line
+(setq org-special-ctrl-a/e (cons 'reversed t))
+
 (setq org-special-ctrl-k t)
+
+;; cycle globally if cursor is at beginning of buffer before headlines
 (setq org-cycle-global-at-bob t)
+
 (setq org-use-speed-commands t)
 
 (setq org-agenda-window-setup 'other-window)
@@ -42,6 +48,7 @@
 
 (setq org-completion-use-ido t)
 (setq org-completion-use-iswitchb t)
+(setq org-outline-path-complete-in-steps)
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
