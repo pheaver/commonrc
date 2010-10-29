@@ -8,7 +8,7 @@ ELCS=$(ELS:.el=.elc)
 LOADDEF_SRCS=phil-utils
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
 
-SUBDIRS=auto-complete.git breadcrumb.git ghc-mod.git/elisp haskell-mode.git magit.git org-mode.git
+SUBDIRS=auto-complete.git breadcrumb.git ghc-mod.git/elisp haskell-mode.git magit.git org-mode.git media-files.el.git
 
 all: $(ELCS) $(LOADDEFS)
 
