@@ -114,6 +114,7 @@ alias barry="ssh barry -t screen -D -R"
 alias nas="ssh nas -t screen -D -R"
 alias deb="ssh deb -t screen -D -R"
 alias pjw="ssh pjw -t screen -D -R"
+alias ubu="ssh ubu -t screen -D -R"
 
 alias sunfire="ssh sunfire -t screen -D -R"
 alias signali="ssh signali -t screen -D -R"
