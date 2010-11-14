@@ -1,56 +1,13 @@
 #-*-sh-*-
 #####################################################
-# top-level file for environment vars and settings
+# master rc file that should be called by
+# top-level shell file (~/.zshenv or ~/.bashrc)
 ######################################################
 
-test -z $shell && shell=`basename $SHELL`
+# TODO infer RC by the location of this file (master.sh)
+test -z ${RC} && RC=~/commonrc
+test -f ${RC}/init.sh && source ${RC}/init.sh
 
-export SHELL
-
-# ----------------------------------------
-# miscellaneous functions/scripts
-# ----------------------------------------
-
-function unix {
-    [[ -z $MYARCH ]] && export MYARCH=`uname`
-    if [[ $MYARCH == Darwin || $MYARCH == FreeBSD ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function dlink {
-    [[ -z $HOST ]] && export HOST=`hostname`
-    if [[ $HOST == dlink* ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function interactive {
-    if [[ $- == *i* ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function cond-source {
-    test -r "$1" && source "$1" && return 0 || return 1
-}
-
-# -----------------------------------
-# load other files
-# -----------------------------------
-
-#cond-source /etc/profile
-#cond-source /etc/profile.env
-
-RC=~/commonrc
-
-cond-source /sw/bin/init.sh
 cond-source ${RC}/paths.sh
 cond-source ~/.localrc
 if interactive; then
