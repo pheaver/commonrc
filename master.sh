@@ -8,9 +8,13 @@
 test -z ${RC} && RC=~/commonrc
 test -f ${RC}/init.sh && source ${RC}/init.sh
 
-cond-source ${RC}/paths.sh
-cond-source ~/.localrc
-if interactive; then
-    cond-source ${RC}/env.sh
-    cond-source ${RC}/emacs.sh
+if [[ -f ~/.master-rc ]]; then
+    source ~/.master-rc
+else
+    cond-source ${RC}/paths.sh
+    cond-source ~/.localrc # for backwards compatibility
+    if interactive; then
+        cond-source ${RC}/env.sh
+        cond-source ${RC}/emacs.sh
+    fi
 fi
