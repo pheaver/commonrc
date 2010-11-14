@@ -12,4 +12,5 @@ cond-source ${RC}/paths.sh
 cond-source ~/.localrc
 if interactive; then
     cond-source ${RC}/env.sh
+    cond-source ${RC}/emacs.sh
 fi
