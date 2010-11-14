@@ -11,7 +11,8 @@ addpaths /
 addpaths /opt
 addpaths /opt/local
 addpaths ~/homebrew
-pathmunge ~/commonrc/bin
+pathmunge "${RC}/gntp-send.git/bin"
+pathmunge "${RC}/bin"
 addpaths ~/local
 addpaths ~
 
