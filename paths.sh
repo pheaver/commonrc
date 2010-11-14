@@ -10,15 +10,19 @@
 #   {C_,CPLUS_}INCLUDE_PATH += $p/include
 #   MANPATH += $p/man
 addpaths() {
-    pathmunge "$1/bin"
-    pathmunge "$1/sbin"
-    library-pathmunge "$1/lib"
-    include-pathmunge "$1/include"
+    # remove trailing slash if it exists
+    p="${1%/}"
+
+    pathmunge "$p/sbin"
+    pathmunge "$p/bin"
+    library-pathmunge "$p/lib"
+    include-pathmunge "$p/include"
+    man-pathmunge "$p/man"
 }
 
 generic-pathmunge() {
 
-    # examples names: PATH, LD_LIBRARY_PATH, LIBRARY_PATH, INCLUDE_PATH, C_INCLUDE_PATH
+    # example names: PATH, LD_LIBRARY_PATH, LIBRARY_PATH, INCLUDE_PATH, C_INCLUDE_PATH
     name=$1
     pathdir="$2"
 
@@ -30,8 +34,12 @@ generic-pathmunge() {
     esac
 
     # make sure directory exist.
+
     # make sure pathdir isn't already in the path variable.
-    if [[ -d "${pathdir}" && "${old_path}" != "*${pathdir}*" ]]; then
+    # this doesn't work:
+    # "${old_path}" != "*${pathdir}*"
+
+    if [[ -d "${pathdir}" ]]; then
 
         if [ -z "${old_path}" ]; then
             export $name="${pathdir}"
@@ -65,40 +73,31 @@ man-pathmunge () {
     generic-pathmunge MANPATH "$1" "$2"
 }
 
-addpaths # /
-addpaths /usr
+clear-paths () {
+    export PATH=
+    export LD_LIBRARY_PATH=
+    export LIBRARY_PATH=
+    export INCLUDE_PATH=
+    export C_INCLUDE_PATH=
+    export CPLUS_INCLUDE_PATH=
+    export MANPATH=
+}
+
+# -----------------------------------
+
+# default $PATH is usually something like this:
+# /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+
+clear-paths
+addpaths /usr/X11
 addpaths /usr/local
+addpaths /usr
+addpaths /
 addpaths /opt
 addpaths /opt/local
+addpaths ~/homebrew
 pathmunge ~/commonrc/bin
-#pathmunge ~/.cabal/bin
 addpaths ~/local
 addpaths ~
 
-# pathmunge /sbin
-# pathmunge /usr/sbin
-# pathmunge /usr/local/bin
-# pathmunge /usr/local/sbin
-# pathmunge /opt/local/bin
-# pathmunge /opt/local/sbin
-# pathmunge ~/commonrc/bin
-# pathmunge ~/.cabal/bin
-# pathmunge ~/local/bin
-# pathmunge ~/bin
-
-# library-pathmunge /usr/lib
-# library-pathmunge /usr/local/lib
-# library-pathmunge /sw/lib
-# library-pathmunge /opt/local/lib
-# library-pathmunge ~/lib
-# library-pathmunge ~/local/lib
-
-# include-pathmunge /usr/local/include
-# include-pathmunge /sw/include
-# include-pathmunge /opt/local/include
-# include-pathmunge ~/local/include
-
-# man-pathmunge /usr/local/man
-# man-pathmunge /opt/local/man
-# man-pathmunge ~/local/man
-
+# -----------------------------------
