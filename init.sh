@@ -59,6 +59,7 @@ addpaths() {
     library-pathmunge "$p/lib" $2
     include-pathmunge "$p/include" $2
     man-pathmunge "$p/man" $2
+    man-pathmunge "$p/share/man" $2
 }
 
 generic-pathmunge() {
