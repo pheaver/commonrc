@@ -15,6 +15,10 @@ else
     cond-source ~/.localrc # for backwards compatibility
     if interactive; then
         cond-source ${RC}/env.sh
-        cond-source ${RC}/emacs.sh
+        if dlink; then
+            export EDITOR=vi
+        else
+            cond-source ${RC}/emacs.sh
+        fi
     fi
 fi
