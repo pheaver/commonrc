@@ -28,6 +28,7 @@ export RSYNC_RSH=ssh
 export QUATTROFLAGS="outdir=${HOME}/outdir outfile=foo lineLength=105"
 
 # -------------------------------------
+# miscellaneous aliases and functions
 
 if unix; then
     alias ls="ls -G"
@@ -49,25 +50,30 @@ alias la="ls -A"
 alias lla="ls -A -hl"
 alias lal="ls -A -hl"
 
-# simple miscellaneous stuff
 alias pd="pushd"
 alias df="df -h"
 alias du="du -h"
 
 alias recent="ls -FlAt | head -n 20"
 alias find="find . -iname"
-alias psgrep='ps aux | grep -v grep | grep --color=auto'
+type psgrep >/dev/null || alias psgrep='ps aux | grep -v grep | grep --color=auto'
 alias grep='grep --color=auto'
 
-alias gentags="/usr/bin/find . -iname \*.\*hs | xargs hasktags -a -e "
+alias remove-temp="rm -f 0 .*~ *~ ~* \#*\# svn-*.tmp core.?????"
+alias rm-temp="remove-temp"
+
+function glocate {
+    locate "$1" | grep "$2"
+}
+
+alias c="./configure --prefix=${HOME}/local"
+
+# -----------------------------------------------
+# haskell
 
 function h {
-#    if [ "`which cabal`" ]; then
-#       cabal $@
-#    else
-        ghc --make Setup &&
-        if [[ ! -z "$@" ]]; then ./Setup $@; fi
-#    fi
+    ghc --make Setup &&
+    if [[ ! -z "$@" ]]; then ./Setup $@; fi
 }
 
 #alias hmake="runhaskell Setup.hs"
@@ -76,46 +82,29 @@ alias hbuild="h build"
 alias hinstall="h build && h install"
 alias hall="hconf && hbuild && hinstall"
 
-alias c="./configure --prefix=${HOME}/local"
+alias gentags="/usr/bin/find . -iname \*.\*hs | xargs hasktags -a -e "
 
-# remove, reload, etc...
-alias remove-temp="rm -f 0 .*~ *~ ~* \#*\# svn-*.tmp core.?????"
-alias rm-temp="remove-temp"
+# -----------------------------------------------
+# screen, local network, and ssh
 
 alias screen="screen -D -R"
 alias sn="screen"
-
-function glocate {
-    locate "$1" | grep "$2"
-}
-
-function submit_torrents
-{
-    test -e *.torrent && rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
-}
-
-# -----------------------------------------------
-# ssh and local network
 
 max=192.168.1.40
 deb=192.168.1.50
 nas=192.168.1.60
 
-# ssh aliases
-#alias barry="ssh barry -Y"
-alias tux="ssh tux -Y"
-
-alias barry="ssh barry -t screen -D -R"
-alias nas="ssh nas -t screen -D -R"
-alias deb="ssh deb -t screen -D -R"
-alias pjw="ssh pjw -t screen -D -R"
-alias ubu="ssh ubu -t screen -D -R"
-
-alias sunfire="ssh sunfire -t screen -D -R"
-alias signali="ssh signali -t screen -D -R"
+for x in barry nas deb pjw ubu sunfire signali; do
+    alias $x="ssh $x -t screen -D -R"
+done
 
 # -----------------------------------------------
-# transmission
+# transmission and torrents
+
+function submit_torrents
+{
+    test -e *.torrent && rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
+}
 
 alias tra="transmission-remote $nas"
 
