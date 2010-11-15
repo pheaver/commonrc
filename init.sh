@@ -60,12 +60,17 @@ addpaths() {
     # remove trailing slash if it exists
     p="${1%/}"
 
-    pathmunge "$p/sbin" $2
-    pathmunge "$p/bin" $2
-    library-pathmunge "$p/lib" $2
-    include-pathmunge "$p/include" $2
-    man-pathmunge "$p/man" $2
-    man-pathmunge "$p/share/man" $2
+    if [[ -d "$p" ]]; then
+        pathmunge "$p/sbin" $2
+        pathmunge "$p/bin" $2
+        library-pathmunge "$p/lib" $2
+        include-pathmunge "$p/include" $2
+        man-pathmunge "$p/man" $2
+        man-pathmunge "$p/share/man" $2
+        return 0
+    else
+        return 1
+    fi
 }
 
 generic-pathmunge() {
