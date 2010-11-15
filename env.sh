@@ -91,10 +91,7 @@ function glocate {
 
 function submit_torrents
 {
-    for i in *.torrent; do
-        scp -- "$i" pjw:~/downloads/torrents/watch &&
-        rm -- "$i"
-    done
+    test -e *.torrent && rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
 }
 
 # -----------------------------------------------
