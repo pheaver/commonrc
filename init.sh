@@ -44,7 +44,11 @@ function cond-source {
 }
 
 function rc-source {
+    cond-source ~/.localrc/"before-$1"
     cond-source ~/.localrc/"$1" || cond-source "${RC}/$1"
+    r=$?
+    cond-source ~/.localrc/"after-$1"
+    return $r
 }
 
 # -----------------------------------
