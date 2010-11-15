@@ -63,7 +63,7 @@ function do_mpeg4()
 
 function do_x264()
 {
-    test -z ${vbitrate} && vbitrate=768k
+    test -z ${vbitrate} && vbitrate=2048k
     test -z ${threads} && threads=0
 
     # ultrafast, superfast, veryfast, faster, fast, medium,
