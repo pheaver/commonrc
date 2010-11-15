@@ -38,7 +38,7 @@ function interactive {
 }
 
 function cond-source {
-    test -r "$1" && source "$1" && return 0 || return 1
+    test -f "$1" && test -r "$1" && source "$1"
 }
 
 # -----------------------------------
