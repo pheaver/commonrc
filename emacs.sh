@@ -50,7 +50,7 @@ function emake {
     ${emacsclient} -e "(compile \"make $@\" t)"
 }
 
-alias kill-emacs="\"${emacsclient}\" -e '(kill-emacs)'"
+alias kill-emacs="\"${emacsclient}\" -a \"false\" -e '(kill-emacs)'"
 
 #export VISUAL="${emacsclient}"
 
