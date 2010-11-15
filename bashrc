@@ -10,7 +10,7 @@
 
 shell=bash
 
-[[ -r ~/commonrc/master.sh ]] && . ~/commonrc/master.sh
+test -r ~/commonrc/init.sh && source ~/commonrc/init.sh
 
 if ! interactive; then
         return

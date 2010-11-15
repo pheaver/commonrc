@@ -3,6 +3,8 @@
 # required variables and functions that should be loaded before anything else
 ################################################################################
 
+test -z ${RC} && RC=~/commonrc
+
 test -z $shell && shell=`basename $SHELL`
 
 export SHELL
@@ -39,6 +41,10 @@ function interactive {
 
 function cond-source {
     test -f "$1" && test -r "$1" && source "$1"
+}
+
+function rc-source {
+    cond-source ~/.localrc/"$1" || cond-source "${RC}/$1"
 }
 
 # -----------------------------------
@@ -124,5 +130,9 @@ clear-paths () {
     export CPLUS_INCLUDE_PATH=
     export MANPATH=
 }
+
+################################################################################
+
+rc-source master.sh
 
 ################################################################################

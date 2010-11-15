@@ -2,4 +2,4 @@
 
 shell=zsh
 
-test -r ~/commonrc/master.sh && source ~/commonrc/master.sh
+test -r ~/commonrc/init.sh && source ~/commonrc/init.sh

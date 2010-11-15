@@ -5,8 +5,8 @@
 # includes aliases, exports, functions
 # -------------------------------------
 
-cond-source ${RC}/mail.sh
-cond-source ${RC}/agent.sh
+rc-source mail.sh
+rc-source agent.sh
 
 # -------------------------------------
 

@@ -1,24 +1,15 @@
 #-*-sh-*-
 #####################################################
-# master rc file that should be called by
-# top-level shell file (~/.zshenv or ~/.bashrc)
+# default master file that is called if ~/.localrc/master.sh does not exist
 ######################################################
 
-# TODO infer RC by the location of this file (master.sh)
-test -z ${RC} && RC=~/commonrc
-test -f ${RC}/init.sh && source ${RC}/init.sh
-
-if [[ -f ~/.master-rc ]]; then
-    source ~/.master-rc
-else
-    cond-source ${RC}/paths.sh
-    cond-source ~/.localrc # for backwards compatibility
-    if interactive; then
-        cond-source ${RC}/env.sh
-        if dlink; then
-            export EDITOR=vi
-        else
-            cond-source ${RC}/emacs.sh
-        fi
+rc-source paths.sh
+cond-source ~/.localrc # for backwards compatibility
+if interactive; then
+    rc-source env.sh
+    if dlink; then
+        export EDITOR=vi
+    else
+        rc-source emacs.sh
     fi
 fi
