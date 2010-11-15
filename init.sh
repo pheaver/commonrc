@@ -60,7 +60,7 @@ addpaths() {
     # remove trailing slash if it exists
     p="${1%/}"
 
-    if [[ -d "$p" ]]; then
+    if [[ -d "$p/" ]]; then
         pathmunge "$p/sbin" $2
         pathmunge "$p/bin" $2
         library-pathmunge "$p/lib" $2
