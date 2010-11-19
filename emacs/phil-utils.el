@@ -22,7 +22,8 @@
 (defun notify-growlnotify (title msg &optional sticky)
   (let ((args (cond
                ((eq system-type 'darwin)
-                (list (if sticky " -s " " ") "-a" "emacs" "-t" title "-m" msg))
+                (let ((args0 (list "-a" "emacs" "-t" title "-m" msg)))
+                  (if sticky (cons "-s" args0) args0)))
                ((memq system-type '(cygwin windows-nt))
                 (list (if sticky "/s:true" "/s:false") (concat "/t:" title) msg)))))
 
