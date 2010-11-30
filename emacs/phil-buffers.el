@@ -10,8 +10,7 @@
   (revert-buffer ignore-auto t preserve-modes))
 
 (global-set-key (kbd "C-M-]") 'bury-buffer)
-(global-set-key (kbd "C-x g") 'revert-buffer)
-(global-set-key (kbd "C-x G") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
 
 (global-set-key (kbd "C-M-;")
  (lambda () (interactive) (switch-to-buffer (other-buffer)))) ;; nil means (other-buffer)
