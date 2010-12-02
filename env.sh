@@ -103,7 +103,10 @@ done
 
 function submit_torrents
 {
-    test -e *.torrent && rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
+    # can't figure out an easier way to check if any .torrent files exist,
+    # so this is what we have for now...
+    test -n "`ls *.torrent 2>/dev/null`" &&
+    rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
 }
 
 alias tra="transmission-remote $nas"
