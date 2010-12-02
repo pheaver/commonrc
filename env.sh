@@ -56,7 +56,7 @@ alias du="du -h"
 
 alias recent="ls -FlAt | head -n 20"
 alias find="find . -iname"
-type psgrep >/dev/null || alias psgrep='ps aux | grep -v grep | grep --color=auto'
+type psgrep >/dev/null 2>&1 || alias psgrep='ps aux | grep -v grep | grep --color=auto'
 alias grep='grep --color=auto'
 
 alias remove-temp="rm -f 0 .*~ *~ ~* \#*\# svn-*.tmp core.?????"
