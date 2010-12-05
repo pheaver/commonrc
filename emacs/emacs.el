@@ -166,11 +166,9 @@
 ;; ---------------------------------------------
 ;; media files
 
-(autoload 'display-media-files "media-files" nil t)
+(autoload 'list-media-files "media-files" nil t)
 (eval-after-load 'media-files
-  '(progn
-     (require 'media-files-config)
-     (media-files-setup)))
+  '(load "media-files-config"))
 
 ;; ---------------------------------------------
 ;; markdown mode
