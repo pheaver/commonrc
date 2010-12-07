@@ -9,7 +9,12 @@
   (interactive "P")
   (revert-buffer ignore-auto t preserve-modes))
 
-(global-set-key (kbd "C-M-]") 'bury-buffer)
+(defun phil/bury-buffer (&optional arg buffer-or-name)
+  (interactive "P")
+  (bury-buffer buffer-or-name)
+  (when arg (other-window 1)))
+
+(global-set-key (kbd "C-M-]") 'phil/bury-buffer)
 (global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
 
 (global-set-key (kbd "C-M-;")
