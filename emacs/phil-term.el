@@ -42,6 +42,7 @@
 ;    ("C-n" . next-line)
 ;    ("M-p" . term-send-up)
 ;    ("M-n" . term-send-down)
+    ("M-y".  term-send-raw-meta)
     ("C-v" . term-send-raw)
     ("M-v" . term-send-raw-meta)
     ("C-m" . term-send-raw)
