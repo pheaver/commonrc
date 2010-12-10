@@ -65,21 +65,6 @@
          (yank)
          (term-char-mode)))
 
-;; (defun phil-ido-select (desc alist)
-;;   (let* ((x (ido-completing-read desc (mapcar 'car alist)))
-;;       (y (assoc-string x alist)))
-;;     (if y
-;;      (cdr y)
-;;       x)))
-
-;; (defun phil-create-term-buffer (name)
-;;   (switch-to-buffer-other-window name)
-;;   (set-buffer name)
-;;   (phil-term-mode)
-;;   (term-exec (get-buffer name) name "bash" nil nil)
-;;   (term-char-mode)
-;;   )
-
 (defun term-modep () (eq major-mode 'term-mode))
 
 (defun multi-term-other-window ()
@@ -90,16 +75,54 @@
     (multi-term-internal)
     (switch-to-buffer-other-window term-buffer)))
 
-(defun phil-term (other-window create-new)
+(defun phil-term-get-buffer (&optional arg special-shell)
+  (let ((shell-name (or multi-term-program ;shell name
+                        (getenv "SHELL")
+                        (getenv "ESHELL")
+                        "/bin/sh"))
+        (index 0)
+        term-name)
+    (if (eq arg 'dedicated)
+        (setq term-name multi-term-dedicated-buffer-name)
+
+      (cd (or default-directory (expand-file-name multi-term-default-dir)))
+
+      ;; select which terminal to use based on `arg'
+      (setq buf-or-name
+            (cond ((numberp arg)
+                   (format "%s<%s>" multi-term-buffer-name arg))
+                  ((eq arg 'dedicated)
+                   multi-term-dedicated-buffer-name)
+                  ((eq arg nil)
+                   (or (car (multi-term-list))
+                       (format "%s<%s>" multi-term-buffer-name 0)))
+                  (t
+                   (while (buffer-live-p (get-buffer (format "*%s<%s>*" multi-term-buffer-name index)))
+                     (setq index (1+ index)))
+                   (format "%s<%s>" multi-term-buffer-name index)))))
+
+    ;; Try get other shell name if `special-shell' is non-nil.
+    (if special-shell
+        (setq shell-name (read-from-minibuffer "Run program: " shell-name)))
+
+    (if (bufferp buf-or-name)
+        buf-or-name
+      (make-term buf-or-name shell-name))))
+
+(defun phil-term (&optional arg other-window)
+  (interactive "P")
   (require 'multi-term)
-  (let ((buffers (multi-term-list)))
-    (if (or create-new (null buffers))
-        (if other-window
-            (multi-term-other-window)
-          (multi-term))
-      (if other-window
-          (switch-to-buffer-other-window (car buffers))
-        (switch-to-buffer (car buffers))))))
+  (let (term-buffer)
+    ;; Set buffer.
+    (setq term-buffer (phil-term-get-buffer arg))
+    (set-buffer term-buffer)
+    ;; Internal handle for `multi-term' buffer.
+    (multi-term-internal)
+
+    ;; Switch buffer
+    (if other-window
+        (switch-to-buffer-other-window term-buffer)
+    (switch-to-buffer term-buffer))))
 
 (defun phil-toggle-term (&optional arg)
   "Open or close a multi-term buffer.  If ARG is `t', create a
@@ -109,37 +132,21 @@
   restore previous window configuration.  Otherwise, create a new
   buffer."
   (interactive "P")
-  (setq current-prefix-arg ())
-  (cond ((numberp arg)
-         ;; TODO: use prefix number to choose which terminal to open
-         (message "Whoops!"))
-        (arg
-         (if (term-modep)
-             (phil-term nil t)
-           (setq phil-toggle-term-win-conf (current-window-configuration))
-           (phil-term t t)))
-        ((term-modep)
-         (let ((b (current-buffer)))
-           (bury-buffer b)
-           (other-window -1)))
-        (t
-         (setq phil-toggle-term-win-conf (current-window-configuration))
-         (phil-term t nil))
-        ))
+  (if (not (term-modep))
+      (setq phil-toggle-term-win-conf (current-window-configuration)))
 
-;(defun phil-return-from-term () (bury-buffer))
-
-  ;; (setq b (current-buffer))
-  ;; (when (window-configuration-p phil-toggle-term-win-conf)
-  ;;   (set-window-configuration phil-toggle-term-win-conf)
-  ;;   (setq phil-toggle-term-win-conf nil))
-  ;; (bury-buffer b))
-
+  (if (and (term-modep) (not arg))
+      (progn
+        ;; (set-window-configuration phil-toggle-term-win-conf)
+        ;; (bury-buffer)
+        (other-window -1))
+    (phil-term arg (not (term-modep)))))
 
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-skip-other-window-p t)
 
-;(global-set-key (kbd "C-c C-;") 'multi-term-dedicated-toggle)
+(global-set-key (kbd "C-;") 'multi-term-dedicated-toggle)
+;; (global-set-key (kbd "C-c C-;") 'phil-toggle-term)
 (global-set-key (kbd "C-c C-;") 'phil-toggle-term)
 ;(global-set-key (kbd "C-c C-b") 'phil-select-term-buffer)
 
