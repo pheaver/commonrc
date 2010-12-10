@@ -31,6 +31,7 @@
 
   (add-to-list 'ac-dictionary-directories (commonrc-dir "auto-complete.git/dict"))
   (add-to-list 'ac-modes 'makefile-gmake-mode)
+  (add-to-list 'ac-modes 'nxml-mode)
 
   (setq-default ac-sources my-default-ac-sources)
 
