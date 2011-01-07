@@ -143,6 +143,7 @@
         (other-window -1))
     (phil-term arg (not (term-modep)))))
 
+(setq term-eol-on-end t)
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-skip-other-window-p t)
 
