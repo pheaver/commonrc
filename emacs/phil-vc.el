@@ -44,7 +44,7 @@
        (setq magit-completing-read 'ido-completing-read))))
 
 (setq magit-repo-dirs
-  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/signali"))
+  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/signali" "~/janrain"))
 
 ;; over ssh on CentOS, C-/ behaves as C-_
 (global-set-key (kbd "C-x C-/") 'magit-status)
