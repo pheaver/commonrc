@@ -247,6 +247,10 @@
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
+;;;; make scripts executable when they're saved
+(add-hook 'after-save-hook
+   'executable-make-buffer-file-executable-if-script-p)
+
 ;; (autoload 'shell-toggle "shell-toggle"
 ;;   "Toggles between the *shell* buffer and whatever buffer you are editing."  t)
 ;; (autoload 'shell-toggle-cd "shell-toggle"
