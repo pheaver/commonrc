@@ -30,7 +30,7 @@
 	url = git://github.com/pheaver/breadcrumb.git
 [submodule "emacs/org-mode.git"]
 	path = emacs/org-mode.git
-	url = git://repo.or.cz/org-mode.git
+	url = git://orgmode.org/org-mode.git
 [submodule "emacs/media-files.el.git"]
 	path = emacs/media-files.el.git
 	url = git://github.com/pheaver/media-files.el.git
