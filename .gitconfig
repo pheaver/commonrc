@@ -2,6 +2,8 @@
 	name = Philip Weaver
 	email = philip.weaver@gmail.com
 [alias]
+	cont = rebase --continue
+	abort = rebase --abort
 	br = branch
 	b = branch
 	ci = commit
