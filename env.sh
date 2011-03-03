@@ -11,7 +11,7 @@ rc-source agent.sh
 # -------------------------------------
 
 # for ack
-export ACK_OPTIONS="--type-set=quattro=.q --type-set=tquattro=.q.py --type-set=cryptol=.cry --type-set=tcryptol=.cryt --type-set=verilog=.v"
+export ACK_OPTIONS="--type-set=hsc=.hsc --type-set=quattro=.q --type-set=tquattro=.q.py --type-set=cryptol=.cry --type-set=tcryptol=.cryt --type-set=verilog=.v"
 export ACK_PAGER_COLOR="less -R -F"
 export CLICOLOR=yes
 
