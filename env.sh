@@ -84,6 +84,19 @@ alias hall="hconf && hbuild && hinstall"
 
 alias gentags="/usr/bin/find . -iname \*.\*hs | xargs hasktags -a -e "
 
+function use-ghc {
+    version=$1
+    if [ `which ghc-${version}` >/dev/null 2>&1 ]; then
+        export GHC=ghc-${version}
+        export GHC_PKG=ghc-pkg-${version}
+        alias ghc=${GHC}
+        alias ghc-pkg=${GHC_PKG}
+        alias ghci=ghci-${version}
+    else
+        echo "Could not find ghc version ${version}"
+    fi
+}
+
 # -----------------------------------------------
 # screen, local network, and ssh
 
