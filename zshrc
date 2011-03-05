@@ -13,12 +13,8 @@ SAVEHIST=1000
 #setopt HIST_IGNORE_ALL_DUPS
 setopt APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
-#setopt NULL_GLOB               # if pattern has no matches, delete pattern instead of reporting error
-unsetopt NOMATCH                # if pattern has no matches, leave it alone
 setopt NO_HUP
 #setopt NO_CHECK_JOBS
-unsetopt EQUALS
-#unsetopt GLOB
 
 alias re-source="source ~/.zshenv && source ~/.zshrc"
 alias rm="nocorrect rm"
