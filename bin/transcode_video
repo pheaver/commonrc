@@ -1,0 +1,114 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+################################################################################
+@x264_opts = {
+  :vbitrate        => "2048k",
+  :abitrate        => "64k",
+  :preset          => "ipod640",
+  :encoding_speed  => "slower",
+  :threads         => "0"
+}
+
+@opts = {
+  :src_files => [],
+  :dst_path => nil
+}
+
+def do_x264 (input_file, output_file)
+  format="mp4"
+
+  common_flags =
+    ["-i", input_file,
+     "-vcodec", "libx264",
+     # "-passlogfile", "/tmp/phil_encode",
+     "-vpre", @x264_opts[:preset],
+     "-b", @x264_opts[:vbitrate],
+     "-bt", @x264_opts[:vbitrate],
+     "-threads", @x264_opts[:threads],
+     "-f", format
+    ]
+
+  firstpass_flags = common_flags +
+    [ "-an", "-pass", "1",
+      "-vpre", @x264_opts[:encoding_speed] + "_firstpass",
+      "-y", "/dev/null"
+    ]
+
+  secondpass_flags = common_flags +
+     ["-pass", "2",
+      "-vpre", @x264_opts[:encoding_speed],
+      "-acodec", "libfaac",
+      "-ab", @x264_opts[:abitrate],
+      output_file
+     ]
+
+  system "ffmpeg", *firstpass_flags
+  unless $?.success? then exit 1 end
+
+  system "ffmpeg", *secondpass_flags
+  unless $?.success? then exit 1 end
+end
+
+################################################################################
+optparse = OptionParser.new do |opts|
+  opts.on '-b', '--vbitrate RATE', 'Video bitrate' do |x|
+    @x264_opts[:vbitrate] = x
+  end
+
+  opts.on '-a', '--abitrate RATE', 'Audio bitrate' do |x|
+    @x264_opts[:abitrate] = x
+  end
+
+  opts.on '-x', '--encoding-speed SPEED', "Encoding speed" do |x|
+    @x264_opts[:encoding_speed] = x
+  end
+
+  opts.on '-p', '--preset PRESET', 'Preset' do |x|
+    @x264_opts[:preset] = x
+  end
+
+  opts.on '-i', '--input-file FILE(s)', Array, 'Input file(s), or directory' do |x|
+    @opts[:src_files].concat x
+  end
+
+  opts.on '-o', '--output-file FILE', 'Output file or directory' do |x|
+    @opts[:dst_file] = x
+  end
+end
+
+args = optparse.order(ARGV)
+
+################################################################################
+
+input_files = []
+
+@opts[:src_files].each do |x|
+  xs = Dir.glob(x)
+  if xs.empty?
+    warn "ERROR: File does not exist: #{x}"
+    exit 1
+  end
+  input_files.concat(xs)
+end
+
+if @opts[:dst_file].nil?
+  @opts[:dst_file] = '.'
+end
+
+if input_files.length == 1
+  do_x264(input_files[0], @opts[:dst_file])
+elsif !(File.directory? @opts[:dst_file])
+  warn "ERROR: Multiple input files, but destination is not a directory"
+  exit 1
+else
+  extension = "mp4"  # TODO parametrize this
+  input_files.each do |input_file|
+    basename = File.basename(input_file, File.extname(input_file))
+    output_file = File.join(@opts[:dst_file], basename + '.' + extension)
+    do_x264(input_file, output_file)
+  end
+end
+
+################################################################################
