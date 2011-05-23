@@ -106,8 +106,9 @@ alias sn="screen"
 max=192.168.1.40
 deb=192.168.1.50
 nas=192.168.1.60
+bob=192.168.1.35
 
-for x in barry nas deb pjw ubu sunfire signali; do
+for x in barry nas bob deb pjw ubu sunfire signali; do
     alias $x="ssh $x -t screen -D -R"
 done
 
@@ -122,7 +123,7 @@ function submit_torrents
     rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
 }
 
-alias tra="transmission-remote $nas"
+alias tra="transmission-remote $bob"
 
 alias reload-transmission="killall -HUP transmission-daemon"
 
