@@ -13,7 +13,8 @@ require 'optparse'
 
 @opts = {
   :src_files => [],
-  :dst_path => nil
+  :dst_path => nil,
+  :copy_time => false
 }
 
 def do_x264 (input_file, output_file)
@@ -49,6 +50,11 @@ def do_x264 (input_file, output_file)
 
   system "ffmpeg", *secondpass_flags
   unless $?.success? then exit 1 end
+
+  if @opts[:copy_time]
+    system "cptime.sh", input_file, output_file
+  end
+
 end
 
 ################################################################################
@@ -75,6 +81,10 @@ optparse = OptionParser.new do |opts|
 
   opts.on '-o', '--output-file FILE', 'Output file or directory' do |x|
     @opts[:dst_file] = x
+  end
+
+  opts.on '-t', 'Copy timestamp' do |x|
+    @opts[:copy_time] = x
   end
 end
 
