@@ -97,17 +97,24 @@ if @opts[:dst_file].nil?
   @opts[:dst_file] = '.'
 end
 
+def output_file (input_file)
+  if File.directory? @opts[:dst_file]
+    extension = "mp4"  # TODO parametrize this
+    basename = File.basename(input_file, File.extname(input_file))
+    return File.join(@opts[:dst_file], basename + '.' + extension)
+  else
+    return @opts[:dst_file]
+  end
+end
+
 if input_files.length == 1
-  do_x264(input_files[0], @opts[:dst_file])
+  do_x264(input_files[0], output_file(input_files[0]))
 elsif !(File.directory? @opts[:dst_file])
   warn "ERROR: Multiple input files, but destination is not a directory"
   exit 1
 else
-  extension = "mp4"  # TODO parametrize this
   input_files.each do |input_file|
-    basename = File.basename(input_file, File.extname(input_file))
-    output_file = File.join(@opts[:dst_file], basename + '.' + extension)
-    do_x264(input_file, output_file)
+    do_x264(input_file, output_file(input_file))
   end
 end
 
