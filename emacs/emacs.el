@@ -63,6 +63,7 @@
 (global-set-key (kbd "C-z") 'repeat)
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
+(global-unset-key (kbd "s-p")) ;; so that i do not accidentally print
 
 ;;; always select help window
 (setq help-window-select t)
@@ -78,6 +79,8 @@
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 (eval-after-load "browse-kill-ring"
   '(browse-kill-ring-default-keybindings))
+
+(setq kill-ring-max 200)
 
 ;;; phil's itimer mode
 (autoload 'itimer-list-timers "itimer" "itimer" t)
