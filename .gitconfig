@@ -75,3 +75,5 @@
 	autocrlf = false
 	eol = lf
 
+[reviewboard]
+	url = http://reviews.janrain.com
