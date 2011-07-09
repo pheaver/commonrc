@@ -26,13 +26,13 @@
 (autoload 'magit-status "magit" "magit" t)
 (autoload 'egg-status "egg" "egg" t)
 
-(defun phil/magit-log-edit (arg)
-  (interactive "P")
-  (magit-log-edit)
-  (when arg (magit-log-edit-toggle-amending)))
+;; (defun phil/magit-log-edit (arg)
+;;   (interactive "P")
+;;   (magit-log-edit)
+;;   (when arg (magit-log-edit-toggle-amending)))
 
-(eval-after-load 'magit
-  '(define-key magit-mode-map (kbd "c") 'phil/magit-log-edit))
+;; (eval-after-load 'magit
+;;   '(define-key magit-mode-map (kbd "c") 'phil/magit-log-edit))
 
 (setq magit-omit-untracked-dir-contents t)
 
