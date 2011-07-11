@@ -15,6 +15,8 @@ all: $(ELCS) $(LOADDEFS)
 .PHONY: subdirs
 subdirs:
 	@for d in $(SUBDIRS); do echo "[C]" $$d; $(MAKE) -C $$d; done
+	@echo "[C]" haskell-mode.git; $(MAKE) -C haskell-mode.git compile
+
 
 EMACS=emacs
 BATCH=$(EMACS) -batch -q -no-site-file -eval \
