@@ -26,6 +26,11 @@ function sem {
     ${emacsclient} -e "(phil/find-file-sudo \"$1\")"
 }
 
+# open in emacs all files matching pattern
+function fm {
+    /usr/bin/find . -iname "${1}" | xargs ${emacsclient} -n
+}
+
 if [ $UID -eq 0 ]; then
     alias em="emacs -nw"
     export EDITOR=emacs
