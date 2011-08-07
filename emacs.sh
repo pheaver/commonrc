@@ -18,7 +18,7 @@ function er {
     if [ ! -z "$1" ]; then
         ${emacsclient} -n "$1"
     fi
-    ${emacsclient} -e '(ns-raise-emacs)'
+    ${emacsclient} -e '(phil/ns-raise-emacs)'
 }
 
 # open a function in emacs daemon with root priveleges using sudo
