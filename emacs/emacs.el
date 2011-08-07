@@ -113,7 +113,7 @@
 (setq-default fill-column 80)
 (setq set-mark-command-repeat-pop t)
 (setq require-final-newline t)
-;;(setq kill-whole-line t)
+(setq kill-whole-line t)
 
 ;;;; draw block cursor as wide as the glyph under it
 (setq x-stretch-cursor t)
