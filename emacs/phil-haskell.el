@@ -36,7 +36,7 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
-(setq haskell-indent-offset 2)
+(setq haskell-indent-offset 4)
 
 ;(setq haskell-literate-default 'latex)
 
