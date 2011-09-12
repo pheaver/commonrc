@@ -5,6 +5,7 @@
   (setq ns-option-modifier 'meta)
   (global-unset-key (kbd "s-q"))
   (global-unset-key (kbd "s-w"))
+  (global-unset-key (kbd "s-t"))
 
   (set-cursor-color "orange")
   (add-to-list 'default-frame-alist
