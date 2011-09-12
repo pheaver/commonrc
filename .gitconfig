@@ -65,6 +65,8 @@
 #	changed = green
 #	untracked = cyan
 
+[merge]
+	defaultToUpstream = true
 [svn]
 	rmdir = true
 [github]
