@@ -120,7 +120,7 @@ function submit_torrents
     # can't figure out an easier way to check if any .torrent files exist,
     # so this is what we have for now...
     test -n "`ls *.torrent 2>/dev/null`" &&
-    rsync -v --remove-source-files *.torrent pjw:~/downloads/torrents/watch
+    rsync -v --remove-source-files *.torrent bob:~/watch
 }
 
 alias tra="transmission-remote $bob"
