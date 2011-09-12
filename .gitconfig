@@ -20,9 +20,10 @@
 	st = status
 #	d = diff --name-status
 	d = diff --stat
-
-	l = log --pretty=oneline --abbrev-commit
+	l = log --graph --decorate --pretty=oneline --abbrev-commit
+	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
 #	l = log --stat
+	g = log --graph --decorate --stat
 	unstage = reset HEAD --
 	last = log -1 HEAD
 
