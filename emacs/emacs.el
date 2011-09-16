@@ -157,12 +157,14 @@
 (defun phil/split-window-vertically (&optional size)
   (interactive "P")
   (with-selected-window (split-window-vertically size)
-      (switch-to-buffer (other-buffer))))
+      (switch-to-buffer (other-buffer)))
+  (balance-windows))
 
 (defun phil/split-window-horizontally (&optional size)
   (interactive "P")
   (with-selected-window (split-window-horizontally size)
-      (switch-to-buffer (other-buffer))))
+      (switch-to-buffer (other-buffer)))
+  (balance-windows))
 
 (define-key ctl-x-map "2" 'phil/split-window-vertically)
 (define-key ctl-x-map "3" 'phil/split-window-horizontally)
