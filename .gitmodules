@@ -37,3 +37,6 @@
 [submodule "gntp-send.git"]
 	path = gntp-send.git
 	url = git://github.com/mattn/gntp-send.git
+[submodule "emacs/anything-config.git"]
+	path = emacs/anything-config.git
+	url = git://repo.or.cz/anything-config.git

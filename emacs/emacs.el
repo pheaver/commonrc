@@ -22,6 +22,7 @@
 (phil/eval-at-init-level 1 '(progn
 
 ;;;; load my other files
+(require 'phil-anything)
 (require 'phil-auto-complete)
 (require 'phil-breadcrumb)
 (require 'phil-buffers)
