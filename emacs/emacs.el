@@ -69,6 +69,14 @@
 ;;; always select help window
 (setq help-window-select t)
 
+;;;;;;;; paredit
+(autoload 'paredit-mode "paredit"
+  "Minor mode for pseudo-structurally editing Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
+(add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
+(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
+
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
