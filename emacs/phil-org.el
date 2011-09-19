@@ -10,8 +10,11 @@
   (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
   )
 
+;;;; locations of org files
 (setq org-agenda-files
       (list documents-dir (dropbox-dir "emacs")))
+(setq org-directory (dropbox-dir "emacs"))
+(setq org-default-notes-file (concat org-directory "/notes.org"))
 
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
 
@@ -64,8 +67,10 @@
     (switch-to-buffer org-buffer))
   )
 
+;;;; keybindings
 (global-set-key (kbd "C-c C-'") 'find-org-files)
-
+(global-set-key "\C-cb" 'org-ido-switchb)
+(define-key global-map "\C-cc" 'org-capture)
 ; "C-cl" is bound in tex/latex mode, so we use C-s S-l also
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c L") 'org-store-link)
