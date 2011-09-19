@@ -37,4 +37,4 @@ BATCH=$(EMACS) -batch -q -no-site-file -eval \
 
 clean:
 	rm -fr $(ELCS)
-	rm -fr $(fLOADDEFS)
+	rm -fr $(LOADDEFS)
