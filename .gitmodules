@@ -42,4 +42,4 @@
 	url = git://repo.or.cz/anything-config.git
 [submodule "emacs/google-weather-el.git"]
 	path = emacs/google-weather-el.git
-	url = git://git.naquadah.org/google-weather-el.git
+	url = git://github.com/pheaver/google-weather-el.git
