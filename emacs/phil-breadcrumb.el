@@ -1,7 +1,7 @@
 ;; ----------------------------------------
 ;; my breadcrumb settings
 
-(load "breadcrumb-site-file")
+(load "breadcrumb-site-file" 'noerror)
 
 (global-set-key (kbd "C-c SPC") 'bc-set)
 (global-set-key (kbd "C-c p"  ) 'bc-previous)
