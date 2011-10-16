@@ -10,38 +10,49 @@
   (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
   )
 
+(eval-after-load 'org
+  '(progn (add-to-list 'org-modules 'org-habit)
+          (add-to-list 'org-modules 'org-mobile)))
+
 ;;;; locations of org files
 (setq org-agenda-files
       (list documents-dir (dropbox-dir "emacs")))
 (setq org-directory (dropbox-dir "emacs"))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
+;;;; miscellaneous org settings
+(setq org-completion-use-ido t)
+(setq org-completion-use-iswitchb t)
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
-
+(setq org-archive-default-command 'org-archive-to-archive-sibling)
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
-(setq org-agenda-dim-blocked-tasks t) ;; default
 (setq org-goto-auto-isearch nil)
-(setq org-archive-default-command 'org-archive-to-archive-sibling)
+(setq org-outline-path-complete-in-steps)
+(setq org-read-date-prefer-future nil)
 
 ;; 1st C-a goes to beginning of line, next goes after heading and todo items
 ;; 1st C-e goes in front of tags, next goes to end of line
 (setq org-special-ctrl-a/e (cons 'reversed t))
-
 (setq org-special-ctrl-k t)
+(setq org-use-speed-commands t)
 
 ;; cycle globally if cursor is at beginning of buffer before headlines
 (setq org-cycle-global-at-bob t)
 
-(setq org-use-speed-commands t)
-
+;;;; agenda
+(setq org-agenda-start-on-weekday nil)
+(setq org-agenda-use-time-grid nil)
+(setq org-agenda-dim-blocked-tasks t) ;; default
 (setq org-agenda-window-setup 'other-window)
 (setq org-agenda-restore-windows-after-quit t)
 
+;;;; agenda and diary
 (add-to-list 'auto-mode-alist
              '("diary$" . diary-mode))
 
 (setq diary-display-function 'diary-fancy-display)
+(add-hook 'diary-display-hook 'fancy-diary-display)
 (add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
 (add-hook 'diary-list-entries-hook 'diary-sort-entries)
 
@@ -49,10 +60,34 @@
 (setq diary-file (dropbox-dir "emacs" "diary"))
 (setq org-agenda-include-diary t)
 
-(setq org-completion-use-ido t)
-(setq org-completion-use-iswitchb t)
-(setq org-outline-path-complete-in-steps)
+;;;; capture
+(setq org-capture-templates
+      '(("t" "Task" entry (file+headline "" "Inbox") "** TODO %?\n%i")
+        ("n" "Note" entry (file+headline "" "Inbox") "** %?\n%i")
+        ("k" "Quick Note" entry (file+headline "" "Inbox") "** %^{Description}\n%i" :immediate-finish t)
+        ("l" "Link Note" entry (file+headline "" "Inbox") "** %?\n%A")
+        ;; ("j" "Journal" entry (file+datetree "") "* %?\nEntered on %U\n i\n%a")
+        ;; ("x" "Test" entry (file+headline "" "Inbox") "* %?\n%^C")
+        ;; ("x" "test prefix")
+        ;; ("xx" "test" entry (file+headline "" "Tasks" "** %?"))
+        ))
 
+;;;; mobile
+(setq org-mobile-directory (dropbox-dir "MobileOrg"))
+(setq org-mobile-inbox-for-pull  (dropbox-dir "emacs/inbox.org"))
+
+;;;; habits
+; global STYLE property values for completion
+(setq org-global-properties '(("STYLE_ALL" . "habit")))
+; position the habit graph on the agenda to the right of the default
+(setq org-habit-graph-column 55)
+(setq org-habit-preceding-days 14) ; default
+(setq org-habit-following-days 7)  ; default
+(setq org-habit-show-habits-only-for-today t) ; default t
+; make sure habits are turned on in the agenda each day
+(run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
+
+;;;; custom functions
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
@@ -75,10 +110,6 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c L") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-
-;(setq org-log-done t)
-
-(add-hook 'diary-display-hook 'fancy-diary-display)
 
 ;(defun todo-entry-timestamp ()
 ;  "Prepend timestamp (but no initials!) to the head of a TODO entry."
