@@ -47,6 +47,15 @@
 (setq org-agenda-window-setup 'other-window)
 (setq org-agenda-restore-windows-after-quit t)
 
+;; agenda format
+(setq org-agenda-prefix-format
+      '((agenda . " %i %?-12t% s")
+        ;; (agenda . " %i %-12:c%?-12t% s")
+        (timeline . "  % s")
+        (todo . " %i %-12:c")
+        (tags . " %i %-12:c")
+        (search . " %i %-12:c")))
+
 ;;;; agenda and diary
 (add-to-list 'auto-mode-alist
              '("diary$" . diary-mode))
