@@ -51,9 +51,11 @@
 (set-register ?i (cons 'file user-init-file))
 (set-register ?e (cons 'file common-init-file))
 (set-register ?E (cons 'file (phil/parent-dir common-init-file)))
+(set-register ?D (cons 'file (dropbox-dir "emacs")))
 (set-register ?l (cons 'file local-rc-file))
 (set-register ?n (cons 'file (dropbox-dir "emacs" "notes.org")))
 (set-register ?w (cons 'file (dropbox-dir "emacs" "janrain-notes.org")))
+(set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
