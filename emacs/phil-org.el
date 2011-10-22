@@ -56,6 +56,14 @@
         (tags . " %i %-12:c")
         (search . " %i %-12:c")))
 
+;; google-weather in agenda
+(setq org-google-weather-icon-directory (dropbox-dir "icons/"))
+(setq org-google-weather-location "97217")
+(eval-after-load "org"
+  '(progn
+     (require 'google-weather)
+     (require 'org-google-weather)))
+
 ;;;; agenda and diary
 (add-to-list 'auto-mode-alist
              '("diary$" . diary-mode))
