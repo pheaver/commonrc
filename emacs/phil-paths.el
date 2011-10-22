@@ -39,15 +39,16 @@
 (defun dropbox-dir (&rest paths)
   (concat dropbox-dir (concatpaths paths)))
 
-(defun add-load-path (path)
+(defun add-load-path (path &optional append)
   (let ((default-directory path))
-    (add-to-list 'load-path (abbreviate-file-name path))
+    (add-to-list 'load-path (abbreviate-file-name path) append)
+    ;; TODO always appends - need to be able to control whether this appends
     (when (file-directory-p path)
       (normal-top-level-add-subdirs-to-load-path))))
 
 (add-load-path "~/local/share/emacs/site-lisp")
-(add-load-path commonrc-dir)
-(add-load-path user-emacs-directory)
+(add-load-path commonrc-dir 'append)
+;; (add-load-path user-emacs-directory)
 (add-load-path (concat dropbox-dir "emacs"))
 
 (provide 'phil-paths)
