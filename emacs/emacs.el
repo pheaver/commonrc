@@ -22,6 +22,7 @@
 (phil/eval-at-init-level 1 '(progn
 
 ;;;; load my other files
+(require 'phil-parent-dirs)
 (require 'phil-anything)
 (require 'phil-auto-complete)
 (require 'phil-breadcrumb)
@@ -49,6 +50,7 @@
 ;;;; registers
 (set-register ?i (cons 'file user-init-file))
 (set-register ?e (cons 'file common-init-file))
+(set-register ?E (cons 'file (phil/parent-dir common-init-file)))
 (set-register ?l (cons 'file local-rc-file))
 (set-register ?n (cons 'file (dropbox-dir "emacs" "notes.org")))
 (set-register ?w (cons 'file (dropbox-dir "emacs" "janrain-notes.org")))
