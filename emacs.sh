@@ -6,7 +6,7 @@
 
 emacs=`which emacs`
 emacsclient=`which emacsclient`
-emacs_major_version=`emacsclient --version 2>&1 | awk '{ print substr($2,0,2) }'`
+emacs_major_version=`emacsclient --version 2>&1 | awk '{ print substr($2,1,2) }'`
 # emacs_major_version=`emacs --no-site-file --no-init-file --batch \
 #                      --eval "(princ (format \"%i\\n\" emacs-major-version))"`
 
