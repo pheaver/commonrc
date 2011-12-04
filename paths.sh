@@ -5,12 +5,11 @@
 
 clear-paths
 addpaths /usr/X11
-addpaths /usr/local
 addpaths /usr
 addpaths /
+addpaths /usr/local
 addpaths /opt
 addpaths /opt/local
-addpaths ~/homebrew
 pathmunge "${RC}/gntp-send.git/bin"
 pathmunge "${RC}/bin"
 addpaths ~/local
