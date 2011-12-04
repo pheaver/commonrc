@@ -16,8 +16,8 @@
 
 ;;;; locations of org files
 (setq org-agenda-files
-      (list documents-dir (dropbox-dir "emacs")))
-(setq org-directory (dropbox-dir "emacs"))
+      (list documents-dir (dropbox-dir "Documents") (dropbox-dir "org")))
+(setq org-directory (dropbox-dir "org"))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
 ;;;; miscellaneous org settings
@@ -76,7 +76,7 @@
 (add-hook 'diary-list-entries-hook 'diary-sort-entries)
 
 (setq org-agenda-diary-file 'diary-file)
-(setq diary-file (dropbox-dir "emacs" "diary"))
+(setq diary-file (dropbox-dir "org" "diary"))
 (setq org-agenda-include-diary t)
 
 ;;;; capture
@@ -93,7 +93,7 @@
 
 ;;;; mobile
 (setq org-mobile-directory (dropbox-dir "MobileOrg"))
-(setq org-mobile-inbox-for-pull  (dropbox-dir "emacs/inbox.org"))
+(setq org-mobile-inbox-for-pull  (dropbox-dir "org/inbox.org"))
 
 ;;;; habits
 ; global STYLE property values for completion
