@@ -248,6 +248,7 @@
 (or (require 'phil-utils-loaddefs nil 'noerror)
     (require 'phil-utils))
 
+(global-set-key (kbd "C-c C-x t") 'notify-timer)
 (global-set-key "\C-xQ" 'phil/macro-query)
 (global-set-key (kbd "M-N") 'phil/mark-end-of-line)
 (global-set-key (kbd "M-P") 'phil/mark-end-of-line-previous)
