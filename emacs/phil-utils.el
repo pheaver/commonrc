@@ -9,6 +9,7 @@
 
 ;;;###autoload
 (defun notify (title msg &optional sticky)
+  (interactive "sTitle: \nsMessage: ")
   (message (concat title ": " msg))
   (or (notify-notify-send title msg)
       (notify-growlnotify title msg sticky)
