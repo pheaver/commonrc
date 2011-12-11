@@ -33,23 +33,23 @@ def do_x264 (input_file, output_file)
 
   firstpass_flags = common_flags +
     [ "-an", "-pass", "1",
-      "-vpre", @x264_opts[:encoding_speed] + "_firstpass",
+      # "-vpre", @x264_opts[:encoding_speed] + "_firstpass",
       "-y", "/dev/null"
     ]
 
   secondpass_flags = common_flags +
      ["-pass", "2",
-      "-vpre", @x264_opts[:encoding_speed],
+      # "-vpre", @x264_opts[:encoding_speed],
       "-acodec", "libfaac",
       "-ab", @x264_opts[:abitrate],
       output_file
      ]
 
   system "ffmpeg", *firstpass_flags
-  unless $?.success? then exit 1 end
+  unless $?.success? then raise "ffmpeg first pass failed" end
 
   system "ffmpeg", *secondpass_flags
-  unless $?.success? then exit 1 end
+  unless $?.success? then raise "ffmpeg second pass failed" end
 
   if @opts[:copy_time]
     system "cptime.sh", input_file, output_file
