@@ -51,12 +51,6 @@
 
 ;(setq haskell-literate-default 'latex)
 
-(push '("\\.[hg]s$" . haskell-mode) auto-mode-alist)
-(push '("\\.hi$" . haskell-mode) auto-mode-alist)
-(push '("\\.l[hg]s$" . literate-haskell-mode) auto-mode-alist)
-(push '("\\.lang" . haskell-mode) auto-mode-alist)
-(push '("\\.monad" . haskell-mode) auto-mode-alist)
-
 ;; ----------------------------------------
 
 (provide 'phil-haskell)
