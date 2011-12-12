@@ -17,10 +17,14 @@
           (add-to-list 'org-modules 'org-mobile)))
 
 ;;;; locations of org files
-(setq org-agenda-files
-      (list documents-dir (dropbox-dir "Documents") (dropbox-dir "org")))
 (setq org-directory (dropbox-dir "org"))
-(setq org-default-notes-file (concat org-directory "/notes.org"))
+
+(defun org-dir (&rest paths)
+  (concat org-directory "/" (concatpaths paths)))
+
+(setq org-agenda-files
+      (list documents-dir (dropbox-dir "Documents") org-directory))
+(setq org-default-notes-file (org-dir "notes.org"))
 
 ;;;; miscellaneous org settings
 (setq org-completion-use-ido t)
