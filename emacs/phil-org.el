@@ -1,6 +1,8 @@
 ;; ---------------------------------------------
 ;; organizer, diary, planner, todo list
 
+(autoload 'phil/import-calendars "phil-calendars")
+
 (add-to-list 'load-path (commonrc-dir "org-mode.git/lisp/"))
 
 (push '("\\.org\\'" . org-mode) auto-mode-alist)
