@@ -38,6 +38,17 @@
 
 (setq haskell-indent-offset 4)
 
+(setq haskell-indent-after-keywords
+  '(("where" 2 0)
+    ("of" 4)
+    ("do" 4)
+    ("in" 2 0)
+    ("{" 2)
+    "if"
+    "then"
+    "else"
+    "let"))
+
 ;(setq haskell-literate-default 'latex)
 
 (push '("\\.[hg]s$" . haskell-mode) auto-mode-alist)
