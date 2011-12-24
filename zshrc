@@ -14,6 +14,7 @@ SAVEHIST=1000
 setopt APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt NO_HUP
+setopt AUTO_CD
 #setopt NO_CHECK_JOBS
 
 alias re-source="source ~/.zshenv && source ~/.zshrc"
