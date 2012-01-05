@@ -5,7 +5,7 @@ SRCS=auto-mark browse-kill-ring linum multi-term shell-toggle \
 ELS=$(foreach x,$(SRCS),$x.el)
 ELCS=$(ELS:.el=.elc)
 
-LOADDEF_SRCS=phil-utils
+LOADDEF_SRCS=
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
 
 SUBDIRS=anything-config.git auto-complete.git breadcrumb.git ghc-mod.git/elisp haskell-mode.git magit.git org-mode.git media-files.el.git

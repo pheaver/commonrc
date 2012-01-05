@@ -7,10 +7,13 @@
 (defvar gntp-send-path "gntp-send")
 (defvar notify-send-path "notify-send")
 
-;;;###autoload
 (defun notify (title msg &optional sticky)
   (interactive "sTitle: \nsMessage: ")
   (message (concat title ": " msg))
+  (phil-notify-growl title msg sticky))
+
+(defun phil-notify-growl (title msg &optional sticky)
+  (interactive "sTitle: \nsMessage: ")
   (or (notify-notify-send title msg)
       (notify-growlnotify title msg sticky)
       (notify-gntp-send title msg sticky)))
@@ -35,24 +38,20 @@
   (when (executable-find notify-send-path)
     (call-process notify-send-path nil nil nil title msg)))
 
-;;;###autoload
 (defun notify-timer (time msg)
   "At time TIME, notify user with message MSG"
   (interactive "sRun at time: \nsMessage: ")
   (run-at-time time nil 'notify "Emacs Timer" msg t))
 
-;;;###autoload
 (defun tea-timer (time)
   (interactive "sRun at time: ")
   (notify-timer time "Tea is ready!"))
 
-;;;###autoload
 (defun phil/switch-to-buffer (buffer)
   (let ((w (get-buffer-window buffer)))
     (if w (select-window w)
       (switch-to-buffer buffer))))
 
-;;;###autoload
 (defun phil/shell-command-on-file
   (command &optional filename output-buffer error-buffer)
   (interactive
@@ -65,7 +64,6 @@
         (message (concat "Not a file: " (buffer-name)))
       (shell-command (concat command " " n) output-buffer error-buffer))))
 
-;;;###autoload
 (defun phil/macro-query (arg)
   "Prompt for input using minibuffer during kbd macro execution.
 With prefix argument, allows you to select what prompt string to use.
@@ -76,7 +74,6 @@ If the input is non-empty, it is inserted at point."
                      (read-from-minibuffer prompt))))
     (unless (string= "" input) (insert input))))
 
-;;;###autoload
 (defun phil/mark-end-of-line (arg)
   "Put mark at end of line.  Arg works as in `forward-line'.
 If this command is repeated, it marks the next ARG lines after
@@ -91,19 +88,16 @@ except uses `forward-line' instead of `forward-sentence'."
      (point))
    nil t))
 
-;;;###autoload
 (defun phil/mark-end-of-line-previous (arg)
   (interactive "p")
   (phil/mark-end-of-line (- 0 arg)))
 
-;;;###autoload
 (defun phil/isearch-occur ()
   (interactive)
   (let ((case-fold-search isearch-case-fold-search))
     (occur (if isearch-regexp isearch-string
              (regexp-quote isearch-string)))))
 
-;;;###autoload
 (defun phil/cleanup (file)
   (let* ((buffer0 (find-buffer-visiting file))
          (buffer1 (or buffer0 (find-file file))))
@@ -114,7 +108,6 @@ except uses `forward-line' instead of `forward-sentence'."
       (save-buffer buffer1)
       (kill-buffer buffer1))))
 
-;;;###autoload
 (defun phil/dired-cleanup-marked-files ()
   (interactive)
   (eval-when-compile (require 'dired))
@@ -124,7 +117,6 @@ except uses `forward-line' instead of `forward-sentence'."
 ;; meant to be called from command line.
 ;; only works for absolute paths
 ;; TODO: use ido to make it easy to use interactively.
-;;;###autoload
 (defun phil/find-file-sudo (filename)
   (interactive)
   (find-file (concat "/sudo::" filename)))

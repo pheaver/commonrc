@@ -36,6 +36,7 @@
 (require 'phil-frames)
 (require 'phil-tags)
 (require 'phil-term)
+(require 'phil-utils)
 (require 'phil-vc)
 (require 'phil-wspace)
 
@@ -243,10 +244,7 @@
 (add-hook 'latex-mode-hook 'outline-minor-mode)
 
 ;; ---------------------------------------------
-;; miscellaneous stuff from phil-utils
-
-(or (require 'phil-utils-loaddefs nil 'noerror)
-    (require 'phil-utils))
+;; set keybindings for functions in phil-utils
 
 (global-set-key (kbd "C-c C-x t") 'notify-timer)
 (global-set-key "\C-xQ" 'phil/macro-query)
