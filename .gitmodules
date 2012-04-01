@@ -12,7 +12,7 @@
 	url = git://github.com/pheaver/itimer-el.git
 [submodule "emacs/haskell-mode.git"]
 	path = emacs/haskell-mode.git
-	url = git://github.com/pheaver/haskell-mode.git
+	url = git://github.com/haskell/haskell-mode.git
 [submodule "emacs/magit.git"]
 	path = emacs/magit.git
 	url = git://github.com/magit/magit.git
