@@ -112,6 +112,14 @@
 ; make sure habits are turned on in the agenda each day
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 
+;;;; encryption
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance '("crypt"))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+
 ;;;; custom functions
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
