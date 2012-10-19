@@ -11,8 +11,8 @@
 	cim = commit -m
 	ciam = commit -a -m
 	co = checkout
+        d = diff -w
 	diffi = diff --color-words
-	diffw = diff -w
 	diffx = diff -w --color-words
 	up = pull --rebase
 	ff = pull --ff-only
@@ -24,7 +24,8 @@
 	l = log --graph --decorate --pretty=oneline --abbrev-commit
 	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	local = log --oneline origin..HEAD
-	lg = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ll = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
+	lal = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative --all
 	unstage = reset HEAD --
 	last = log -1 HEAD
 
@@ -64,6 +65,8 @@
 #	changed = green
 #	untracked = cyan
 
+[column]
+	branch = auto
 [merge]
 	defaultToUpstream = true
 [svn]
@@ -81,4 +84,4 @@
 [reviewboard]
 	url = http://reviews.janrain.com
 # [commit]
-# 	template = ~/commit-template.txt
+#	template = ~/commit-template.txt
