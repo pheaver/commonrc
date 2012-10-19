@@ -39,11 +39,11 @@
 (require 'phil-utils)
 (require 'phil-vc)
 (require 'phil-wspace)
+(require 'phil-recentf)
 
 ;;;; disabled stuff that I don't use anymore
 ;; (require 'phil-erc)
 ;; (require 'phil-mew)
-;; (require 'phil-recentf)
 
 ;; autoloads for cl-* files
 (load "cl-loaddefs")
