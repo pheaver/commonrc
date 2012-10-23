@@ -1,11 +1,30 @@
 ;; ----------------------------------------
 ;; my flymake settings
 
-;; don't auto-start flymake after idling
-(setq flymake-no-changes-timeout nil)
+;; run flymake after idle 1 second.
+(setq flymake-no-changes-timeout 1)
 
-;; don't auto-start flymake on newline
-(setq flymake-start-syntax-check-on-newline nil)
+;; run flymake on newline
+(setq flymake-start-syntax-check-on-newline t)
+
+;; http://www.emacswiki.org/emacs/FlymakeRuby
+;; Invoke ruby with '-c' to get syntax checking
+(defun flymake-ruby-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+         (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    (list "ruby" (list "-c" local-file))))
+
+(defun turn-on-ruby-flymake ()
+  (unwind-protect
+  ;; Don't want flymake mode for ruby regions in rhtml files and also on read only files
+  (if (and (not (null buffer-file-name)) (file-writable-p buffer-file-name))
+      (flymake-mode))
+  ))
+
+(add-hook 'ruby-mode-hook 'turn-on-ruby-flymake)
 
 ;; everything below is from http://www.emacswiki.org/emacs/FlyMake
 (defun my-flymake-err-at (pos)
@@ -21,6 +40,10 @@
 
 (eval-after-load "flymake"
   '(progn
+     (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+
      (require 'advice)
      (defadvice flymake-goto-next-error (after display-message activate compile)
        (my-flymake-err-echo))
