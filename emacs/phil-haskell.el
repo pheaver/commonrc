@@ -27,10 +27,11 @@
   (unwind-protect
       (progn
         (ghc-init)
+        (remove-hook 'find-file-hook 'ghc-import-module)
         (flymake-mode)
         )))
 
-(phil/eval-at-init-level 3 '(add-hook 'haskell-mode-hook 'turn-on-ghc-mod))
+;; (phil/eval-at-init-level 3 '(add-hook 'haskell-mode-hook 'turn-on-ghc-mod))
 
 (add-hook 'haskell-mode-hook 'turn-on-font-lock)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
