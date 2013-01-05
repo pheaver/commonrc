@@ -50,6 +50,7 @@
 (add-load-path commonrc-dir 'append)
 ;; (add-load-path user-emacs-directory)
 (add-load-path (concat dropbox-dir "emacs"))
+(add-load-path (concat user-emacs-directory "auto-install"))
 
 (provide 'phil-paths)
 
