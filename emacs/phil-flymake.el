@@ -1,11 +1,8 @@
 ;; ----------------------------------------
 ;; my flymake settings
 
-;; run flymake after idle 1 second.
 (setq flymake-no-changes-timeout 1)
-
-;; run flymake on newline
-(setq flymake-start-syntax-check-on-newline t)
+(setq flymake-start-syntax-check-on-newline nil)
 
 ;; http://www.emacswiki.org/emacs/FlymakeRuby
 ;; Invoke ruby with '-c' to get syntax checking
