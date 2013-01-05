@@ -1,6 +1,11 @@
 ;; ----------------------------------------
 ;; my auto-complete settings
 
+;; Note: will need to run this to install popup.el
+;; TODO automate this installation
+;; (require 'auto-install)
+;; (auto-install-from-url "https://raw.github.com/auto-complete/popup-el/master/popup.el")
+
 (require 'phil-paths)
 
 (defvar my-default-ac-sources
