@@ -167,7 +167,7 @@
 (when (functionp 'transient-mark-mode) (transient-mark-mode 1))
 (when (functionp 'savehist-mode) (savehist-mode 1))
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
-;; (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
+(when (functionp 'menu-bar-mode) (menu-bar-mode 0))
 
 ;;;; my tweak to the split-window functions
 (defun phil/split-window-vertically (&optional size)
