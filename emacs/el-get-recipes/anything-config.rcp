@@ -1,0 +1,6 @@
+(:name anything-config
+       :website "http://www.emacswiki.org/Anything"
+       :description "anything-config"
+       :type git
+       :url "git://repo.or.cz/anything-config.git"
+       :depends (anything))

@@ -1,0 +1,5 @@
+(:name itimer
+       :website "https://github.com/pheaver/itimer-el"
+       :description "Manage countdown timers"
+       :type github
+       :pkgname "pheaver/itimer-el")

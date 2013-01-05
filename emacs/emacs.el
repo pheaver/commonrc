@@ -22,6 +22,7 @@
 (phil/eval-at-init-level 1 '(progn
 
 ;;;; load my other files
+(require 'phil-packages)
 (require 'phil-parent-dirs)
 (require 'phil-anything)
 (require 'phil-auto-complete)
@@ -32,7 +33,6 @@
 (require 'phil-haskell)
 (require 'phil-hippie-expand)
 (require 'phil-org)
-(require 'phil-quattro)
 (require 'phil-frames)
 (require 'phil-tags)
 (require 'phil-term)
@@ -79,10 +79,15 @@
 ;;;;;;;; paredit
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-(add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
-(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
-(add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
+
+(defun load-paredit-mode ()
+  (if (require 'paredit-mode "paredit-mode" t)
+      (paredit-mode +1)))
+
+(add-hook 'emacs-lisp-mode-hook       'load-paredit-mode)
+(add-hook 'lisp-mode-hook             'load-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'load-paredit-mode)
+(add-hook 'scheme-mode-hook           'load-paredit-mode)
 
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)

@@ -1,45 +1,9 @@
 [submodule "emacs/quattro"]
 	path = emacs/quattro
 	url = signali:/home/signali/git/emacs
-[submodule "emacs/maxframe-el.git"]
-	path = emacs/maxframe-el.git
-	url = git://github.com/rmm5t/maxframe.el.git
-[submodule "emacs/auto-complete.git"]
-	path = emacs/auto-complete.git
-	url = git://github.com/pheaver/auto-complete.git
-[submodule "emacs/itimer-el.git"]
-	path = emacs/itimer-el.git
-	url = git://github.com/pheaver/itimer-el.git
-[submodule "emacs/haskell-mode.git"]
-	path = emacs/haskell-mode.git
-	url = git://github.com/haskell/haskell-mode.git
-[submodule "emacs/magit.git"]
-	path = emacs/magit.git
-	url = git://github.com/magit/magit.git
-[submodule "emacs/markdown-mode.git"]
-	path = emacs/markdown-mode.git
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "emacs/haskell-mode-exts.git"]
-	path = emacs/haskell-mode-exts.git
-	url = git://github.com/pheaver/haskell-mode-exts.git
-[submodule "emacs/ghc-mod.git"]
-	path = emacs/ghc-mod.git
-	url = git://github.com/kazu-yamamoto/ghc-mod.git
 [submodule "emacs/breadcrumb.git"]
 	path = emacs/breadcrumb.git
 	url = git://github.com/pheaver/breadcrumb.git
-[submodule "emacs/org-mode.git"]
-	path = emacs/org-mode.git
-	url = git://orgmode.org/org-mode.git
-[submodule "emacs/media-files.el.git"]
-	path = emacs/media-files.el.git
-	url = git://github.com/pheaver/media-files.el.git
 [submodule "gntp-send.git"]
 	path = gntp-send.git
 	url = git://github.com/mattn/gntp-send.git
-[submodule "emacs/anything-config.git"]
-	path = emacs/anything-config.git
-	url = git://repo.or.cz/anything-config.git
-[submodule "emacs/google-weather-el.git"]
-	path = emacs/google-weather-el.git
-	url = git://github.com/pheaver/google-weather-el.git

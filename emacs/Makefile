@@ -1,21 +1,18 @@
 #ELS=$(wildcard *.el)
-SRCS=auto-mark browse-kill-ring linum multi-term shell-toggle \
-	show-wspace tail visible-mark whitespace paredit \
-	phil-file-modes phil-parent-dirs phil-utils phil-wspace
+SRCS=phil-file-modes phil-parent-dirs phil-utils
 ELS=$(foreach x,$(SRCS),$x.el)
 ELCS=$(ELS:.el=.elc)
 
 LOADDEF_SRCS=
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
 
-SUBDIRS=anything-config.git auto-complete.git breadcrumb.git ghc-mod.git/elisp haskell-mode.git magit.git org-mode.git media-files.el.git
+SUBDIRS=breadcrumb.git
 
-all: $(ELCS) $(LOADDEFS)
+all: $(ELCS) $(LOADDEFS) subdirs install-package-managers
 
 .PHONY: subdirs
 subdirs:
 	@for d in $(SUBDIRS); do echo "[C]" $$d; $(MAKE) -C $$d; done
-	@echo "[C]" haskell-mode.git; $(MAKE) -C haskell-mode.git compile
 
 
 EMACS=emacs
@@ -34,6 +31,9 @@ BATCH=$(EMACS) -batch -q -no-site-file -eval \
                   --eval '(generate-file-autoloads (expand-file-name "$<"))' \
                   --eval '(insert "\n(provide (quote $*-loaddefs))\n")' \
                   --eval '(save-buffer)'
+
+install-package-managers:
+	@$(BATCH) --eval "(require 'install-package-managers)"
 
 clean:
 	rm -fr $(ELCS)

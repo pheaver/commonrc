@@ -69,8 +69,8 @@
 (setq org-google-weather-location "97217")
 (eval-after-load "org"
   '(progn
-     (require 'google-weather)
-     (require 'org-google-weather)))
+     (require 'google-weather "google-weather" 'noerror)
+     (require 'org-google-weather "org-google-weather" 'noerror)))
 
 ;;;; agenda and diary
 (add-to-list 'auto-mode-alist
