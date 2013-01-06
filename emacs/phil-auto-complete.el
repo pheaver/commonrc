@@ -13,7 +13,7 @@
     ;; ac-source-words-in-buffer
     ac-source-words-in-same-mode-buffers
     ac-source-dictionary
-    ac-source-files-in-current-dir
+    ;; ac-source-files-in-current-dir
     ))
 
 (autoload 'auto-complete "auto-complete" nil t)
@@ -77,19 +77,29 @@
   ;; this will start the auto-complete over on whatever you've typed,
   ;; which has the same effect as when ac-delay expires.
   ;; by default, M-TAB is bound to this, but that key isn't always available.
-  (define-key ac-completing-map (kbd "<C-tab>") 'auto-complete)
+  ;; (define-key ac-completing-map (kbd "<C-tab>") 'auto-complete)
+
+  (define-key ac-mode-map (kbd "<C-tab>") 'auto-complete)
+
+  ;; it's not enough to set ac-use-menu-map, because ac-completing-map is used
+  ;; when the menu pops up because I hit <TAB>, so I define these in
+  ;; ac-completing-map:
+  ;; (define-key ac-completing-map (kbd "C-n") 'ac-next)
+  ;; (define-key ac-completing-map (kbd "C-p") 'ac-previous)
 
   ;; never start showing completions automatically;
   ;; wait until I hit "TAB"
-  (setq ac-auto-start nil)
+  (setq ac-auto-start 2)
   (ac-set-trigger-key "TAB")
+
   (setq ac-delay 0.1) ;; while auto-complete is active, this will
                       ;; cause the menu to update its results as you type.
 
-  ;; when completions start, immediately popup the menu,
-  ;; and support local keybindings in the menu (like C-n and C-p)
-  (setq ac-auto-show-menu t)
-  (setq ac-use-menu-map t)
+  (setq ac-auto-show-menu 1) ;; delay before showing menu
+  (setq ac-use-menu-map t) ;; support things like C-n and C-p in ac menu
+
+  (setq ac-show-menu-immediately-on-auto-complete t) ;; default t
+  (setq ac-expand-on-auto-complete t) ;; default t
 
   ;; enable fuzzy matching
   (setq ac-fuzzy-enable t)
