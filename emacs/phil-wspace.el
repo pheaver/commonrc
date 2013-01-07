@@ -32,7 +32,7 @@ Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
 
 ;; my preferred settings.
 (setq whitespace-style
-  '(trailing tabs space-before-tab::tab space-before-tab::space))
+  '(face trailing tabs space-before-tab::tab space-before-tab::space))
 
 (setq whitespace-action nil)
 
