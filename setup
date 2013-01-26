@@ -23,6 +23,7 @@ ln -sf ${SHARE}/zshenv .zshenv
 
 ln -sf ${SHARE}/.screenrc
 ln -sf ${SHARE}/.gitconfig
+ln -sf ${SHARE}/Xmodmap .Xmodmap
 
 mkdir -p .subversion
 (cd .subversion >/dev/null && ln -sf ${SHARE}/.subversion/config)
