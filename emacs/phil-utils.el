@@ -6,17 +6,23 @@
 (defvar growlnotify-path "growlnotify")
 (defvar gntp-send-path "gntp-send")
 (defvar notify-send-path "notify-send")
+(defvar terminal-notifier-path "terminal-notifier")
 
 (defun notify (title msg &optional sticky)
   (interactive "sTitle: \nsMessage: ")
   (message (concat title ": " msg))
-  (phil-notify-growl title msg sticky))
+  (phil-notify title msg sticky))
 
-(defun phil-notify-growl (title msg &optional sticky)
+(defun phil-notify (title msg &optional sticky)
   (interactive "sTitle: \nsMessage: ")
-  (or (notify-notify-send title msg)
+  (or (notify-terminal-notifier title msg)
+      (notify-notify-send title msg)
       (notify-growlnotify title msg sticky)
       (notify-gntp-send title msg sticky)))
+
+(defun notify-terminal-notifier (title msg &optional sticky)
+  (when (executable-find terminal-notifier-path)
+    (call-process terminal-notifier-path nil nil nil "-title" title "-message" msg)))
 
 ;; zzz gntp-send doesn't seem to support a sticky flag
 (defun notify-gntp-send (title msg &optional sticky)
