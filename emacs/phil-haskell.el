@@ -18,6 +18,10 @@
     (haskell-sort-imports)
     (goto-char (+ (point) col)))) ;; Restore the column.
 
+(defun my-haskell-mode-hook ()
+  (make-variable-buffer-local 'tags-case-fold-search)
+  (setq tags-case-fold-search nil))
+
 (eval-after-load "haskell-mode"
   '(progn
      (define-key haskell-mode-map (kbd "C-c h") 'haskell-hoogle)
