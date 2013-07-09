@@ -29,6 +29,8 @@ alias find="noglob find . -iname"
 ####################################################
 # how the login prompt appears
 
+source $RC/zsh-git-prompt/zshrc.sh
+
 # http://aperiodic.net/phil/prompt/
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
@@ -61,8 +63,8 @@ PR_DIR=${PR_LIGHT_BLUE}%~${PR_NO_COLOR}
 
 jobs=${PR_BLUE}%(1j. %j.)${PR_NO_COLOR}
 exitstatus=${PR_RED}%(0?.. %?)${PR_NO_COLOR}
-PS1="${PR_NO_COLOR}[%m %D{%I:%M:%S}${jobs}${exitstatus}] ${PR_USER} ${PR_DIR}
-%(!.#.$) "   # '#' if running with priveleges, '$' otherwise
+PS1='${PR_NO_COLOR}[%m %D{%I:%M:%S}${jobs}${exitstatus}] ${PR_USER}$(git_super_status) ${PR_DIR}
+%(!.#.$) '   # '#' if running with priveleges, '$' otherwise
 
 #PS1="%# '${vcs_info_msg_0_}'"
 
