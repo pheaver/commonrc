@@ -25,15 +25,15 @@
         ;; (:name anything :checkout "v1.3.9")
         ;; (:name anything-config)
         (:name calfw)
-        (:name ghc-mod :checkout "v1.11.1")
+        (:name ghc-mod :checkout "v1.12.4")
         (:name haskell-mode :checkout "2_9_1")
         (:name haskell-mode-exts)
         (:name itimer)
-        (:name magit :checkout "1.1.1")
+        (:name magit :checkout "1.2.0")
         (:name markdown-mode)
         (:name maxframe)
         (:name multi-term)
-        (:name org-mode :checkout "release_7.9.2")
+        (:name org-mode :checkout "release_8.0.2")
         (:name paredit)
         (:name tail)
         ;; these two have an error:
@@ -50,7 +50,7 @@
   '(add-to-list 'el-get-recipe-path (commonrc-dir "el-get-recipes")))
 
 (if (require 'el-get nil t)
-    (el-get 'sync))
+    (el-get))
 
 (defun el-get-install-all ()
   (interactive)
