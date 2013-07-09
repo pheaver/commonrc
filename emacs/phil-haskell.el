@@ -19,6 +19,9 @@
     (goto-char (+ (point) col)))) ;; Restore the column.
 
 (defun my-haskell-mode-hook ()
+  (make-variable-buffer-local 'after-save-hook)
+  (remove-hook 'after-save-hook 'haskell-mode-after-save-handler)
+  (add-hook 'after-save-hook 'phil/haskell-make-tags)
   (make-variable-buffer-local 'tags-case-fold-search)
   (setq tags-case-fold-search nil))
 
@@ -35,6 +38,16 @@
         (flymake-mode)
         )))
 
+(defun phil/haskell-make-tags ()
+  (interactive)
+  (let* ((cabal-file (haskell-cabal-find-file))
+         (command (format "cd %s && %s | %s | %s"
+                          (phil/parent-dir cabal-file)
+                          "find . -name '*.hs*'"
+                          "grep -v '#'" ; To avoid Emacs back-up files. Yeah.
+                          "xargs hasktags -e -x")))
+    (and cabal-file (start-process "maketags" "*haskell-make-tags*" shell-file-name shell-command-switch command))))
+
 ;; (phil/eval-at-init-level 3 '(add-hook 'haskell-mode-hook 'turn-on-ghc-mod))
 
 (add-hook 'haskell-mode-hook 'turn-on-font-lock)
@@ -46,6 +59,7 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
 (setq haskell-indent-offset 4)
 
