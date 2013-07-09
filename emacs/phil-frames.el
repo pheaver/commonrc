@@ -8,7 +8,12 @@
 
 (setq color-theme-is-global nil)
 
-(add-load-path "~/local/src/solarized/emacs-colors-solarized")
+(setq phil/solarized-path "~/local/src/solarized")
+
+(if (>= emacs-major-version 24)
+    (add-to-list 'custom-theme-load-path phil/solarized-path 'append)
+  (add-load-path phil/solarized-path))
+
 ;; (autoload 'color-theme-solarized-light "color-theme-solarized")
 ;; (autoload 'color-theme-solarized-dark "color-theme-solarized")
 
@@ -63,8 +68,10 @@
   (set-variable 'color-theme-is-global nil)
 
   (when (and window-system
-             (require 'color-theme-solarized nil 'noerror))
-    (color-theme-solarized-dark)
+            (if (>= emacs-major-version 24)
+                (load-theme 'solarized-dark t)
+               (and (require 'color-theme-solarized nil 'noerror)
+                    (color-theme-solarized-dark))))
     (phil/set-frame-theme frame))
 
   (let ((x (framep frame)))
