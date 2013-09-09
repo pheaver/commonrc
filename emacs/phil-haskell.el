@@ -1,6 +1,6 @@
 ;; ----------------------------------------
 
-(load "haskell-site-file" 'noerror)
+(load "haskell-mode-autoloads" 'noerror)
 
 ; hpaste
 (autoload 'hpaste-paste-buffer "hpaste" "hpaste" t)
@@ -56,12 +56,15 @@
 ;(add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
 
 ;; choose one of these indentation modes:
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(remove-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
 (setq haskell-indent-offset 4)
+(setq haskell-indentation-left-offset 4)
+
+(setq haskell-tags-on-save nil)
 
 (setq haskell-indent-after-keywords
   '(("where" 2 0)
@@ -69,6 +72,7 @@
     ("do" 4)
     ("in" 2 0)
     ("{" 2)
+    ("=" 4)
     "if"
     "then"
     "else"
