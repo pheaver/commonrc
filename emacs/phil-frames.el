@@ -55,8 +55,11 @@
 (defun resize-current-frame () (interactive)
   (resize-frame (selected-frame)))
 
-(when (fboundp 'ns-toggle-fullscreen)
-  (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen))
+(setq ns-use-native-fullscreen nil)
+
+(if (fboundp 'ns-toggle-fullscreen)
+  (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen)
+  (global-set-key (kbd "<s-return>") 'toggle-frame-fullscreen))
 
 (defun phil/ns-raise-emacs ()
   (ns-do-applescript "tell application \"Emacs\" to activate"))
