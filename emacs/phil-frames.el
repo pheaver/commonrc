@@ -57,6 +57,12 @@
 
 (setq ns-use-native-fullscreen nil)
 
+(when (not (fboundp 'toggle-frame-fullscreen))
+  (defun toggle-frame-fullscreen (&optional frame)
+    (interactive)
+    (set-frame-parameter frame 'fullscreen
+        (if (eq (frame-parameter frame 'fullscreen) 'fullscreen) nil 'fullscreen))))
+
 (if (fboundp 'ns-toggle-fullscreen)
   (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen)
   (global-set-key (kbd "<s-return>") 'toggle-frame-fullscreen))
