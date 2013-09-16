@@ -1,11 +1,5 @@
 ;; ----------------------------------------
 
-;; (defun fullscreen () (interactive)
-;;   (set-frame-parameter nil 'fullscreen
-;;                        (if (frame-parameter nil 'fullscreen)
-;;                            nil
-;;                          'fullboth)))
-
 (setq color-theme-is-global nil)
 
 (setq phil/solarized-path "~/local/src/solarized")
@@ -57,15 +51,18 @@
 
 (setq ns-use-native-fullscreen nil)
 
-(when (not (fboundp 'toggle-frame-fullscreen))
-  (defun toggle-frame-fullscreen (&optional frame)
-    (interactive)
-    (set-frame-parameter frame 'fullscreen
-        (if (eq (frame-parameter frame 'fullscreen) 'fullscreen) nil 'fullscreen))))
+(defun phil/toggle-fullscreen (&optional frame)
+  (interactive)
+  (when (memq window-system '(x ns))
+    (cond
+     ((fboundp 'ns-toggle-fullscreen) (ns-toggle-fullscreen frame))
+     ((fboundp 'toggle-frame-fullscreen) (toggle-frame-fullscreen frame))
+     (t (set-frame-parameter frame 'fullscreen
+                             (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))))
 
-(if (fboundp 'ns-toggle-fullscreen)
-  (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen)
-  (global-set-key (kbd "<s-return>") 'toggle-frame-fullscreen))
+
+(global-set-key (kbd "<s-return>") 'phil/toggle-fullscreen)
+(global-set-key [f11] 'phil/toggle-fullscreen)
 
 (defun phil/ns-raise-emacs ()
   (ns-do-applescript "tell application \"Emacs\" to activate"))
@@ -76,12 +73,13 @@
   (raise-frame frame)
   (set-variable 'color-theme-is-global nil)
 
-  (when (and window-system
-            (if (>= emacs-major-version 24)
-                (load-theme 'solarized-dark t)
-               (and (require 'color-theme-solarized nil 'noerror)
-                    (color-theme-solarized-dark))))
-    (phil/set-frame-theme frame))
+  (if (and window-system
+           (require 'color-theme-solarized nil 'noerror)
+           (if (>= emacs-major-version 24)
+               (load-theme 'solarized-dark t)
+             (color-theme-solarized-dark)))
+      (phil/set-frame-theme frame)
+    (load-theme 'deeper-blue t))
 
   (let ((x (framep frame)))
     (when (equal x 'ns)
