@@ -1,0 +1,2 @@
+* Install
+: curl https://raw.github.com/pheaver/commonrc/master/setup | bash
