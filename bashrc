@@ -10,7 +10,7 @@
 
 shell=bash
 
-test -r ~/commonrc/init.sh && source ~/commonrc/init.sh
+test -r ~/commonrc/shell/init.sh && source ~/commonrc/shell/init.sh
 
 if ! interactive; then
         return

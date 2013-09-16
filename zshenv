@@ -7,4 +7,4 @@ unsetopt NOMATCH                # if pattern has no matches, leave it alone
 #unsetopt GLOB
 unsetopt EQUALS
 
-test -r ~/commonrc/init.sh && source ~/commonrc/init.sh
+test -r ~/commonrc/shell/init.sh && source ~/commonrc/shell/init.sh
