@@ -39,6 +39,7 @@ if [ ! -e ~/.emacs.d/init.el ]; then
     echo '(load-file "~/commonrc/emacs/emacs.el")' > ~/.emacs.d/init.el
 fi
 
+cd ${SHARE}
 git submodule update --init
 
 make -C ${SHARE}/emacs
