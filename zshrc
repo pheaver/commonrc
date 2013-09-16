@@ -58,8 +58,8 @@ PR_URCORNER=${altchar[k]:--}
 # %d is directory
 # %1~ is directory basename, home replaced with ~
 
-PR_USER=%(!.${PR_LIGHT_RED}.${PR_LIGHT_GREEN})%n
-PR_DIR=${PR_LIGHT_BLUE}%~${PR_NO_COLOR}
+PR_USER=%(!.${PR_LIGHT_RED}.${PR_GREEN})%n
+PR_DIR=${PR_BLUE}%~${PR_NO_COLOR}
 
 jobs=${PR_BLUE}%(1j. %j.)${PR_NO_COLOR}
 exitstatus=${PR_RED}%(0?.. %?)${PR_NO_COLOR}
