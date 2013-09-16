@@ -7,9 +7,12 @@
 
 [ -z $SHARE ] && SHARE=${HOME}/commonrc
 
+# if commonrc dir does not exist, then we need to clone it.
 if [ ! -d ${SHARE} ]; then
-    echo ${SHARE} does not exist
-    exit 1
+    mkdir -p ${SHARE}
+    cd ${SHARE}
+    git clone -o github https://github.com/pheaver/commonrc.git .
+    git remote add nas nas:commonrc.bare
 fi
 
 cd ${HOME}
