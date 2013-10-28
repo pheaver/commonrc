@@ -56,8 +56,8 @@
 (set-register ?l (cons 'file local-rc-file))
 (set-register ?n (cons 'file (dropbox-dir "org" "notes.org")))
 (set-register ?I (cons 'file (dropbox-dir "org" "inbox.org")))
-(set-register ?w (cons 'file (dropbox-dir "org" "janrain-notes.org")))
-(set-register ?W (cons 'file (dropbox-dir "org" "janrain-misc.org")))
+(set-register ?w (cons 'file (dropbox-dir "org" "rtk-notes.org")))
+(set-register ?W (cons 'file (dropbox-dir "org" "rtk-misc.org")))
 (set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
 
 (global-set-key (kbd "C-x r v") 'view-register)
