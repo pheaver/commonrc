@@ -55,7 +55,7 @@ alias df="df -h"
 alias du="du -h"
 
 alias recent="ls -FlAt | head -n 20"
-alias find="find . -iname"
+alias f="find . -iname"
 type psgrep >/dev/null 2>&1 || alias psgrep='ps aux | grep -v grep | grep --color=auto'
 alias grep='grep --color=auto'
 
