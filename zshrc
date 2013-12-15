@@ -19,7 +19,7 @@ setopt AUTO_CD
 
 alias re-source="source ~/.zshenv && source ~/.zshrc"
 alias rm="nocorrect rm"
-alias find="noglob find . -iname"
+alias f="noglob find . -iname"
 
 # if not interactive...
 #if [[ $- != *i* ]]; then
