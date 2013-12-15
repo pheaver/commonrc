@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# scala tags
+# /usr/bin/find -name '*.scala' -not -path "*/target/*" | xargs ctags -e
+/usr/bin/find -name '*.scala' -type f -not -path "*/target/*" -exec etags --regex=@${HOME}/commonrc/emacs/scala.etags {} +
