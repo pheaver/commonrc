@@ -25,6 +25,7 @@ ln -sf ${SHARE}/bashrc .bash_profile
 ln -sf ${SHARE}/zshenv .zshenv
 
 ln -sf ${SHARE}/.screenrc
+ln -sf ${SHARE}/.tmux.conf
 ln -sf ${SHARE}/.gitconfig
 ln -sf ${SHARE}/Xmodmap .Xmodmap
 
