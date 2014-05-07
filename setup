@@ -28,6 +28,7 @@ ln -sf ${SHARE}/.screenrc
 ln -sf ${SHARE}/.tmux.conf
 ln -sf ${SHARE}/.gitconfig
 ln -sf ${SHARE}/Xmodmap .Xmodmap
+ln -sf ${SHARE}/Xresources .Xresources
 
 mkdir -p .subversion
 (cd .subversion >/dev/null && ln -sf ${SHARE}/.subversion/config)
