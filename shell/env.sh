@@ -123,7 +123,11 @@ function submit_torrents
     rsync -v --remove-source-files *.torrent bob:~/watch
 }
 
-alias tra="transmission-remote $bob"
+if dlink; then
+   alias tra="transmission-remote $nas"
+else
+   alias tra="transmission-remote $bob"
+fi
 
 alias reload-transmission="killall -HUP transmission-daemon"
 
