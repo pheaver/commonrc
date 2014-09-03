@@ -232,6 +232,11 @@
 (push '("\\.hh$" . c++-mode) auto-mode-alist)
 
 ;; ---------------------------------------------
+;; javascript/json
+
+(setq js-indent-level 2)
+
+;; ---------------------------------------------
 ;; miscellaneous auto-mode-alist settings
 
 (push '("\\.zsh$" . sh-mode) auto-mode-alist)
