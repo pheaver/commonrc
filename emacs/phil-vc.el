@@ -34,6 +34,8 @@
 ;; (eval-after-load 'magit
 ;;   '(define-key magit-mode-map (kbd "c") 'phil/magit-log-edit))
 
+(setq magit-sha1-abbrev-length 8)
+
 (setq magit-omit-untracked-dir-contents t)
 
 (setq magit-repo-dirs-depth 1)

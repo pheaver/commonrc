@@ -21,11 +21,11 @@
 #	d = diff --name-status
 	d = diff --stat
 	g = log --graph --decorate
-	l = log --graph --decorate --pretty=oneline --abbrev-commit
-	la = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	l = log --graph --decorate --pretty=oneline --abbrev-commit --abbrev=8
+	la = log --graph --decorate --pretty=oneline --abbrev-commit --abbrev=8 --all
 	local = log --oneline origin..HEAD
-	ll = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
-	lal = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative --all
+	ll = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --abbrev=8 --date=relative
+	lal = log --graph --pretty=format:'%C(yellow)%h%C(red bold)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --abbrev=8 --date=relative --all
 	unstage = reset HEAD --
 	last = log -1 HEAD
 
