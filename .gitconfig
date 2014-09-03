@@ -80,6 +80,7 @@
 	autocrlf = false
 	eol = lf
 	excludesfile = ~/commonrc/gitignore
+	preloadindex = true
 
 [reviewboard]
 	url = http://reviews.janrain.com
