@@ -103,12 +103,11 @@ function use-ghc {
 alias screen="screen -D -R"
 alias sn="screen"
 
-max=192.168.1.40
-deb=192.168.1.50
 nas=192.168.1.60
 bob=192.168.1.35
+cheese=192.168.1.40
 
-for x in barry nas bob deb pjw ubu sunfire signali; do
+for x in nas bob cheese; do
     alias $x="ssh $x -t screen -D -R"
 done
 
@@ -126,7 +125,7 @@ function submit_torrents
 if dlink; then
    alias tra="transmission-remote $nas"
 else
-   alias tra="transmission-remote $bob"
+   alias tra="transmission-remote $cheese"
 fi
 
 alias reload-transmission="killall -HUP transmission-daemon"
