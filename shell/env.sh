@@ -98,7 +98,7 @@ function use-ghc {
 }
 
 # -----------------------------------------------
-# screen, local network, and ssh
+# tmux, local network, and ssh
 
 alias screen="screen -D -R"
 alias sn="screen"
@@ -108,7 +108,8 @@ bob=192.168.1.35
 cheese=192.168.1.40
 
 for x in nas bob cheese; do
-    alias $x="ssh $x -t screen -D -R"
+    # TODO use create-or-attach logic
+    alias $x="ssh $x -t tmux a"
 done
 
 # -----------------------------------------------
