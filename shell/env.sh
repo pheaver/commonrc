@@ -51,8 +51,8 @@ alias lla="ls -A -hl"
 alias lal="ls -A -hl"
 
 alias pd="pushd"
-alias df="df -h"
-alias du="du -h"
+# alias df="df -h"
+# alias du="du -h"
 
 alias recent="ls -FlAt | head -n 20"
 alias f="find . -iname"
