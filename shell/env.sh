@@ -120,7 +120,7 @@ function submit_torrents
     # can't figure out an easier way to check if any .torrent files exist,
     # so this is what we have for now...
     test -n "`ls *.torrent 2>/dev/null`" &&
-    rsync -v --remove-source-files *.torrent bob:~/watch
+    rsync -v --remove-source-files *.torrent cheese:/mnt/storage/watch
 }
 
 if dlink; then
