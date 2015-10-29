@@ -14,5 +14,6 @@ pathmunge "${RC}/gntp-send.git/bin"
 pathmunge "${RC}/bin"
 addpaths ~/local
 addpaths ~
+pathmunge ~/.local/bin
 
 # -----------------------------------
