@@ -1,11 +1,12 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+
 (unless (package-installed-p 'scala-mode2)
   (package-refresh-contents) (package-install 'scala-mode2))
 
-(add-load-path "~/local/src/ensime/dist_2.10.3")
+;; (unless (package-installed-p 'ensime)
+;;   (package-refresh-contents) (package-install 'ensime))
+
+;; (add-load-path "~/local/src/ensime/dist_2.10.3")
 
 (setq ensime-sbt-compile-on-save nil)
 
@@ -32,9 +33,9 @@
     (add-to-list 'grep-find-ignored-directories "target")
     (add-hook 'sbt-mode-hook 'phil/sbt-mode-hook))
 
-(when (require 'ensime nil 'noerror)
-  (add-to-list 'ensime-doc-lookup-map '("^spray\\." . make-spray-doc-url))
-  (add-to-list 'ensime-doc-lookup-map '("^akka\\." . make-akka-doc-url)))
+;; (when (require 'ensime nil 'noerror)
+;;   (add-to-list 'ensime-doc-lookup-map '("^spray\\." . make-spray-doc-url))
+;;   (add-to-list 'ensime-doc-lookup-map '("^akka\\." . make-akka-doc-url)))
 
 (defun phil/sbt-mode-hook ()
   (interactive)
@@ -70,11 +71,15 @@
     (ensime-scala-mode-hook)
     (define-key ensime-mode-map (kbd "C-c C-b t") 'ensime-sbt-do-test)
     ;; (define-key ensime-mode-map (kbd "M-.") nil)
-    (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
+    ;; (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
 
     ;; ensime-typecheck-curent-file has lots of false positives, so i disable it
-    (remove-hook 'ensime-source-buffer-saved-hook
-                 'ensime-typecheck-current-file)
-    ))
+    ;; (remove-hook 'ensime-source-buffer-saved-hook
+    ;;              'ensime-typecheck-current-file)
+    )
+
+  ;; ensime overrides auto-complete settings, so this sets some of them back.
+  (setq ac-auto-start 2)
+  )
 
 (provide 'phil-scala)
