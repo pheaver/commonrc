@@ -45,8 +45,11 @@
      (when (fboundp 'ido-completing-read)
        (setq magit-completing-read 'ido-completing-read))))
 
-(setq magit-repo-dirs
-  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/rtk"))
+(setq magit-repository-directories
+      (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/rtk"))
+
+;; for older versions of magit
+(setq magit-repo-dirs magit-repository-directories)
 
 (defun magit-quit-buffers ()
   (interactive)
