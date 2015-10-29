@@ -1,46 +1,22 @@
 ;; ----------------------------------------
 ;; initialize ELPA
 
-(if (require 'package nil t)
-    (progn
-      ;; Emacs 24+ includes ELPA, but requires some extra setup
-      ;; to use the (better) tromey repo
-      (if (>= emacs-major-version 24)
-          (setq package-archives
-                (cons '("tromey" . "http://tromey.com/elpa/")
-                package-archives)))
-      (package-initialize)))
+(when (require 'package nil t)
+  (package-initialize)
 
+  ;; marmalade and melpa are super similar.
+  ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-;; ----------------------------------------
-;; define which packages I use
+  ;; has lots of snapshot buids, yuck
+  ;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net") t)
 
-(setq el-get-sources
-      '(
-        (:name browse-kill-ring)
-        (:name popup)
-        (:name auto-complete)
-        (:name auto-complete-etags)
-        ;; not working:
-        ;; (:name anything :checkout "v1.3.9")
-        ;; (:name anything-config)
-        (:name calfw)
-        (:name ghc-mod :checkout "v2.1.1")
-        (:name haskell-mode :checkout "v13.06")
-        (:name haskell-mode-exts)
-        (:name itimer)
-        ;; (:name magit :checkout "origin/master")
-        (:name magit :checkout "1.2.0")
-        (:name markdown-mode)
-        (:name maxframe)
-        (:name multi-term)
-        (:name org-mode :checkout "release_8.2.4")
-        (:name paredit)
-        (:name tail)
-        ;; these two have an error:
-        ;; (:name g-client)
-        ;; (:name google-weather)
-      ))
+  ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+)
 
 ;; ----------------------------------------
 ;; initialize el-get
@@ -53,12 +29,38 @@
 (if (require 'el-get nil t)
     (el-get))
 
-(defun el-get-install-all ()
-  (interactive)
-  (require 'el-get)
-  (el-get nil (mapcar 'el-get-source-name el-get-sources)))
-
 ;; ----------------------------------------
+;; define which packages I use
+
+(setq my-packages
+      '(
+        el-get
+        magit
+        browse-kill-ring
+        auto-complete
+        markdown-mode
+        maxframe
+        org
+        paredit
+        ;; tail
+        ;; haskell-mode
+        ;; haskell-mode-exts
+        ;; anything
+        ;; anything-config
+        ;; auto-complete-etags
+        ;; calfw
+        )
+      )
+
+;; use el-get only for my little itimer package.
+(setq el-get-sources '((:name itimer)))
+
+(defun phil/install-all ()
+  (interactive)
+  (if (require 'el-get)
+      (el-get nil (mapcar 'el-get-source-name el-get-sources)))
+  (dolist (package my-packages)
+    (package-install package)))
 
 (provide 'phil-packages)
 
