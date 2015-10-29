@@ -46,7 +46,7 @@
        (setq magit-completing-read 'ido-completing-read))))
 
 (setq magit-repo-dirs
-  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/signali" "~/rtk"))
+  (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/rtk"))
 
 (defun magit-quit-buffers ()
   (interactive)
