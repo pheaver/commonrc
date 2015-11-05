@@ -5,13 +5,10 @@
   (package-initialize)
 
   ;; marmalade and melpa are super similar.
-  ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-  ;; has lots of snapshot buids, yuck
-  ;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net") t)
-
-  ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
