@@ -39,6 +39,10 @@
 (setq org-outline-path-complete-in-steps)
 (setq org-read-date-prefer-future nil)
 
+(setq org-speed-commands-user
+      '(("Custom")
+        ("d" . org-decrypt-entry)))
+
 ;; 1st C-a goes to beginning of line, next goes after heading and todo items
 ;; 1st C-e goes in front of tags, next goes to end of line
 (setq org-special-ctrl-a/e (cons 'reversed t))
