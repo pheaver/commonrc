@@ -131,6 +131,10 @@
 ;;; default is 160
 (setq split-width-threshold 150)
 
+;;;; make sure the scratch buffer always exists
+(run-with-idle-timer 1 t
+    '(lambda () (get-buffer-create "*scratch*")))
+
 ;;;; miscellaneous
 (setq-default fill-column 80)
 (setq set-mark-command-repeat-pop t)
