@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ssh_keyfile=~/.ssh/id_rsa_test
+ssh_keyfile=~/.ssh/id_rsa
 if [ ! -e ${ssh_keyfile}.pub ]; then
   ssh-keygen -t rsa -f ${ssh_keyfile}
 fi
