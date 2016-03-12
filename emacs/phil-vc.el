@@ -51,13 +51,6 @@
 ;; for older versions of magit
 (setq magit-repo-dirs magit-repository-directories)
 
-(defun magit-quit-buffers ()
-  (interactive)
-  (magit-for-all-buffers 'bury-buffer))
-
-(eval-after-load 'magit
-  '(define-key magit-mode-map (kbd "Q") 'magit-quit-buffers))
-
 ;; over ssh on CentOS, C-/ behaves as C-_
 (global-set-key (kbd "C-x C-/") 'magit-status)
 (global-set-key (kbd "C-x C-_") 'magit-status)
