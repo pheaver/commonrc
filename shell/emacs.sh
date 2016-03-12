@@ -28,7 +28,12 @@ function sem {
 
 # open in emacs all files matching pattern
 function fm {
-    /usr/bin/find . -iname "${1}" | xargs ${emacsclient} -n
+    if [ -z "$2" ]; then
+        dir="."
+    else
+        dir="$2"
+    fi
+    /usr/bin/find "$dir" -iname "${1}" | xargs ${emacsclient} -n
 }
 
 if [ $UID -eq 0 ]; then
