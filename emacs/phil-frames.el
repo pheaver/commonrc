@@ -1,44 +1,7 @@
-;; ----------------------------------------
 
-(setq color-theme-is-global nil)
-
-(setq phil/solarized-path "~/local/src/solarized")
-
-(if (>= emacs-major-version 24)
-    (add-to-list 'custom-theme-load-path phil/solarized-path 'append)
-  (add-load-path phil/solarized-path))
-
-;; (autoload 'color-theme-solarized-light "color-theme-solarized")
-;; (autoload 'color-theme-solarized-dark "color-theme-solarized")
-
-(defun phil/set-face-attribute ( face frame &rest args)
-  (if (facep face) (apply 'set-face-attribute face frame args)))
-
-(defun phil/set-frame-theme (&optional frame)
-  (interactive)
-
-  ;; these break for any face attributes that aren't yet defined
-  (phil/set-face-attribute 'jabber-activity-face frame
-                      :foreground "orangered3" :weight 'bold)
-  (phil/set-face-attribute 'jabber-activity-personal-face frame
-                      :foreground nil :inherit 'outline-1 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-foreign frame
-                      :foreground nil :inherit 'outline-2 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-local frame
-                      :foreground nil :inherit 'outline-1 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-system frame
-                      :foreground nil :inherit 'outline-3 :weight 'bold)
-  (phil/set-face-attribute 'magit-item-highlight frame
-                      :foreground nil :inherit 'highlight)
-  (phil/set-face-attribute 'outline-2 frame
-                      :inherit 'font-lock-variable-name-face :foreground "brown")
-  (phil/set-face-attribute 'diff-changed frame :inverse-video nil)
-  (phil/set-face-attribute 'diff-added frame :inverse-video nil)
-  (phil/set-face-attribute 'diff-removed frame :inverse-video nil)
-  (phil/set-face-attribute 'diff-header frame :background nil)
-  (phil/set-face-attribute 'diff-file-header frame :background nil)
-  )
-
+;;
+;; old stuff for resizing and raising frames, mostly on 'ns (OS X)
+;;
 (defun resize-frame (frame) (interactive)
   (progn
     (set-frame-position frame 0 0)
@@ -67,33 +30,83 @@
 (defun phil/ns-raise-emacs ()
   (ns-do-applescript "tell application \"Emacs\" to activate"))
 
-(defun phil/get-theme-name ()
-  (if (require 'color-theme-solarized nil 'noerror) 'solarized-dark 'deeper-blue))
+;;
+;; frame theming
+;;
+(defun phil/set-face-attribute ( face frame &rest args)
+  (if (facep face) (apply 'set-face-attribute face frame args)))
 
-(defun phil/new-frame-hook (frame)
+(defun phil/set-face-attributes (&optional frame)
   (interactive)
-  (select-frame frame)
-  (raise-frame frame)
-  (set-variable 'color-theme-is-global nil)
 
-  (when window-system
-    (let ((theme (phil/get-theme-name)))
-      (when theme
-        (load-theme theme t)
-        (phil/set-frame-theme frame))))
+  ;; these break for any face attributes that aren't yet defined
+  (phil/set-face-attribute 'jabber-activity-face frame
+                      :foreground "orangered3" :weight 'bold)
+  (phil/set-face-attribute 'jabber-activity-personal-face frame
+                      :foreground nil :inherit 'outline-1 :weight 'bold)
+  (phil/set-face-attribute 'jabber-chat-prompt-foreign frame
+                      :foreground nil :inherit 'outline-2 :weight 'bold)
+  (phil/set-face-attribute 'jabber-chat-prompt-local frame
+                      :foreground nil :inherit 'outline-1 :weight 'bold)
+  (phil/set-face-attribute 'jabber-chat-prompt-system frame
+                      :foreground nil :inherit 'outline-3 :weight 'bold)
+  (phil/set-face-attribute 'magit-item-highlight frame
+                      :foreground nil :inherit 'highlight)
+  (phil/set-face-attribute 'outline-2 frame
+                      :inherit 'font-lock-variable-name-face :foreground "brown")
+  (phil/set-face-attribute 'diff-changed frame :inverse-video nil)
+  (phil/set-face-attribute 'diff-added frame :inverse-video nil)
+  (phil/set-face-attribute 'diff-removed frame :inverse-video nil)
+  (phil/set-face-attribute 'diff-header frame :background nil)
+  (phil/set-face-attribute 'diff-file-header frame :background nil)
+  )
 
-  (let ((x (framep frame)))
-    (when (equal x 'ns)
+(setq phil/preferred-themes '(wombat ample ample-flat solarized-dark deeper-blue))
+
+(defun phil/cycle-theme ()
+  (interactive)
+  (setq phil/preferred-themes (append (cdr phil/preferred-themes) (list (car phil/preferred-themes))))
+  (phil/set-theme))
+
+;; find first theme in phil/preferred-themes that is available
+(defun phil/get-preferred-theme ()
+  (lexical-let ((available-themes (custom-available-themes)))
+    (defun find-theme (preferred-themes)
+      (if preferred-themes
+          (let ((theme (car preferred-themes)))
+            (if (member theme available-themes)
+                theme
+              (find-theme (cdr preferred-themes)))))))
+  (find-theme phil/preferred-themes))
+
+(defun phil/set-theme (&optional theme frame)
+  (interactive)
+  (let ( (theme (or theme (phil/get-preferred-theme))) )
+    (when theme
+      ;; disable other themes first, so we don't get a cumulative effect
+      (dolist (current-theme custom-enabled-themes) (disable-theme current-theme))
+      (load-theme theme t)
+      (phil/set-face-attributes frame)
+      (message (format "Current theme: %s" theme)))))
+
+(defun phil/new-frame-hook (&optional frame)
+  ;; select and raise frame
+  (let ((frame-type (framep frame)))
+    (when frame-type
+      (select-frame frame)
+      (raise-frame frame))
+    (when (equal frame-type 'ns)
       (phil/ns-raise-emacs)
       ;; (when (require 'maxframe "maxframe" 'noerror)
       ;;   (sleep-for 0 10)
       ;;   (maximize-frame))
-      )
-    )
-  )
+      ))
+
+  (when window-system (phil/set-theme nil frame)))
 
 (add-hook 'after-make-frame-functions 'phil/new-frame-hook)
-;;(add-hook 'window-setup-hook 'maximize-frame t)
+
+(add-hook 'window-setup-hook 'phil/new-frame-hook t)
 
 ;; ----------------------------------------
 
