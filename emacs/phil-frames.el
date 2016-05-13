@@ -67,19 +67,20 @@
 (defun phil/ns-raise-emacs ()
   (ns-do-applescript "tell application \"Emacs\" to activate"))
 
+(defun phil/get-theme-name ()
+  (if (require 'color-theme-solarized nil 'noerror) 'solarized-dark 'deeper-blue))
+
 (defun phil/new-frame-hook (frame)
   (interactive)
   (select-frame frame)
   (raise-frame frame)
   (set-variable 'color-theme-is-global nil)
 
-  (if (and window-system
-           (require 'color-theme-solarized nil 'noerror)
-           (if (>= emacs-major-version 24)
-               (load-theme 'solarized-dark t)
-             (color-theme-solarized-dark)))
-      (phil/set-frame-theme frame)
-    (load-theme 'deeper-blue t))
+  (when window-system
+    (let ((theme (phil/get-theme-name)))
+      (when theme
+        (load-theme theme t)
+        (phil/set-frame-theme frame))))
 
   (let ((x (framep frame)))
     (when (equal x 'ns)
