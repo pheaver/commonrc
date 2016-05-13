@@ -60,6 +60,7 @@
 (set-register ?w (cons 'file (dropbox-dir "org" "rtk-notes.org")))
 (set-register ?W (cons 'file (dropbox-dir "org" "rtk-misc.org")))
 (set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
+(set-register ?a (cons 'file (file-truename "~/.config/awesome/rc.lua")))
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
