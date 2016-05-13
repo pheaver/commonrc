@@ -15,23 +15,24 @@ if [ ! -d ${SHARE} ]; then
     git remote add nas nas:commonrc.bare
 fi
 
-cd ${HOME}
-
 mkdir -p ~/local/share/emacs/site-lisp
 
-ln -sf ${SHARE}/zshrc .zshrc
-ln -sf ${SHARE}/bashrc .bashrc
-ln -sf ${SHARE}/bashrc .bash_profile
-ln -sf ${SHARE}/zshenv .zshenv
+ln -sf ${SHARE}/zshrc ${HOME}/.zshrc
+ln -sf ${SHARE}/bashrc ${HOME}/.bashrc
+ln -sf ${SHARE}/bashrc ${HOME}/.bash_profile
+ln -sf ${SHARE}/zshenv ${HOME}/.zshenv
 
-ln -sf ${SHARE}/.screenrc
-ln -sf ${SHARE}/.tmux.conf
-ln -sf ${SHARE}/.gitconfig
-ln -sf ${SHARE}/Xmodmap .Xmodmap
-ln -sf ${SHARE}/Xresources .Xresources
+ln -sf ${SHARE}/.screenrc ${HOME}/.screenrc
+ln -sf ${SHARE}/.tmux.conf ${HOME}/.tmux.conf
+ln -sf ${SHARE}/.gitconfig ${HOME}/.gitconfig
+ln -sf ${SHARE}/Xmodmap ${HOME}/.Xmodmap
+ln -sf ${SHARE}/Xresources ${HOME}/.Xresources
+
+mkdir -p ${HOME}/.config/awesome
+ln -sf ${SHARE}/awesome/rc.lua ${HOME}/.config/awesome/rc.lua
 
 mkdir -p .subversion
-(cd .subversion >/dev/null && ln -sf ${SHARE}/.subversion/config)
+ln -sf ${SHARE}/.subversion/config ${HOME}/.subversion/config
 
 chmod a+x ${SHARE}/bin/*
 chmod a+x ${SHARE}/setup
