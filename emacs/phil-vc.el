@@ -46,7 +46,7 @@
        (setq magit-completing-read 'ido-completing-read))))
 
 (setq magit-repository-directories
-      (list "~" "~/local/src" (commonrc-dir) user-emacs-directory "~/rtk"))
+      (list "~/src" "~/local/src" "~/commonrc" user-emacs-directory "~/work"))
 
 ;; for older versions of magit
 (setq magit-repo-dirs magit-repository-directories)
