@@ -6,15 +6,9 @@
 (when (not (boundp 'user-init-file))
   (setq user-init-file (concat user-emacs-directory "init.el")))
 
-(defvar documents-dir
-  (if (memq system-type '(cygwin windows-nt))
-      "c:/Documents/"
-    "~/Documents/"))
+(defvar documents-dir "~/Documents/")
 
-(defvar dropbox-dir
-  (if (memq system-type '(cygwin windows-nt))
-      "c:/Documents/My Dropbox/"
-    "~/Dropbox/"))
+(defvar dropbox-dir "~/Dropbox/")
 
 (defvar local-rc-file
   "~/.localrc"
@@ -40,10 +34,10 @@
   (concat dropbox-dir (concatpaths paths)))
 
 (defun add-load-path (path &optional append)
-  (let ((default-directory path))
-    (add-to-list 'load-path (abbreviate-file-name path) append)
-    ;; TODO always appends - need to be able to control whether this appends
-    (when (file-directory-p path)
+  (add-to-list 'load-path (abbreviate-file-name path) append)
+  ;; TODO always appends - need to be able to control whether this appends
+  (when (file-directory-p path)
+    (let ((default-directory path))
       (normal-top-level-add-subdirs-to-load-path))))
 
 (add-load-path "~/local/share/emacs/site-lisp")
