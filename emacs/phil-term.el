@@ -68,6 +68,23 @@
 
 (defun term-modep () (eq major-mode 'term-mode))
 
+(defun multi-term-list ()
+  "List term buffers presently active."
+  ;; Autload command `remove-if-not'.
+  (autoload 'remove-if-not "cl-seq")
+  (sort
+   (remove-if-not (lambda (b)
+                    (setq case-fold-search t)
+                    (string-match
+                     (format "^\\\*%s<[0-9]+>\\\*$" multi-term-buffer-name)
+                     (buffer-name b)))
+                  (buffer-list))
+   (lambda (a b)
+     (< (string-to-number
+         (cadr (split-string (buffer-name a) "[<>]")))
+        (string-to-number
+         (cadr (split-string (buffer-name b)  "[<>]")))))))
+
 (defun multi-term-other-window ()
   (interactive)
   (require 'multi-term)
@@ -133,13 +150,13 @@
   restore previous window configuration.  Otherwise, create a new
   buffer."
   (interactive "P")
-  (if (not (term-modep))
-      (setq phil-toggle-term-win-conf (current-window-configuration)))
+  ;; (if (not (term-modep))
+  ;;     (setq phil-toggle-term-win-conf (current-window-configuration)))
 
   (if (and (term-modep) (not arg))
       (progn
         ;; (set-window-configuration phil-toggle-term-win-conf)
-        ;; (bury-buffer)
+        (bury-buffer)
         (other-window -1))
     (phil-term arg (not (term-modep)))))
 
