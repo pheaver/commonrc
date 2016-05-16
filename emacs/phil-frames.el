@@ -70,14 +70,13 @@
 
 ;; find first theme in phil/preferred-themes that is available
 (defun phil/get-preferred-theme ()
-  (lexical-let ((available-themes (custom-available-themes)))
-    (defun find-theme (preferred-themes)
-      (if preferred-themes
-          (let ((theme (car preferred-themes)))
-            (if (member theme available-themes)
-                theme
-              (find-theme (cdr preferred-themes)))))))
-  (find-theme phil/preferred-themes))
+  (defun find-theme (preferred-themes available-themes)
+    (if preferred-themes
+	(let ((theme (car preferred-themes)))
+	  (if (member theme available-themes)
+	      theme
+	    (find-theme (cdr preferred-themes))))))
+  (find-theme phil/preferred-themes (custom-available-themes)))
 
 (defun phil/set-theme (&optional theme frame)
   (interactive)
