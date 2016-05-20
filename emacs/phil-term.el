@@ -93,6 +93,9 @@
     (multi-term-internal)
     (switch-to-buffer-other-window term-buffer)))
 
+(defun multi-term-buffer-name (index)
+  (format "%s<%s>" multi-term-buffer-name index))
+
 (defun phil-term-get-buffer (&optional arg special-shell)
   (let ((shell-name (or multi-term-program ;shell name
                         (getenv "SHELL")
@@ -108,16 +111,15 @@
       ;; select which terminal to use based on `arg'
       (setq buf-or-name
             (cond ((numberp arg)
-                   (format "%s<%s>" multi-term-buffer-name arg))
+                   (multi-term-buffer-name arg))
                   ((eq arg 'dedicated)
                    multi-term-dedicated-buffer-name)
-                  ((eq arg nil)
-                   (or (car (multi-term-list))
-                       (format "%s<%s>" multi-term-buffer-name 0)))
+                  ((null arg)
+                   (or (car (multi-term-list)) (multi-term-buffer-name 0)))
                   (t
-                   (while (buffer-live-p (get-buffer (format "*%s<%s>*" multi-term-buffer-name index)))
+                   (while (buffer-live-p (get-buffer (multi-term-buffer-name index)))
                      (setq index (1+ index)))
-                   (format "%s<%s>" multi-term-buffer-name index)))))
+                   (multi-term-buffer-name index)))))
 
     ;; Try get other shell name if `special-shell' is non-nil.
     (if special-shell
