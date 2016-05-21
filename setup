@@ -11,8 +11,7 @@
 if [ ! -d ${SHARE} ]; then
     mkdir -p ${SHARE}
     cd ${SHARE}
-    git clone -o github https://github.com/pheaver/commonrc.git .
-    git remote add nas nas:commonrc.bare
+    git clone https://github.com/pheaver/commonrc.git .
 fi
 
 mkdir -p ~/local/share/emacs/site-lisp
