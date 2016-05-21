@@ -3,7 +3,6 @@
 (when (fboundp 'hippie-expand)
   (eval-after-load "dabbrev" '(defalias 'dabbrev-expand 'hippie-expand))
   (add-to-list 'hippie-expand-try-functions-list 'try-expand-tag 'append)
-  ;;(global-set-key (kbd "M-?") 'hippie-expand)
   )
 
 (defun he-tag-beg ()

@@ -1,8 +1,6 @@
 ;; ---------------------------------------------
 ;; organizer, diary, planner, todo list
 
-(autoload 'phil/import-calendars "phil-calendars")
-
 (add-to-list 'load-path (commonrc-dir "org-mode.git/lisp/"))
 
 (push '("\\.org\\'" . org-mode) auto-mode-alist)
@@ -148,17 +146,6 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c L") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-
-;(defun todo-entry-timestamp ()
-;  "Prepend timestamp (but no initials!) to the head of a TODO entry."
-;  (let ((time-stamp-format todo-time-string-format))
-;    (format "(%s) " (time-stamp-string))))
-
-;(global-set-key (kbd "C-c t") 'todo-show)
-;(global-set-key (kbd "C-c i") 'todo-insert-item)
-
-;(global-set-key (kbd "C-c P")
-;   (lambda () (interactive) (find-file "~/plans")))
 
 ;; ----------------------------------------
 
