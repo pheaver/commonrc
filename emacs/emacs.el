@@ -26,7 +26,6 @@
 (require 'phil-parent-dirs)
 (require 'phil-anything)
 (require 'phil-auto-complete)
-(require 'phil-breadcrumb)
 (require 'phil-buffers)
 (require 'phil-darwin)
 (require 'phil-flymake)
@@ -43,6 +42,7 @@
 (require 'phil-recentf)
 
 ;;;; disabled stuff that I don't use anymore
+;; (require 'phil-breadcrumb)
 ;; (require 'phil-erc)
 ;; (require 'phil-mew)
 

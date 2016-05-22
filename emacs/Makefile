@@ -6,7 +6,7 @@ ELCS=$(ELS:.el=.elc)
 LOADDEF_SRCS=
 LOADDEFS=$(foreach x, $(LOADDEF_SRCS), $x-loaddefs.el)
 
-SUBDIRS=breadcrumb.git
+SUBDIRS=
 
 all: $(ELCS) $(LOADDEFS) subdirs install-package-managers
 
