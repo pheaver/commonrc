@@ -121,7 +121,7 @@
 
 ;;;; save backup files in ~/.emacs_backup instead of current directory
 (setq backup-directory-alist
-      `((,(expand-file-name "~/signali") . "~/signali/.emacs_backups")
+      `((,(expand-file-name "~/work") . "~/work/.emacs_backups")
         ("." . "~/.emacs_backups")))
 
 ;;;; use spaces instead of tabs
