@@ -1,13 +1,3 @@
-(require 'package)
-
-(unless (package-installed-p 'scala-mode2)
-  (package-refresh-contents) (package-install 'scala-mode2))
-
-;; (unless (package-installed-p 'ensime)
-;;   (package-refresh-contents) (package-install 'ensime))
-
-;; (add-load-path "~/local/src/ensime/dist_2.10.3")
-
 (setq ensime-sbt-compile-on-save nil)
 
 (defun make-spray-doc-url (type &optional member)
@@ -26,7 +16,7 @@
   (ensime-sbt-switch)
   (ensime-sbt-action "test"))
 
-(when (require 'scala-mode2 nil 'noerror)
+(when (require 'scala-mode nil 'noerror)
     (add-hook 'scala-mode-hook 'phil/scala-mode-hook))
 
 (when (require 'sbt-mode nil 'noerror)
