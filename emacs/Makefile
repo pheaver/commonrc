@@ -33,7 +33,7 @@ BATCH=$(EMACS) -batch -q -no-site-file -eval \
                   --eval '(save-buffer)'
 
 install-package-managers:
-	@$(BATCH) --eval "(require 'install-package-managers)"
+	@$(BATCH) --eval "(setq phil/auto-install-packages t)" --eval "(require 'phil-packages)"
 
 clean:
 	rm -fr $(ELCS)

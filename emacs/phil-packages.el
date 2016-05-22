@@ -1,51 +1,68 @@
-;; ----------------------------------------
-;; initialize ELPA
+(require 'phil-paths)
 
-(when (require 'package nil t)
-  (package-initialize)
+(defvar phil/auto-install-packages nil
+  "Automatically install package managers (e.g. package.el, el-get) and any packages that might be specified.
 
-  ;; marmalade and melpa are super similar.
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+This is set in commonrc/emacs/Makefile.")
 
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ))
 
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-)
+(unless (require 'package nil 'noerror)
+  (load (commonrc-dir "package-legacy.el"))
+  (require 'package))
 
-;; ----------------------------------------
-;; initialize el-get
+;; if package list does not exist yet, download it (should only happen once)
+(unless (file-exists-p package-user-dir)
+  (message "refreshing package contents")
+  (package-refresh-contents))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(package-initialize)
+
+;; --------------------
+;; el-get
+
+(add-to-list 'load-path (concat user-emacs-directory "el-get" "/" "el-get"))
 
 (eval-after-load "el-get"
   '(add-to-list 'el-get-recipe-path (commonrc-dir "el-get-recipes")))
 
-(if (require 'el-get nil t)
-    (el-get))
+(defun install-el-get ()
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(unless (require 'el-get nil 'noerror)
+  (when phil/auto-install-packages (install-el-get)))
+
+(when (require 'el-get nil 'noerror)
+  (el-get 'sync))
+
+;; it doesn't work to use package-install, use-package or req-package; el-get
+;; will always self-update and install itself so that package.el doesn't know
+;; about it anymore
+;; (unless (require 'el-get nil 'noerror)
+;;   (package-install 'el-get)
+;;   (require 'el-get))
+;; (el-get 'sync)
 
 ;; ----------------------------------------
 ;; define which packages I use
 
 (setq my-packages
       '(
-        el-get
-        magit
+        paredit
         browse-kill-ring
+        org
+        magit
         auto-complete
         markdown-mode
-        maxframe
-        org
-        paredit
-        ;; tail
-        ;; haskell-mode
-        ;; haskell-mode-exts
-        ;; anything
-        ;; anything-config
-        ;; auto-complete-etags
-        ;; calfw
         )
       )
 
@@ -59,5 +76,6 @@
   (dolist (package my-packages)
     (package-install package)))
 
-(provide 'phil-packages)
+(when phil/auto-install-packages (phil/install-all))
 
+(provide 'phil-packages)
