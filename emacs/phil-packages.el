@@ -13,6 +13,10 @@ This is set in commonrc/emacs/Makefile.")
         ))
 
 (unless (require 'package nil 'noerror)
+  ;; handle case where package.el is not available (e.g. on emacs < 24)
+  ;; package-legacy.el is just package.el, renamed so that it only loads when I
+  ;; manually reference it here, and downloaded from here:
+  ;; http://git.savannah.gnu.org/gitweb/?p=emacs.git;a=blob_plain;hb=ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09;f=lisp/emacs-lisp/package.el
   (load (commonrc-dir "package-legacy.el"))
   (require 'package))
 
@@ -31,26 +35,13 @@ This is set in commonrc/emacs/Makefile.")
 (eval-after-load "el-get"
   '(add-to-list 'el-get-recipe-path (commonrc-dir "el-get-recipes")))
 
-(defun install-el-get ()
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
+;; cannot use package-installed-p (or use-package or req-package) because el-get
+;; self-updates and uninstalls the elpa package.
 (unless (require 'el-get nil 'noerror)
-  (when phil/auto-install-packages (install-el-get)))
+  (when phil/auto-install-packages (package-install 'el-get)))
 
 (when (require 'el-get nil 'noerror)
   (el-get 'sync))
-
-;; it doesn't work to use package-install, use-package or req-package; el-get
-;; will always self-update and install itself so that package.el doesn't know
-;; about it anymore
-;; (unless (require 'el-get nil 'noerror)
-;;   (package-install 'el-get)
-;;   (require 'el-get))
-;; (el-get 'sync)
 
 ;; ----------------------------------------
 ;; define which packages I use
