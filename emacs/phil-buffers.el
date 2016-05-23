@@ -57,6 +57,9 @@
      (defalias 'read-directory-name 'ido-read-directory-name)
      (defalias 'read-file-name 'ido-read-file-name)))
 
+(setq magit-completing-read-function 'magit-ido-completing-read)
+(setq gnus-completing-read-function 'gnus-ido-completing-read)
+
 (defvar ido-enable-replace-completing-read t
   "If t, use ido-completing-read instead of completing-read if possible.
 
