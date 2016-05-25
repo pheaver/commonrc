@@ -12,7 +12,7 @@
 (setq magit-repo-dirs-depth 1)
 
 (setq magit-repository-directories
-      (list "~/src" "~/local/src" "~/commonrc" user-emacs-directory "~/work"))
+      (list "~/src" "~/local/src" "~/commonrc" user-emacs-directory "~/work" "~/premise"))
 
 ;; for older versions of magit
 (setq magit-repo-dirs magit-repository-directories)
