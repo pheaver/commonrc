@@ -80,6 +80,9 @@ advice like this:
 
 (global-set-key (kbd "M-X") 'ido-execute-command)
 
+(setq ido-default-buffer-method 'selected-window)
+(setq ido-default-file-method 'selected-window)
+
 (setq ido-ignore-buffers
       '("^ " "*Buffer" "*Help*" "*Messages" "*Shell Command Output" "*Completions"))
 
