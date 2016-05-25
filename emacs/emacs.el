@@ -41,11 +41,6 @@
 (require 'phil-wspace)
 (require 'phil-recentf)
 
-;;;; disabled stuff that I don't use anymore
-;; (require 'phil-breadcrumb)
-;; (require 'phil-erc)
-;; (require 'phil-mew)
-
 ;; autoloads for cl-* files
 (load "cl-loaddefs")
 
@@ -204,21 +199,6 @@
      "python -mjson.tool" (current-buffer) t)))
 
 ;; ---------------------------------------------
-;; media files
-
-(autoload 'list-media-files "media-files" nil t)
-(eval-after-load 'media-files
-  '(load "media-files-config"))
-
-;; ---------------------------------------------
-;; markdown mode
-
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(push '("\\.md" . markdown-mode) auto-mode-alist)
-(push '("\\.markdown" . markdown-mode) auto-mode-alist)
-
-;; ---------------------------------------------
 ;; C and c++ modes
 
 (setq-default c-basic-offset 2)
@@ -228,52 +208,16 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
-(push '("\\.c$" . c-mode) auto-mode-alist)
-(push '("\\.h$" . c-mode) auto-mode-alist)
-(push '("\\.cc$" . c++-mode) auto-mode-alist)
-(push '("\\.icc$" . c++-mode) auto-mode-alist)
-(push '("\\.C$" . c++-mode) auto-mode-alist)
-(push '("\\.hh$" . c++-mode) auto-mode-alist)
-
 ;; ---------------------------------------------
 ;; javascript/json
 
 (setq js-indent-level 2)
 
 ;; ---------------------------------------------
-;; miscellaneous auto-mode-alist settings
-
-(push '("\\.zsh$" . sh-mode) auto-mode-alist)
-(push '("\\.txt$" . text-mode) auto-mode-alist)
-(push '("\\.a$" . ada-mode) auto-mode-alist)
-(push '("\\.vhdl$" . vhdl-mode) auto-mode-alist)
-(push '("\\.vhd$" . vhdl-mode) auto-mode-alist)
-(push '("\\.html$" . html-helper-mode) auto-mode-alist)
-
-;; -----------------------------
-;; auctex, latex, tex
-
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-
-(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
-
-; for AUCTeX LaTeX mode
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-
-; for Emacs latex mode
-(add-hook 'latex-mode-hook 'turn-on-reftex)
-(add-hook 'latex-mode-hook 'outline-minor-mode)
-
-;; ---------------------------------------------
 ;; set keybindings for functions in phil-utils
 
 (global-set-key (kbd "C-c C-x t") 'notify-timer)
 (global-set-key "\C-xQ" 'phil/macro-query)
-(global-set-key (kbd "M-N") 'phil/mark-end-of-line)
-(global-set-key (kbd "M-P") 'phil/mark-end-of-line-previous)
 
 (when (< emacs-major-version 23)
   (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
@@ -293,24 +237,6 @@
 ;;;; make scripts executable when they're saved
 (add-hook 'after-save-hook
    'executable-make-buffer-file-executable-if-script-p)
-
-;; (autoload 'shell-toggle "shell-toggle"
-;;   "Toggles between the *shell* buffer and whatever buffer you are editing."  t)
-;; (autoload 'shell-toggle-cd "shell-toggle"
-;;  "Pops up a shell-buffer and insert a \"cd <file-dir>\" command." t)
-
-;; ;; TODO: shell-toggle current window instead of other window?
-;; (global-set-key (kbd "C-c C-;") 'shell-toggle)
-;; ;(global-set-key (kbd "C-c :") 'shell-toggle-cd) ; bound in many modes
-;; (global-set-key (kbd "C-c M-;") 'shell-toggle-cd)
-;; (global-set-key (kbd "C-c s")
-;;  (lambda () (interactive) (shell "*pshell*")))
-;; (global-set-key (kbd "C-c S")
-;;  (lambda () (interactive) (shell (generate-new-buffer-name "*pshell*"))))
-
-;; create shell in new buffer with unique name
-
-;(setenv "TERM" "emacs")
 
 ;; ---------------------------------------------
 

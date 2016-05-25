@@ -80,24 +80,6 @@ If the input is non-empty, it is inserted at point."
                      (read-from-minibuffer prompt))))
     (unless (string= "" input) (insert input))))
 
-(defun phil/mark-end-of-line (arg)
-  "Put mark at end of line.  Arg works as in `forward-line'.
-If this command is repeated, it marks the next ARG lines after
-the ones already marked.  Identical to `mark-end-of-sentence',
-except uses `forward-line' instead of `forward-sentence'."
-  (interactive "p")
-  (push-mark
-   (save-excursion
-     (if (and (eq last-command this-command) (mark t))
-         (goto-char (mark)))
-     (forward-line arg)
-     (point))
-   nil t))
-
-(defun phil/mark-end-of-line-previous (arg)
-  (interactive "p")
-  (phil/mark-end-of-line (- 0 arg)))
-
 (defun phil/isearch-occur ()
   (interactive)
   (let ((case-fold-search isearch-case-fold-search))
