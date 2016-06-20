@@ -1,5 +1,4 @@
-;; ----------------------------------------
-
+;; hippie-expand
 (when (fboundp 'hippie-expand)
   (eval-after-load "dabbrev" '(defalias 'dabbrev-expand 'hippie-expand))
   (add-to-list 'hippie-expand-try-functions-list 'try-expand-tag 'append)
@@ -36,6 +35,32 @@
         (all-completions string (tags-completion-table) predicate)
       (try-completion string (tags-completion-table) predicate))))
 
-;; ----------------------------------------
+;; company-mode
+(when (require 'company nil 'noerror)
+  (global-company-mode)
 
-(provide 'phil-hippie-expand)
+  (setq company-minimum-prefix-length 2)
+  (global-set-key (kbd "<M-tab>") 'company-complete)
+  (global-set-key (kbd "C-M-i") 'company-complete)
+
+  ;; (setq company-auto-complete t)
+
+  ;; make TAB complete, then cycle
+  (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "C-e") #'company-other-backend)
+
+  (setq company-backends
+        '(
+          company-files
+          company-capf
+          (company-dabbrev-code company-gtags company-etags company-keywords)
+          company-dabbrev
+          ))
+
+  (setq completion-styles '(substring partial-completion emacs22))
+  (setq company-dabbrev-downcase nil)
+  (setq company-show-numbers nil)
+  )
+
+(provide 'phil-completion)
