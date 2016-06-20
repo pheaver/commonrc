@@ -39,6 +39,8 @@
 (defun phil/set-face-attributes (&optional frame)
   (interactive)
 
+  (set-face-background 'default "black" frame)
+
   ;; these break for any face attributes that aren't yet defined
   (phil/set-face-attribute 'jabber-activity-face frame
                       :foreground "orangered3" :weight 'bold)
@@ -61,12 +63,10 @@
   (phil/set-face-attribute 'diff-file-header frame :background nil)
   )
 
-(setq phil/preferred-themes '(wombat ample ample-flat solarized-dark deeper-blue))
+(defvar phil/preferred-themes
+  '(wombat ample ample-flat cybperpunk grandshell solarized-dark))
 
-(defun phil/cycle-theme ()
-  (interactive)
-  (setq phil/preferred-themes (append (cdr phil/preferred-themes) (list (car phil/preferred-themes))))
-  (phil/set-theme))
+(defvar phil/current-theme nil)
 
 ;; find first theme in phil/preferred-themes that is available
 (defun phil/get-preferred-theme ()
@@ -76,17 +76,28 @@
           (if (member theme available-themes)
               theme
             (find-theme (cdr preferred-themes) available-themes)))))
-  (find-theme phil/preferred-themes (custom-available-themes)))
+  (or phil/current-theme (find-theme phil/preferred-themes (custom-available-themes))))
+
+(defun phil/unload-themes ()
+  (interactive)
+  (dolist (theme custom-enabled-themes) (disable-theme theme)))
 
 (defun phil/set-theme (&optional theme frame)
-  (interactive)
-  (let ( (theme (or theme (phil/get-preferred-theme))) )
-    (when theme
-      ;; disable other themes first, so we don't get a cumulative effect
-      (dolist (current-theme custom-enabled-themes) (disable-theme current-theme))
-      (load-theme theme t)
-      (phil/set-face-attributes frame)
-      (message (format "Current theme: %s" theme)))))
+  (interactive
+   (list
+    (intern (completing-read "Choose theme: " (mapcar 'symbol-name (custom-available-themes))))
+    nil))
+  (cond
+   ((null theme) (phil/unload-themes))
+   ((member theme (custom-available-themes))
+    ;; disable other themes first, so we don't get a cumulative effect
+    (load-theme theme t)
+    (phil/set-face-attributes frame)
+    (when (fboundp 'smart-mode-line-enable)
+      (smart-mode-line-enable))
+    (setq phil/current-theme theme)
+    (message (format "Current theme: %s" theme)))
+   (t (message "Invalid theme: %s" theme))))
 
 (defun phil/new-frame-hook (&optional frame)
   ;; select and raise frame
@@ -101,7 +112,7 @@
       ;;   (maximize-frame))
       ))
 
-  (when window-system (phil/set-theme nil frame)))
+  (when window-system (phil/set-theme (phil/get-preferred-theme) frame)))
 
 (add-hook 'after-make-frame-functions 'phil/new-frame-hook)
 
@@ -110,4 +121,3 @@
 ;; ----------------------------------------
 
 (provide 'phil-frames)
-
