@@ -75,7 +75,7 @@
         (let ((theme (car preferred-themes)))
           (if (member theme available-themes)
               theme
-            (find-theme (cdr preferred-themes))))))
+            (find-theme (cdr preferred-themes) available-themes)))))
   (find-theme phil/preferred-themes (custom-available-themes)))
 
 (defun phil/set-theme (&optional theme frame)
