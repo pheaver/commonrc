@@ -39,7 +39,7 @@
 (defun phil/set-face-attributes (&optional frame)
   (interactive)
 
-  (set-face-background 'default "black" frame)
+  ;; (set-face-background 'default "black" frame)
 
   ;; these break for any face attributes that aren't yet defined
   (phil/set-face-attribute 'jabber-activity-face frame
