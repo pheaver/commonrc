@@ -1,4 +1,3 @@
-;; ----------------------------------------
 ;; miscellaneous utility functions.
 ;; these should be functions that are not needed to load emacs,
 ;; but are only loaded on demand, such as by an autoload.
@@ -109,6 +108,24 @@ If the input is non-empty, it is inserted at point."
   (interactive)
   (find-file (concat "/sudo::" filename)))
 
-;; ----------------------------------------
+(defun beautify-json ()
+  (interactive)
+  (let ((b (if mark-active (min (point) (mark)) (point-min)))
+        (e (if mark-active (max (point) (mark)) (point-max))))
+    (shell-command-on-region b e
+     "python -mjson.tool" (current-buffer) t)))
+
+;;;; my tweak to the split-window functions
+(defun phil/split-window-vertically (&optional size)
+  (interactive "P")
+  (with-selected-window (split-window-vertically size)
+      (switch-to-buffer (other-buffer)))
+  (balance-windows))
+
+(defun phil/split-window-horizontally (&optional size)
+  (interactive "P")
+  (with-selected-window (split-window-horizontally size)
+      (switch-to-buffer (other-buffer)))
+  (balance-windows))
 
 (provide 'phil-utils)

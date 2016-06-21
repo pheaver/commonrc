@@ -68,13 +68,7 @@
 (global-set-key (kbd "C-x a t") 'untabify)
 (global-unset-key (kbd "s-p")) ;; so that i do not accidentally print
 
-;;; always select help window
-(setq help-window-select t)
-
-;;;;;;;; paredit
-(autoload 'paredit-mode "paredit"
-  "Minor mode for pseudo-structurally editing Lisp code." t)
-
+;;;; paredit
 (defun load-paredit-mode ()
   (if (require 'paredit-mode "paredit-mode" t)
       (paredit-mode +1)))
@@ -118,25 +112,20 @@
       `((,(expand-file-name "~/work") . "~/work/.emacs_backups")
         ("." . "~/.emacs_backups")))
 
-;;;; use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;;; allow windows to be split horizontally
-;;; default is 160
-(setq split-width-threshold 150)
 
 ;;;; make sure the scratch buffer always exists
 (run-with-idle-timer 1 t
     '(lambda () (get-buffer-create "*scratch*")))
 
 ;;;; miscellaneous
-(setq-default fill-column 120)
-(setq set-mark-command-repeat-pop t)
-(setq require-final-newline t)
+(setq help-window-select t)         ; always select help window
 (setq kill-whole-line t)
-
-;;;; draw block cursor as wide as the glyph under it
-(setq x-stretch-cursor t)
+(setq require-final-newline t)
+(setq set-mark-command-repeat-pop t)
+(setq split-width-threshold 150)    ; encourage splitting horizontally; default 160
+(setq x-stretch-cursor t)           ; draw block cursor as wide as the glyph under it
+(setq-default fill-column 120)
+(setq-default indent-tabs-mode nil) ; use spaces instead of tabs
 
 ;;;; make the mark visible
 ;(when (require 'visible-mark nil 'noerror)
@@ -157,10 +146,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;;;; wikipedia mode
-(autoload 'wikipedia-mode "wikipedia-mode.el"
-"Major mode for editing documents in Wikipedia markup." t)
-
 ;;;; set some minor modes
 (when (functionp 'column-number-mode) (column-number-mode 1))
 (when (functionp 'display-time-mode) (display-time-mode 0))
@@ -173,33 +158,7 @@
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
 
-;;;; my tweak to the split-window functions
-(defun phil/split-window-vertically (&optional size)
-  (interactive "P")
-  (with-selected-window (split-window-vertically size)
-      (switch-to-buffer (other-buffer)))
-  (balance-windows))
-
-(defun phil/split-window-horizontally (&optional size)
-  (interactive "P")
-  (with-selected-window (split-window-horizontally size)
-      (switch-to-buffer (other-buffer)))
-  (balance-windows))
-
-(define-key ctl-x-map "2" 'phil/split-window-vertically)
-(define-key ctl-x-map "3" 'phil/split-window-horizontally)
-
-;; ---------------------------------------------
-(defun beautify-json ()
-  (interactive)
-  (let ((b (if mark-active (min (point) (mark)) (point-min)))
-        (e (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region b e
-     "python -mjson.tool" (current-buffer) t)))
-
-;; ---------------------------------------------
-;; C and c++ modes
-
+;;;; C and c++ modes
 (setq-default c-basic-offset 2)
 
 (defun my-c-mode-common-hook ()
@@ -207,13 +166,12 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
-;; ---------------------------------------------
-;; javascript/json
-
+;;;; javascript/json
 (setq js-indent-level 2)
 
-;; ---------------------------------------------
-;; set keybindings for functions in phil-utils
+;;;; set keybindings for functions in phil-utils
+(define-key ctl-x-map "2" 'phil/split-window-vertically)
+(define-key ctl-x-map "3" 'phil/split-window-horizontally)
 
 (global-set-key (kbd "C-c C-x t") 'notify-timer)
 (global-set-key "\C-xQ" 'phil/macro-query)
@@ -224,19 +182,15 @@
 (eval-after-load "dired"
   '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
 
-;; ---------------------------------------------
-;; shell stuff
-
+;;;; shell stuff
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ; don't echo passwords
 (add-hook 'comint-output-filter-functions
           'comint-watch-for-password-prompt)
 
-;;;; make scripts executable when they're saved
+; make scripts executable when they're saved
 (add-hook 'after-save-hook
    'executable-make-buffer-file-executable-if-script-p)
-
-;; ---------------------------------------------
 
 ))
