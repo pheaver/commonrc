@@ -130,7 +130,7 @@
     '(lambda () (get-buffer-create "*scratch*")))
 
 ;;;; miscellaneous
-(setq-default fill-column 80)
+(setq-default fill-column 120)
 (setq set-mark-command-repeat-pop t)
 (setq require-final-newline t)
 (setq kill-whole-line t)
