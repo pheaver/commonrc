@@ -24,7 +24,6 @@
 ;;;; load my other files
 (require 'phil-packages)
 (require 'phil-parent-dirs)
-(require 'phil-anything)
 (require 'phil-completion)
 (require 'phil-buffers)
 (require 'phil-darwin)
