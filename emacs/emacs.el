@@ -37,7 +37,6 @@
 (require 'phil-utils)
 (require 'phil-vc)
 (require 'phil-wspace)
-(require 'phil-recentf)
 
 ;; autoloads for cl-* files
 (load "cl-loaddefs")
@@ -66,6 +65,13 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 (global-unset-key (kbd "s-p")) ;; so that i do not accidentally print
+
+;;;; recentf
+(setq recentf-max-saved-items 500)
+(setq recentf-max-menu-items 60)
+(if (fboundp 'helm-recentf)
+    (global-set-key (kbd "C-c f") 'helm-recentf)
+  (global-set-key (kbd "C-c f") 'recentf-open-files))
 
 ;;;; paredit
 (defun load-paredit-mode ()
