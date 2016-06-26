@@ -132,6 +132,7 @@
 (setq x-stretch-cursor t)           ; draw block cursor as wide as the glyph under it
 (setq-default fill-column 120)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs
+(setq show-paren-delay 0)
 
 ;;;; make the mark visible
 ;(when (require 'visible-mark nil 'noerror)
