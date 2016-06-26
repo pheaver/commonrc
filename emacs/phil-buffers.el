@@ -1,20 +1,3 @@
-(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
-  (interactive "P")
-  (revert-buffer ignore-auto t preserve-modes))
-
-(defun phil/bury-buffer (&optional arg buffer-or-name)
-  (interactive "P")
-  (bury-buffer buffer-or-name)
-  (when arg (other-window 1)))
-
-(global-set-key (kbd "C-M-]") 'phil/bury-buffer)
-(global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
-
-(global-set-key (kbd "C-M-;")
- (lambda () (interactive) (switch-to-buffer (other-buffer)))) ;; nil means (other-buffer)
-(global-set-key (kbd "C-M-'")
- (lambda () (interactive) (display-buffer (other-buffer) 'not-this-window)))
-
 ;; emacs should have ibuffer set to autoload, so this will bind C-x C-b when
 ;; ibuffer is available, even if it's not yet loaded.
 (if (fboundp 'ibuffer)
@@ -62,24 +45,6 @@ advice like this:
                                nil require-match initial-input hist def))
         ad-do-it))))
 
-(defvar ido-execute-command-cache nil)
-
-(defun ido-execute-command ()
-  (interactive)
-  (call-interactively
-   (intern
-    (ido-completing-read
-     "M-x "
-     (progn
-       (unless ido-execute-command-cache
-         (mapatoms (lambda (s)
-                     (when (commandp s)
-                       (setq ido-execute-command-cache
-                             (cons (format "%S" s) ido-execute-command-cache))))))
-       ido-execute-command-cache)))))
-
-(global-set-key (kbd "M-X") 'ido-execute-command)
-
 (setq ido-default-buffer-method 'selected-window)
 (setq ido-default-file-method 'selected-window)
 
@@ -91,10 +56,6 @@ advice like this:
 
 (setq ido-decorations '("" "" "," " ..." "[" "]" " [No match]" " [Matched]"))
 
-;; kinda neat:
-;; (setq ido-decorations '("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
-
 ;; ----------------------------------------
 
 (provide 'phil-buffers)
-

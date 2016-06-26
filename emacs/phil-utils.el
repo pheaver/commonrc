@@ -128,4 +128,13 @@ If the input is non-empty, it is inserted at point."
       (switch-to-buffer (other-buffer)))
   (balance-windows))
 
+(defun revert-buffer-noconfirm (&optional ignore-auto preserve-modes)
+  (interactive "P")
+  (revert-buffer ignore-auto t preserve-modes))
+
+(defun phil/bury-buffer (&optional arg buffer-or-name)
+  (interactive "P")
+  (bury-buffer buffer-or-name)
+  (when arg (other-window 1)))
+
 (provide 'phil-utils)

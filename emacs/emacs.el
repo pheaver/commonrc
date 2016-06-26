@@ -66,6 +66,21 @@
 (global-set-key (kbd "C-x a t") 'untabify)
 (global-unset-key (kbd "s-p")) ;; so that i do not accidentally print
 
+;;;; more keybindings, for functions defined in phil-utils
+(define-key ctl-x-map "2" 'phil/split-window-vertically)
+(define-key ctl-x-map "3" 'phil/split-window-horizontally)
+
+(global-set-key (kbd "C-c C-x t") 'notify-timer)
+(global-set-key "\C-xQ" 'phil/macro-query)
+(global-set-key (kbd "C-M-]") 'phil/bury-buffer)
+(global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
+
+(when (< emacs-major-version 23)
+  (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
+
+(eval-after-load "dired"
+  '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
+
 ;;;; recentf
 (setq recentf-max-saved-items 500)
 (setq recentf-max-menu-items 60)
@@ -175,19 +190,6 @@
 
 ;;;; javascript/json
 (setq js-indent-level 2)
-
-;;;; set keybindings for functions in phil-utils
-(define-key ctl-x-map "2" 'phil/split-window-vertically)
-(define-key ctl-x-map "3" 'phil/split-window-horizontally)
-
-(global-set-key (kbd "C-c C-x t") 'notify-timer)
-(global-set-key "\C-xQ" 'phil/macro-query)
-
-(when (< emacs-major-version 23)
-  (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
-
-(eval-after-load "dired"
-  '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
 
 ;;;; shell stuff
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
