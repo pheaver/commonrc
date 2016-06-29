@@ -1,5 +1,3 @@
-;; ----------------------------------------
-
 (require 'phil-paths)
 
 (defun find-tags-table (&optional filename)
@@ -27,12 +25,12 @@ to TAGS."
   (let ((all-dirs (phil/parent-dirs path))
         (suffixes (if (null ext) '("") `("" ,(concat "." ext))))
         (dirs nil))
-    (if parents
-        (if (equal parents t)
-            (setq dirs (reverse all-dirs))
-          (dotimes (n (min parents (length all-dirs)))
-            (push (pop all-dirs dirs))))
-      nil)
+
+    (when parents
+      (if (equal parents t)
+          (setq dirs (reverse all-dirs))
+        (dotimes (n (min parents (length all-dirs)))
+          (push (pop all-dirs) dirs))))
 
     (when (file-directory-p path)
       (push path dirs))
@@ -61,7 +59,5 @@ to TAGS."
 (add-hook 'find-file-hook 'find-tags-table)
 
 (setq tags-revert-without-query t)
-
-;; ----------------------------------------
 
 (provide 'phil-tags)
