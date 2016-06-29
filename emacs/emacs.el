@@ -2,9 +2,6 @@
 ;; ~/commonrc/emacs/emacs.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq inhibit-startup-screen 1)
-(setq initial-scratch-message nil)
-
 ;;;; some stuff that I'd prefer to have in phil-paths.el,
 ;;;; but there's a chicken-and-the-egg problem.
 (setq common-init-file (abbreviate-file-name load-file-name))
@@ -81,6 +78,47 @@
 (eval-after-load "dired"
   '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
 
+;;;; set some minor modes
+(when (functionp 'column-number-mode) (column-number-mode 1))
+(when (functionp 'display-time-mode) (display-time-mode 0))
+(when (functionp 'tool-bar-mode) (tool-bar-mode 0))
+(when (functionp 'scroll-bar-mode) (scroll-bar-mode 0))
+(when (functionp 'show-paren-mode) (show-paren-mode 1))
+(when (functionp 'size-indication-mode) (size-indication-mode 0))
+(when (functionp 'transient-mark-mode) (transient-mark-mode 1))
+(when (functionp 'savehist-mode) (savehist-mode 1))
+(when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
+(when (functionp 'menu-bar-mode) (menu-bar-mode 0))
+
+;;;; miscellaneous
+(setq inhibit-startup-screen 1)
+(setq initial-scratch-message nil)
+(setq help-window-select t)         ; always select help window
+(setq kill-whole-line t)
+(setq require-final-newline t)
+(setq set-mark-command-repeat-pop t)
+(setq split-height-threshold nil)
+(setq split-width-threshold 150)    ; encourage splitting horizontally; default 160
+(setq x-stretch-cursor t)           ; draw block cursor as wide as the glyph under it
+(setq-default fill-column 120)
+(setq-default indent-tabs-mode nil) ; use spaces instead of tabs
+(setq show-paren-delay 0)
+
+;;;; make the mark visible
+;(when (require 'visible-mark nil 'noerror)
+;  (global-visible-mark-mode 1))
+
+;;;; do not blink the cursor
+(blink-cursor-mode (- (*) (*) (*)))
+
+;;;; enable some stuff that is normally disabled
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+
 ;;;; recentf
 (setq recentf-max-saved-items 500)
 (setq recentf-max-menu-items 60)
@@ -132,53 +170,13 @@
       `((,(expand-file-name "~/work") . "~/work/.emacs_backups")
         ("." . "~/.emacs_backups")))
 
-
 ;;;; make sure the scratch buffer always exists
 (run-with-idle-timer 1 t
     '(lambda () (get-buffer-create "*scratch*")))
 
-;;;; miscellaneous
-(setq help-window-select t)         ; always select help window
-(setq kill-whole-line t)
-(setq require-final-newline t)
-(setq set-mark-command-repeat-pop t)
-(setq split-height-threshold nil)
-(setq split-width-threshold 150)    ; encourage splitting horizontally; default 160
-(setq x-stretch-cursor t)           ; draw block cursor as wide as the glyph under it
-(setq-default fill-column 120)
-(setq-default indent-tabs-mode nil) ; use spaces instead of tabs
-(setq show-paren-delay 0)
-
-;;;; make the mark visible
-;(when (require 'visible-mark nil 'noerror)
-;  (global-visible-mark-mode 1))
-
-;;;; do not blink the cursor
-(blink-cursor-mode (- (*) (*) (*)))
-
 ;;;; use aspell instead of ispell
 (setq-default ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra"))
-
-;;;; enable some stuff that is normally disabled
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
-
-;;;; set some minor modes
-(when (functionp 'column-number-mode) (column-number-mode 1))
-(when (functionp 'display-time-mode) (display-time-mode 0))
-(when (functionp 'tool-bar-mode) (tool-bar-mode 0))
-(when (functionp 'scroll-bar-mode) (scroll-bar-mode 0))
-(when (functionp 'show-paren-mode) (show-paren-mode 1))
-(when (functionp 'size-indication-mode) (size-indication-mode 0))
-(when (functionp 'transient-mark-mode) (transient-mark-mode 1))
-(when (functionp 'savehist-mode) (savehist-mode 1))
-(when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
-(when (functionp 'menu-bar-mode) (menu-bar-mode 0))
 
 ;;;; C and c++ modes
 (setq-default c-basic-offset 2)
