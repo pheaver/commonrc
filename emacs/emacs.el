@@ -24,8 +24,6 @@
 (require 'phil-completion)
 (require 'phil-buffers)
 (require 'phil-darwin)
-(require 'phil-flymake)
-(require 'phil-haskell)
 (require 'phil-scala)
 (require 'phil-org)
 (require 'phil-frames)
