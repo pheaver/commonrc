@@ -1,18 +1,6 @@
-;; ---------------------------------------------
-;; organizer, diary, planner, todo list
+(require 'phil-paths)
 
-(add-to-list 'load-path (commonrc-dir "org-mode.git/lisp/"))
-
-(push '("\\.org\\'" . org-mode) auto-mode-alist)
-
-(when (require 'org-install "org-install" t)
-  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-  (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
-  )
-
-(eval-after-load 'org
-  '(progn (add-to-list 'org-modules 'org-habit)
-          (add-to-list 'org-modules 'org-mobile)))
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;;;; locations of org files
 (setq org-directory (dropbox-dir "org"))
@@ -49,43 +37,6 @@
 ;; cycle globally if cursor is at beginning of buffer before headlines
 (setq org-cycle-global-at-bob t)
 
-;;;; agenda
-(setq org-agenda-start-on-weekday nil)
-(setq org-agenda-use-time-grid nil)
-(setq org-agenda-dim-blocked-tasks t) ;; default
-(setq org-agenda-window-setup 'other-window)
-(setq org-agenda-restore-windows-after-quit t)
-
-;; agenda format
-(setq org-agenda-prefix-format
-      '((agenda . " %i %?-12t% s")
-        ;; (agenda . " %i %-12:c%?-12t% s")
-        (timeline . "  % s")
-        (todo . " %i %-12:c")
-        (tags . " %i %-12:c")
-        (search . " %i %-12:c")))
-
-;; google-weather in agenda
-(setq org-google-weather-icon-directory (dropbox-dir "icons/"))
-(setq org-google-weather-location "97217")
-(eval-after-load "org"
-  '(progn
-     (require 'google-weather "google-weather" 'noerror)
-     (require 'org-google-weather "org-google-weather" 'noerror)))
-
-;;;; agenda and diary
-(add-to-list 'auto-mode-alist
-             '("diary$" . diary-mode))
-
-(setq diary-display-function 'diary-fancy-display)
-(add-hook 'diary-display-hook 'fancy-diary-display)
-(add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
-(add-hook 'diary-list-entries-hook 'diary-sort-entries)
-
-(setq org-agenda-diary-file 'diary-file)
-(setq diary-file (dropbox-dir "org" "diary"))
-(setq org-agenda-include-diary t)
-
 ;;;; capture
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline "" "Inbox") "** TODO %?\n%i")
@@ -98,21 +49,6 @@
         ;; ("xx" "test" entry (file+headline "" "Tasks" "** %?"))
         ))
 
-;;;; mobile
-(setq org-mobile-directory (dropbox-dir "MobileOrg"))
-(setq org-mobile-inbox-for-pull  (dropbox-dir "org/inbox.org"))
-
-;;;; habits
-; global STYLE property values for completion
-(setq org-global-properties '(("STYLE_ALL" . "habit")))
-; position the habit graph on the agenda to the right of the default
-(setq org-habit-graph-column 55)
-(setq org-habit-preceding-days 14) ; default
-(setq org-habit-following-days 7)  ; default
-(setq org-habit-show-habits-only-for-today t) ; default t
-; make sure habits are turned on in the agenda each day
-(run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
-
 ;;;; encryption
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
@@ -123,29 +59,22 @@
 (setq org-crypt-disable-auto-save t)
 
 ;;;; custom functions
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-(defun find-org-files () (interactive)
+(defun find-org-files ()
+  (interactive)
   (require 'org)
   (let* ((alist (mapcar (lambda (x) (cons (file-name-nondirectory x) x)) (org-agenda-files)))
          (name (completing-read "Org file: " (mapcar 'car alist)))
          (file-name (cdr (assoc-string name alist)))
          (org-buffer (org-get-agenda-file-buffer file-name)))
-    (switch-to-buffer org-buffer))
-  )
+    (switch-to-buffer org-buffer)))
 
 ;;;; keybindings
 (global-set-key (kbd "C-c C-'") 'find-org-files)
 (global-set-key "\C-cb" 'org-ido-switchb)
 (define-key global-map "\C-cc" 'org-capture)
-; "C-cl" is bound in tex/latex mode, so we use C-s S-l also
+;; "C-cl" is bound in tex/latex mode, so we use C-s S-l also
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c L") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-
-;; ----------------------------------------
 
 (provide 'phil-org)
