@@ -1,6 +1,5 @@
-#ELS=$(wildcard *.el)
-SRCS=phil-file-modes phil-parent-dirs phil-utils
-ELS=$(foreach x,$(SRCS),$x.el)
+# ELS=$(wildcard *.el)
+ELS=phil-file-modes.el phil-parent-dirs.el phil-utils.el
 ELCS=$(ELS:.el=.elc)
 
 LOADDEF_SRCS=
@@ -33,7 +32,7 @@ BATCH=$(EMACS) -batch -q -no-site-file -eval \
                   --eval '(save-buffer)'
 
 install-package-managers:
-	@$(BATCH) --eval "(setq phil/auto-install-packages t)" --eval "(require 'phil-packages)"
+	@$(BATCH) --eval "(require 'phil-packages)" --eval "(phil/auto-install-all)"
 
 clean:
 	rm -fr $(ELCS)

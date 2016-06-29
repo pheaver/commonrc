@@ -1,10 +1,5 @@
 (require 'phil-paths)
 
-(defvar phil/auto-install-packages nil
-  "Automatically install package managers (e.g. package.el, el-get) and any packages that might be specified.
-
-This is set in commonrc/emacs/Makefile.")
-
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -27,46 +22,38 @@ This is set in commonrc/emacs/Makefile.")
 
 (package-initialize)
 
-;; --------------------
-;; el-get
-
+;;;; el-get
 (add-to-list 'load-path (concat user-emacs-directory "el-get" "/" "el-get"))
 
 (eval-after-load "el-get"
   '(add-to-list 'el-get-recipe-path (commonrc-dir "el-get-recipes")))
 
-;; cannot use package-installed-p (or use-package or req-package) because el-get
-;; self-updates and uninstalls the elpa package.
-(unless (require 'el-get nil 'noerror)
-  (when phil/auto-install-packages (package-install 'el-get)))
-
 (when (require 'el-get nil 'noerror)
   (el-get 'sync))
 
-;; ----------------------------------------
-;; define which packages I use
+;;;; packages to auto install
+(defvar my-packages
+  '(
+    paredit
+    browse-kill-ring
+    org
+    magit
+    )
+  )
 
-(setq my-packages
-      '(
-        paredit
-        browse-kill-ring
-        org
-        magit
-        auto-complete
-        markdown-mode
-        )
-      )
+(defvar my-el-get-packages '(itimer))
 
-;; use el-get only for my little itimer package.
-(setq el-get-sources '((:name itimer)))
-
-(defun phil/install-all ()
+(defun phil/auto-install-all ()
   (interactive)
-  (if (require 'el-get)
-      (el-get nil (mapcar 'el-get-source-name el-get-sources)))
-  (dolist (package my-packages)
-    (package-install package)))
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p)))
+  ;; cannot use package-installed-p (or use-package or req-package) because el-get
+  ;; self-updates and uninstalls the elpa package.
+  (unless (require 'el-get nil 'noerror)
+    (package-install 'el-get)
+    (require 'el-get))
 
-(when phil/auto-install-packages (phil/install-all))
+  (el-get 'sync my-el-get-packages))
 
 (provide 'phil-packages)
