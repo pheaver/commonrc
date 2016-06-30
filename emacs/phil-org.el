@@ -50,13 +50,15 @@
         ))
 
 ;;;; encryption
-(require 'org-crypt)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance '("crypt"))
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
-(setq org-crypt-key nil)
-(setq org-crypt-disable-auto-save t)
+(with-eval-after-load 'org
+  (require 'org-crypt)
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance '("crypt"))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key nil)
+  (setq org-crypt-disable-auto-save t)
+  )
 
 ;;;; custom functions
 (defun find-org-files ()
