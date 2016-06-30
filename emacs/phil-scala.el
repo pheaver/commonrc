@@ -1,31 +1,25 @@
+;;;; ensime
 (setq ensime-sbt-compile-on-save nil)
 
-(defun make-spray-doc-url (type &optional member)
+;; (defun make-spray-doc-url (type &optional member)
 
-  (let ((url-base "http://spray.io/documentation/api/"))
-    ;; broken, but i don't know why:
-    ;; (message (ensime-make-scala-doc-url-helper url-base type member))
-    ;; (ensime-make-scala-doc-url-helper url-base type member)))
-    (concat url-base "#" (ensime-type-full-name type))))
+;;   (let ((url-base "http://spray.io/documentation/api/"))
+;;     ;; broken, but i don't know why:
+;;     ;; (message (ensime-make-scala-doc-url-helper url-base type member))
+;;     ;; (ensime-make-scala-doc-url-helper url-base type member)))
+;;     (concat url-base "#" (ensime-type-full-name type))))
 
-(defun make-akka-doc-url (type &optional member)
-  (ensime-make-scala-doc-url-helper "http://doc.akka.io/api/akka/snapshot/" type member))
-
-(defun ensime-sbt-do-test ()
-  (interactive)
-  (ensime-sbt-switch)
-  (ensime-sbt-action "test"))
-
-(when (require 'scala-mode nil 'noerror)
-    (add-hook 'scala-mode-hook 'phil/scala-mode-hook))
-
-(when (require 'sbt-mode nil 'noerror)
-    (add-to-list 'grep-find-ignored-directories "target")
-    (add-hook 'sbt-mode-hook 'phil/sbt-mode-hook))
+;; (defun make-akka-doc-url (type &optional member)
+;;   (ensime-make-scala-doc-url-helper "http://doc.akka.io/api/akka/snapshot/" type member))
 
 ;; (when (require 'ensime nil 'noerror)
 ;;   (add-to-list 'ensime-doc-lookup-map '("^spray\\." . make-spray-doc-url))
 ;;   (add-to-list 'ensime-doc-lookup-map '("^akka\\." . make-akka-doc-url)))
+
+;; (defun ensime-sbt-do-test ()
+;;   (interactive)
+;;   (ensime-sbt-switch)
+;;   (ensime-sbt-action "test"))
 
 (defun phil/sbt-mode-hook ()
   (interactive)
@@ -43,6 +37,10 @@
   ;; for interpretation. It will keep your command history cleaner.
   (local-set-key (kbd "M-RET") 'comint-accumulate)
   )
+
+(with-eval-after-load 'sbt-mode
+  (add-to-list 'grep-find-ignored-directories "target")
+  (add-hook 'sbt-mode-hook 'phil/sbt-mode-hook))
 
 (defun phil/scala-mode-hook ()
   (interactive)
@@ -71,5 +69,8 @@
   ;; ensime overrides auto-complete settings, so this sets some of them back.
   (setq ac-auto-start 2)
   )
+
+(with-eval-after-load 'scala-mode
+  (add-hook 'scala-mode-hook 'phil/scala-mode-hook))
 
 (provide 'phil-scala)
