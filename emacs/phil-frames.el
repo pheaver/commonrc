@@ -33,6 +33,9 @@
 ;;
 ;; frame theming
 ;;
+(add-to-list 'default-frame-alist
+             '(cursor-color . "orange"))
+
 (defun phil/set-face-attribute ( face frame &rest args)
   (if (facep face) (apply 'set-face-attribute face frame args)))
 
@@ -40,6 +43,8 @@
   (interactive)
 
   ;; (set-face-background 'default "black" frame)
+
+  (set-cursor-color "orange")
 
   ;; these break for any face attributes that aren't yet defined
   (phil/set-face-attribute 'jabber-activity-face frame

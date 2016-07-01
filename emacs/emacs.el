@@ -23,7 +23,6 @@
 (require 'phil-parent-dirs)
 (require 'phil-completion)
 (require 'phil-buffers)
-(require 'phil-darwin)
 (require 'phil-scala)
 (require 'phil-org)
 (require 'phil-frames)
@@ -59,7 +58,6 @@
 (global-set-key (kbd "C-z") 'repeat)
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
-(global-unset-key (kbd "s-p")) ;; so that i do not accidentally print
 
 ;;;; more keybindings, for functions defined in phil-utils
 (define-key ctl-x-map "2" 'phil/split-window-vertically)
@@ -101,6 +99,15 @@
 (setq-default fill-column 120)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs
 (setq show-paren-delay 0)
+
+;;;; os x
+(when (eq system-type 'darwin)
+  (setq ns-command-modifier 'super)
+  (setq ns-option-modifier 'meta)
+  (global-unset-key (kbd "s-q"))
+  (global-unset-key (kbd "s-w"))
+  (global-unset-key (kbd "s-t"))
+  (global-unset-key (kbd "s-p")))
 
 ;;;; make the mark visible
 ;(when (require 'visible-mark nil 'noerror)
