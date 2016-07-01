@@ -85,6 +85,7 @@
 (when (functionp 'savehist-mode) (savehist-mode 1))
 (when (functionp 'global-font-lock-mode) (global-font-lock-mode 1))
 (when (functionp 'menu-bar-mode) (menu-bar-mode 0))
+(when (functionp 'async-bytecomp-package-mode) (async-bytecomp-package-mode 1))
 
 ;;;; miscellaneous
 (setq inhibit-startup-screen 1)
