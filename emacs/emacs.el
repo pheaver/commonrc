@@ -7,8 +7,9 @@
 (setq common-init-file (abbreviate-file-name load-file-name))
 (setq commonrc-dir (file-name-directory common-init-file))
 
-(load-file (concat commonrc-dir "phil-paths.el"))
+(load (concat commonrc-dir "phil-paths"))
 (require 'phil-init)
+(require 'phil-utils)
 
 ;; this is pretty important, so execute it at all run levels
 (when (and (equal system-type 'windows-nt) (executable-find "cygpath"))
@@ -20,7 +21,6 @@
 
 ;;;; load my other files
 (require 'phil-packages)
-(require 'phil-parent-dirs)
 (require 'phil-completion)
 (require 'phil-buffers)
 (require 'phil-scala)
@@ -28,7 +28,6 @@
 (require 'phil-frames)
 (require 'phil-tags)
 (require 'phil-term)
-(require 'phil-utils)
 (require 'phil-vc)
 (require 'phil-wspace)
 
@@ -67,9 +66,6 @@
 (global-set-key "\C-xQ" 'phil/macro-query)
 (global-set-key (kbd "C-M-]") 'phil/bury-buffer)
 (global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
-
-(when (< emacs-major-version 23)
-  (define-key isearch-mode-map (kbd "M-s o") 'phil/isearch-occur))
 
 (eval-after-load "dired"
   '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))

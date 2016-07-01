@@ -1,7 +1,35 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; miscellaneous utility functions.
-;; these should be functions that are not needed to load emacs,
-;; but are only loaded on demand, such as by an autoload.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defmacro with-timer (title &rest forms)
+  "Run the given FORMS, counting the elapsed time.
+A message including the given TITLE and the corresponding elapsed
+time is displayed."
+  (declare (indent 1))
+  (let ((nowvar (make-symbol "now"))
+        (body   `(progn ,@forms)))
+    `(let ((,nowvar (current-time)))
+       (message "%s..." ,title)
+       (prog1 ,body
+         (let ((elapsed
+                (float-time (time-subtract (current-time) ,nowvar))))
+           (message "%s... done (%.3fs)" ,title elapsed))))))
+
+;;;; parent dirs
+(defun phil/parent-dir (path)
+  (interactive)
+  (file-name-directory (directory-file-name path)))
+
+(defun phil/parent-dirs (path)
+  (interactive)
+  (let ((parent (phil/parent-dir path)))
+    (cond
+     ((null parent) ())
+     ((string= parent path) ())
+     (t (cons parent (phil/parent-dirs parent))))))
+
+;;;; notifications
 (defvar growlnotify-path "growlnotify")
 (defvar gntp-send-path "gntp-send")
 (defvar notify-send-path "notify-send")
@@ -52,6 +80,7 @@
   (interactive "sRun at time: ")
   (notify-timer time "Tea is ready!"))
 
+;;; other
 (defun phil/switch-to-buffer (buffer)
   (let ((w (get-buffer-window buffer)))
     (if w (select-window w)
@@ -79,12 +108,7 @@ If the input is non-empty, it is inserted at point."
                      (read-from-minibuffer prompt))))
     (unless (string= "" input) (insert input))))
 
-(defun phil/isearch-occur ()
-  (interactive)
-  (let ((case-fold-search isearch-case-fold-search))
-    (occur (if isearch-regexp isearch-string
-             (regexp-quote isearch-string)))))
-
+;;;; cleanup files - remove trailing whitespace and tabs
 (defun phil/cleanup (file)
   (let* ((buffer0 (find-buffer-visiting file))
          (buffer1 (or buffer0 (find-file file))))
@@ -100,13 +124,6 @@ If the input is non-empty, it is inserted at point."
   (eval-when-compile (require 'dired))
   (let ((files (dired-get-marked-files nil nil)))
     (mapc 'phil/cleanup files)))
-
-;; meant to be called from command line.
-;; only works for absolute paths
-;; TODO: use ido to make it easy to use interactively.
-(defun phil/find-file-sudo (filename)
-  (interactive)
-  (find-file (concat "/sudo::" filename)))
 
 (defun beautify-json ()
   (interactive)

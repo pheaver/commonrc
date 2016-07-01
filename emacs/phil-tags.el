@@ -21,7 +21,7 @@ If EXT is non-nil, then also search for TAGS.EXT in each directory, in addition
 to TAGS."
 
   (interactive)
-  (require 'phil-parent-dirs)
+  (require 'phil-utils)
   (let ((all-dirs (phil/parent-dirs path))
         (suffixes (if (null ext) '("") `("" ,(concat "." ext))))
         (dirs nil))
