@@ -97,9 +97,9 @@
    ((member theme (custom-available-themes))
     ;; disable other themes first, so we don't get a cumulative effect
     (load-theme theme t)
-    (phil/set-face-attributes frame)
     (when (fboundp 'smart-mode-line-enable)
       (smart-mode-line-enable))
+    (phil/set-face-attributes frame)
     (setq phil/current-theme theme)
     (message (format "Current theme: %s" theme)))
    (t (message "Invalid theme: %s" theme))))
