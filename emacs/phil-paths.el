@@ -1,5 +1,3 @@
-;; ----------------------------------------
-
 (when (not (boundp 'user-emacs-directory))
   (setq user-emacs-directory "~/.emacs.d/"))
 
@@ -14,14 +12,11 @@
   "~/.localrc"
   "Path to local shell file.")
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file 'noerror)
-
 (defvar commonrc-dir
   (file-name-directory load-file-name))
 
 (defvar common-init-file
-  (concat commonrc-dir "emacs.el")
+  (abbreviate-file-name (concat commonrc-dir "emacs.el"))
   "Path to my master shared emacs init file.  Should be set in that file.")
 
 (defun concatpaths (paths)
@@ -33,19 +28,4 @@
 (defun dropbox-dir (&rest paths)
   (concat dropbox-dir (concatpaths paths)))
 
-(defun add-load-path (path &optional append)
-  (add-to-list 'load-path (abbreviate-file-name path) append)
-  ;; TODO always appends - need to be able to control whether this appends
-  (when (file-directory-p path)
-    (let ((default-directory path))
-      (normal-top-level-add-subdirs-to-load-path))))
-
-(add-load-path "~/local/share/emacs/site-lisp")
-(add-load-path commonrc-dir 'append)
-;; (add-load-path user-emacs-directory)
-(add-load-path (concat dropbox-dir "emacs"))
-(add-load-path (concat user-emacs-directory "auto-install"))
-
 (provide 'phil-paths)
-
-;; ----------------------------------------

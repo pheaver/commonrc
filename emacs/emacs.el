@@ -2,24 +2,11 @@
 ;; ~/commonrc/emacs/emacs.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;; some stuff that I'd prefer to have in phil-paths.el,
-;;;; but there's a chicken-and-the-egg problem.
-(setq common-init-file (abbreviate-file-name load-file-name))
-(setq commonrc-dir (file-name-directory common-init-file))
+(add-to-list 'load-path (file-name-directory load-file-name))
 
-(load (concat commonrc-dir "phil-paths"))
+(require 'phil-paths)
 (require 'phil-init)
 (require 'phil-utils)
-
-;; this is pretty important, so execute it at all run levels
-(when (and (equal system-type 'windows-nt) (executable-find "cygpath"))
-  (require 'phil-file-modes)
-  (add-hook 'find-file-hook 'phil/file-modes-check)
-  (add-hook 'after-save-hook 'phil/file-modes-restore))
-
-(phil/eval-at-init-level 1 '(progn
-
-;;;; load my other files
 (require 'phil-packages)
 (require 'phil-completion)
 (require 'phil-buffers)
@@ -30,6 +17,14 @@
 (require 'phil-term)
 (require 'phil-vc)
 (require 'phil-wspace)
+
+(when (and (equal system-type 'windows-nt) (executable-find "cygpath"))
+  (require 'phil-file-modes)
+  (add-hook 'find-file-hook 'phil/file-modes-check)
+  (add-hook 'after-save-hook 'phil/file-modes-restore))
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror)
 
 ;; autoloads for cl-* files
 (load "cl-loaddefs")
@@ -202,4 +197,3 @@
 (add-hook 'after-save-hook
    'executable-make-buffer-file-executable-if-script-p)
 
-))
