@@ -1,24 +1,32 @@
 ;; emacs should have ibuffer set to autoload, so this will bind C-x C-b when
 ;; ibuffer is available, even if it's not yet loaded.
-(if (fboundp 'ibuffer)
-    (global-set-key (kbd "C-x C-b") 'ibuffer))
+(when (fboundp 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (setq ibuffer-default-sorting-mode 'major-mode)
+  (setq ibuffer-always-compile-formats t)
+  (setq ibuffer-use-other-window nil))
 
-(setq ibuffer-default-sorting-mode 'major-mode)
-(setq ibuffer-always-compile-formats t)
-(setq ibuffer-use-other-window nil)
+(require 'ido nil 'noerror)
 
-(if (require 'ido nil t)
-    (ido-mode t))
+(with-eval-after-load 'ido
+  (ido-mode t)
+  (ido-everywhere t)
+  (defalias 'read-buffer 'ido-read-buffer)
+  (defalias 'read-directory-name 'ido-read-directory-name)
+  (defalias 'read-file-name 'ido-read-file-name)
+  (setq magit-completing-read-function 'magit-ido-completing-read)
+  (setq gnus-completing-read-function 'gnus-ido-completing-read))
 
-(eval-after-load "ido"
-  '(progn
-     (ido-everywhere t)
-     (defalias 'read-buffer 'ido-read-buffer)
-     (defalias 'read-directory-name 'ido-read-directory-name)
-     (defalias 'read-file-name 'ido-read-file-name)))
+(setq ido-default-buffer-method 'selected-window)
+(setq ido-default-file-method 'selected-window)
 
-(setq magit-completing-read-function 'magit-ido-completing-read)
-(setq gnus-completing-read-function 'gnus-ido-completing-read)
+(setq ido-ignore-buffers
+      '("^ " "*Buffer" "*Help*" "*Messages" "*Shell Command Output" "*Completions"))
+
+(setq ido-max-prospects 30)
+(setq ido-max-window-height 2) ;; nil means use max-mini-window-height
+
+(setq ido-decorations '("" "" "," " ..." "[" "]" " [No match]" " [Matched]"))
 
 (defvar ido-enable-replace-completing-read t
   "If t, use ido-completing-read instead of completing-read if possible.
@@ -44,18 +52,5 @@ advice like this:
                                allcomp
                                nil require-match initial-input hist def))
         ad-do-it))))
-
-(setq ido-default-buffer-method 'selected-window)
-(setq ido-default-file-method 'selected-window)
-
-(setq ido-ignore-buffers
-      '("^ " "*Buffer" "*Help*" "*Messages" "*Shell Command Output" "*Completions"))
-
-(setq ido-max-prospects 30)
-(setq ido-max-window-height 2) ;; nil means use max-mini-window-height
-
-(setq ido-decorations '("" "" "," " ..." "[" "]" " [No match]" " [Matched]"))
-
-;; ----------------------------------------
 
 (provide 'phil-buffers)
