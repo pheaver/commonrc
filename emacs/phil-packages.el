@@ -45,14 +45,23 @@
 
 (defun phil/auto-install-all ()
   (interactive)
-  (dolist (p my-packages)
-    (when (not (package-installed-p p))
-      (package-install p)))
-  ;; cannot use package-installed-p (or use-package or req-package) because el-get
-  ;; self-updates and uninstalls the elpa package.
-  (unless (require 'el-get nil 'noerror)
-    (package-install 'el-get)
-    (require 'el-get))
+  (require 'cl)
+
+  (let ((not-installed-packages (remove-if 'package-installed-p my-packages)))
+    (when not-installed-packages
+      (message "refreshing packages (1)")
+      (package-refresh-contents))
+    (dolist (p not-installed-packages) (package-install p))
+
+    ;; cannot use package-installed-p (or use-package or req-package) because el-get
+    ;; self-updates and uninstalls the elpa package.
+    (unless (require 'el-get nil 'noerror)
+      ;; refresh packages unless we already did above
+      (unless not-installed-packages
+        (message "refreshing packages (1)")
+        (package-refresh-contents))
+      (package-install 'el-get)
+      (require 'el-get)))
 
   (el-get 'sync my-el-get-packages))
 
