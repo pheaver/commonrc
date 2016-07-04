@@ -1,4 +1,5 @@
 (require 'phil-paths)
+(require 'phil-init)
 
 (setq vc-handled-backends/original vc-handled-backends)
 (setq vc-handled-backends nil)

@@ -1,5 +1,5 @@
 # ELS=$(wildcard *.el)
-ELS=phil-file-modes.el phil-utils.el
+ELS=phil-file-modes.el phil-utils.el package-legacy.el
 ELCS=$(ELS:.el=.elc)
 
 LOADDEF_SRCS=
