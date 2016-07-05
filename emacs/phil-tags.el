@@ -60,4 +60,6 @@ to TAGS."
 
 (setq tags-revert-without-query t)
 
+(setq tags-add-tables nil)
+
 (provide 'phil-tags)
