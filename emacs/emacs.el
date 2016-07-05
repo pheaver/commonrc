@@ -7,11 +7,12 @@
 (require 'phil-paths)
 (require 'phil-utils)
 (require 'phil-packages)
-(require 'phil-completion)
 (require 'phil-buffers)
-(require 'phil-scala)
-(require 'phil-org)
+(require 'phil-completion)
 (require 'phil-frames)
+(require 'phil-helm)
+(require 'phil-org)
+(require 'phil-scala)
 (require 'phil-tags)
 (require 'phil-term)
 (require 'phil-vc)
@@ -131,6 +132,20 @@
 (add-hook 'lisp-mode-hook             'load-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook 'load-paredit-mode)
 (add-hook 'scheme-mode-hook           'load-paredit-mode)
+
+;;;; projectile
+(defun init-projectile ()
+  (interactive)
+  (require 'projectile)
+  (projectile-global-mode)
+  (with-eval-after-load 'helm
+    (setq projectile-completion-system 'helm)
+    (helm-projectile-on))
+
+  (define-key projectile-command-map (kbd "ESC") nil)
+  (define-key projectile-command-map (kbd "M-i") 'helm-multi-swoop-projectile))
+
+(global-set-key (kbd "C-c p") 'init-projectile)
 
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
