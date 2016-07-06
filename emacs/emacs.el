@@ -144,6 +144,7 @@
     (setq projectile-completion-system 'helm))
   (with-eval-after-load 'helm-projectile
     (helm-projectile-on))
+  (require 'helm-projectile nil 'noerror)
   )
 
 (global-set-key (kbd "C-c p") 'init-projectile)
