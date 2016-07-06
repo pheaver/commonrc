@@ -138,12 +138,13 @@
   (interactive)
   (require 'projectile)
   (projectile-global-mode)
-  (with-eval-after-load 'helm
-    (setq projectile-completion-system 'helm)
-    (helm-projectile-on))
-
   (define-key projectile-command-map (kbd "ESC") nil)
-  (define-key projectile-command-map (kbd "M-i") 'helm-multi-swoop-projectile))
+  (define-key projectile-command-map (kbd "M-i") 'helm-multi-swoop-projectile)
+  (with-eval-after-load 'helm
+    (setq projectile-completion-system 'helm))
+  (with-eval-after-load 'helm-projectile
+    (helm-projectile-on))
+  )
 
 (global-set-key (kbd "C-c p") 'init-projectile)
 
