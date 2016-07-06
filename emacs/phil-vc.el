@@ -21,5 +21,6 @@
 ;; over ssh on CentOS, C-/ behaves as C-_
 (global-set-key (kbd "C-x C-/") 'magit-status)
 (global-set-key (kbd "C-x C-_") 'magit-status)
+(global-set-key (kbd "C-x C-.") 'magit-blame)
 
 (provide 'phil-vc)
