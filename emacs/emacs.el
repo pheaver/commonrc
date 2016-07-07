@@ -86,7 +86,7 @@
 (setq require-final-newline t)
 (setq set-mark-command-repeat-pop t)
 (setq split-height-threshold nil)
-(setq split-width-threshold 150)    ; encourage splitting horizontally; default 160
+(setq split-width-threshold 200)
 (setq x-stretch-cursor t)           ; draw block cursor as wide as the glyph under it
 (setq-default fill-column 120)
 (setq-default indent-tabs-mode nil) ; use spaces instead of tabs
