@@ -36,8 +36,8 @@
       (try-completion string (tags-completion-table) predicate))))
 
 ;; company-mode
-(when (require 'company nil 'noerror)
-  (global-company-mode)
+(with-eval-after-load 'company
+  (global-company-mode t)
 
   (setq company-minimum-prefix-length 2)
   (global-set-key (kbd "<M-tab>") 'company-complete)
@@ -62,5 +62,7 @@
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers nil)
   )
+
+(require 'company nil 'noerror)
 
 (provide 'phil-completion)
