@@ -111,6 +111,8 @@
       (select-frame frame)
       (raise-frame frame))
     (when (equal frame-type 'ns)
+      (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
+                        frame 'prepend)
       (phil/ns-raise-emacs)
       ;; (when (require 'maxframe "maxframe" 'noerror)
       ;;   (sleep-for 0 10)
