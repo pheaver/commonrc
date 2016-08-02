@@ -69,16 +69,16 @@ local layouts =
 {
     awful.layout.suit.max,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    -- awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.magnifier
-    awful.layout.suit.floating,
+    -- awful.layout.suit.floating,
 }
 -- }}}
 
@@ -269,6 +269,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "e", function () awful.util.spawn("emacsclient -n -c") end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -285,12 +286,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F9", function () awful.util.spawn("killall -9 java") end),
     -- awful.key({ modkey,           }, "F10", function () awful.util.spawn("dock.sh 0") end),
     -- terminal .. " -e /usr/bin/dm-tool switch-to-greeter"
-    awful.key({ modkey,           }, "F11", function () awful.util.spawn("dock.sh") end),
+    awful.key({ modkey,           }, "F11", function () awful.util.spawn("auto-layout.sh") end),
     awful.key({ modkey,           }, "F12", function () awful.util.spawn("gksudo pm-suspend") end),
     awful.key({ modkey, "Shift"   }, "F12", function () awful.util.spawn("gksudo pm-suspend-hybrid") end),
-
-    awful.key({ modkey,           }, "v", function () awful.util.spawn("nmcli con up id Rentrak-VPN") end),
-    awful.key({ modkey, "Shift"   }, "v", function () awful.util.spawn("nmcli con down id Rentrak-VPN") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -317,18 +315,6 @@ globalkeys = awful.util.table.join(
           awful.util.spawn("xbacklight -inc 10 -time 0") end)
 
 )
-
--- batterywidget = wibox.widget.textbox()
--- batterywidget:set_text(" | Battery | ")
--- batterywidgettimer = timer({ timeout = 5 })
--- batterywidgettimer:connect_signal("timeout",
---                                   function()
---                                      fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
---                                      batterywidget:set_text(" |" .. fh:read("*l") .. " | ")
---                                      fh:close()
---                                   end
--- )
--- batterywidgettimer:start()
 
 if hasAPW then
   globalkeys = awful.util.table.join(globalkeys,
