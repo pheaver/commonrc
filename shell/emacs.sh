@@ -22,9 +22,11 @@ function er {
 }
 
 # open a function in emacs daemon with root priveleges using sudo
-function sem {
-    ${emacsclient} -e "(phil/find-file-sudo \"$1\")"
-}
+# function sem {
+#     ${emacsclient} -e "(phil/find-file-sudo \"$1\")"
+# }
+
+alias sem="sudo emacs -nw -q"
 
 # open in emacs all files matching pattern
 function fm {

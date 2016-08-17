@@ -289,6 +289,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F11", function () awful.util.spawn("auto-layout.sh") end),
     awful.key({ modkey,           }, "F12", function () awful.util.spawn("gksudo pm-suspend") end),
     awful.key({ modkey, "Shift"   }, "F12", function () awful.util.spawn("gksudo pm-suspend-hybrid") end),
+    awful.key({ "Control", "Mod1" }, "l",   function () awful.util.spawn("dm-tool lock") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -404,6 +405,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { class = "Gkrellm" },
+      properties = { tag = tags[1][8] } },
     -- { rule = { class = "HipChat" },
     --   properties = { tag = tags[1][2] } },
     -- { rule = { class = "X-terminal-emulator" },
@@ -489,3 +492,4 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+awful.util.spawn_with_shell("~/Dropbox/scripts/startup.sh")
