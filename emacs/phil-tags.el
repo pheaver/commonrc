@@ -43,12 +43,14 @@ to TAGS."
         (when (and file2 (file-exists-p file2))
           (add-to-list 'tags-table-list file2))))))
 
-(defun my-find-tag ()
-  (interactive)
+(defun my-find-tag (&optional next-p)
+  (interactive "P")
   (find-tag (funcall
              (or find-tag-default-function
                  (get major-mode 'find-tag-default-function)
-                 'find-tag-default))))
+                 'find-tag-default))
+            next-p))
+
 
 (eval-after-load "etags"
   '(make-tags-table-list commonrc-dir t))
