@@ -19,7 +19,8 @@ time is displayed."
 ;;;; parent dirs
 (defun phil/parent-dir (path)
   (interactive)
-  (file-name-directory (directory-file-name path)))
+  (if path
+      (file-name-directory (directory-file-name path))))
 
 (defun phil/parent-dirs (path)
   (interactive)
