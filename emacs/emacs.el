@@ -10,6 +10,7 @@
 (require 'phil-buffers)
 (require 'phil-completion)
 (require 'phil-frames)
+(require 'phil-haskell)
 (require 'phil-helm)
 (require 'phil-org)
 (require 'phil-scala)

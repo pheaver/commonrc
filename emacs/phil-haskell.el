@@ -1,5 +1,3 @@
-;; ----------------------------------------
-
 (load "haskell-mode-autoloads" 'noerror)
 
 ; hpaste
@@ -57,15 +55,20 @@
 
 ;; choose one of these indentation modes:
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (remove-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
-(setq haskell-indent-offset 4)
-(setq haskell-indentation-left-offset 4)
+;; (setq haskell-indent-spaces 2)
 
-(setq haskell-tags-on-save nil)
+;; haskell-indentation-mode:
+;; (setq haskell-indentation-layout-offset 2)
+;; (setq haskell-indentation-starter-offset 2)
+;; (setq haskell-indentation-left-offset 2)
+;; (setq haskell-indentation-where-pre-offset 2)
+;; (setq haskell-indentation-where-post-offset 2)
 
+;; haskell-indent-mode:
+;; (setq haskell-indent-offset 4)
 (setq haskell-indent-after-keywords
   '(("where" 2 0)
     ("of" 4)
@@ -77,6 +80,8 @@
     "then"
     "else"
     "let"))
+
+(setq haskell-tags-on-save nil)
 
 ;(setq haskell-literate-default 'latex)
 
