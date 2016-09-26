@@ -27,6 +27,7 @@
   (require 'helm-config)
   (helm-mode 1)
   (require 'helm-swoop nil 'noerror)
+  (require 'helm-projectile nil 'noerror)
 
   ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
   ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
@@ -64,6 +65,9 @@
 ;;;; helm + ag
 (setq helm-ag-insert-at-point 'symbol)
 (global-set-key (kbd "C-c C-.") 'helm-ag)
+(with-eval-after-load 'helm-projectile
+  (global-set-key (kbd "C-c C-.") 'helm-projectile-ag))
+
 
 ;;;; helm + company
 (with-eval-after-load 'company
