@@ -63,8 +63,8 @@
 (global-set-key (kbd "C-M-]") 'phil/bury-buffer)
 (global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
 
-(eval-after-load "dired"
-  '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
+;; (eval-after-load "dired"
+;;   '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))
 
 ;;;; set some minor modes
 (when (functionp 'column-number-mode) (column-number-mode 1))

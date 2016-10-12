@@ -37,11 +37,7 @@
 
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z")  'helm-select-action)
-  (define-key helm-map (kbd "C-<tab>") 'helm-select-action)
+  (global-set-key (kbd "C-c h @") 'helm-list-elisp-packages-no-fetch)
 
   ;; undo some ido stuff
   (with-eval-after-load 'ido
