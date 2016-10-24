@@ -12,6 +12,7 @@
 (require 'phil-frames)
 (require 'phil-haskell)
 (require 'phil-helm)
+(require 'phil-java)
 (require 'phil-org)
 (require 'phil-scala)
 (require 'phil-tags)
