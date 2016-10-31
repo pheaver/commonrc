@@ -99,8 +99,8 @@
     (load-theme theme t)
     (when (fboundp 'smart-mode-line-enable)
       (smart-mode-line-enable))
-    (phil/set-face-attributes frame)
     (setq phil/current-theme theme)
+    (phil/set-face-attributes frame)
     (message (format "Current theme: %s" theme)))
    (t (message "Invalid theme: %s" theme))))
 
