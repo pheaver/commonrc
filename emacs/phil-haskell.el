@@ -23,11 +23,16 @@
   (make-variable-buffer-local 'tags-case-fold-search)
   (setq tags-case-fold-search nil))
 
+(defun phil/haskell-cleanup-imports-and-return ()
+  (interactive)
+  (my-haskell-cleanup-imports)
+  (haskell-navigate-imports t))
+
 (with-eval-after-load 'haskell-mode
   ;; (define-key haskell-mode-map (kbd "C-c h") 'haskell-hoogle)
   (define-key haskell-mode-map (kbd "C-c .") 'my-haskell-cleanup-imports)
-  (define-key haskell-mode-map (kbd "<f8>") 'haskell-navigate-imports)
-  (define-key haskell-mode-map (kbd "C-<f8>") (lambda () (interactive) (haskell-navigate-imports t))))
+  (define-key haskell-mode-map (kbd "C-<f8>") 'phil/haskell-cleanup-imports-and-return)
+  (define-key haskell-mode-map (kbd "M-<f8>") (lambda () (interactive) (haskell-navigate-imports t))))
 
 
 (defun turn-on-ghc-mod ()
