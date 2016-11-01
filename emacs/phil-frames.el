@@ -47,20 +47,11 @@
   (set-cursor-color "orange")
 
   ;; these break for any face attributes that aren't yet defined
-  (phil/set-face-attribute 'jabber-activity-face frame
-                      :foreground "orangered3" :weight 'bold)
-  (phil/set-face-attribute 'jabber-activity-personal-face frame
-                      :foreground nil :inherit 'outline-1 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-foreign frame
-                      :foreground nil :inherit 'outline-2 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-local frame
-                      :foreground nil :inherit 'outline-1 :weight 'bold)
-  (phil/set-face-attribute 'jabber-chat-prompt-system frame
-                      :foreground nil :inherit 'outline-3 :weight 'bold)
   (phil/set-face-attribute 'magit-item-highlight frame
                       :foreground nil :inherit 'highlight)
-  (phil/set-face-attribute 'outline-2 frame
-                      :inherit 'font-lock-variable-name-face :foreground "brown")
+  ;; (phil/set-face-attribute 'outline-2 frame
+  ;;                     :inherit 'font-lock-variable-name-face :foreground "brown")
+
   (phil/set-face-attribute 'diff-changed frame :inverse-video nil)
   (phil/set-face-attribute 'diff-added frame :inverse-video nil)
   (phil/set-face-attribute 'diff-removed frame :inverse-video nil)
@@ -69,7 +60,7 @@
   )
 
 (defvar phil/preferred-themes
-  '(wombat ample ample-flat cybperpunk grandshell solarized-dark))
+  '(wombat ample ample-flat grandshell solarized-dark))
 
 (defvar phil/current-theme nil)
 
