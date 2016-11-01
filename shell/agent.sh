@@ -3,6 +3,9 @@
 # -------------------------------------
 # ssh-agent
 
+unset SSH_AUTH_SOCK
+unset SSH_AGENT_PID
+
 function agent-kill
 {
 #    `ssh-agent -k`
@@ -26,5 +29,3 @@ if [ -n "$DESKTOP_SESSION" ] && type gnome-keyring-daemon >/dev/null 2>&1; then
 else
     cond-source ~/.agent
 fi
-
-# cond-source ~/.agent
