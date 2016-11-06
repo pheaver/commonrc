@@ -6,6 +6,8 @@
 (phil/eval-at-init-level 3
   '(setq vc-handled-backends vc-handled-backends/original))
 
+(setq magit-popup-show-common-commands nil)
+
 (setq magit-sha1-abbrev-length 8)
 
 (setq magit-omit-untracked-dir-contents t)
