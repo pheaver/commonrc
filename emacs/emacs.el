@@ -215,3 +215,5 @@
 (add-hook 'after-save-hook
    'executable-make-buffer-file-executable-if-script-p)
 
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "google-chrome")
