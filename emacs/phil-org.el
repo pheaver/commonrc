@@ -21,7 +21,7 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
 (setq org-goto-auto-isearch nil)
-(setq org-outline-path-complete-in-steps)
+(setq org-outline-path-complete-in-steps nil)
 (setq org-read-date-prefer-future nil)
 
 (setq org-speed-commands-user
