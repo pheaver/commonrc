@@ -50,7 +50,6 @@
 (global-set-key (kbd "C-x F") 'find-file-at-point)
 
 ;;;; miscellaneous keybindings
-(global-set-key (kbd "M-g") 'goto-line) ;; default is M-g Mg
 (global-set-key (kbd "C-z") 'repeat)
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
