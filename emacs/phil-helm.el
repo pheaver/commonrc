@@ -3,6 +3,7 @@
 (setq helm-always-two-windows nil)
 (setq helm-split-window-default-side 'other)
 (setq helm-candidate-number-limit 250)
+(setq helm-follow-mode-persistent t)
 
 ;; search for library in `require' and `declare-function' sexp.
 ;; (setq helm-ff-search-library-in-sexp t)
@@ -21,7 +22,6 @@
   (message "Loading helm... done"))
 
 (global-set-key (kbd "C-c h") 'load-helm)
-(global-set-key (kbd "M-X") 'helm-M-x)
 
 (with-eval-after-load 'helm
   (require 'helm-config)
