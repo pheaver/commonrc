@@ -12,6 +12,8 @@
       (list documents-dir (dropbox-dir "Documents") org-directory))
 (setq org-default-notes-file (org-dir "notes.org"))
 
+(setq org-indirect-buffer-display 'current-window)
+
 ;;;; miscellaneous org settings
 (setq org-completion-use-ido t)
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
