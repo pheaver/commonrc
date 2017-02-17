@@ -42,6 +42,7 @@
 (set-register ?w (cons 'file (dropbox-dir "org" "work-notes.org")))
 (set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
 (set-register ?a (cons 'file (file-truename "~/.config/awesome/rc.lua")))
+(set-register ?c (cons 'file (file-truename "~/.i3/config")))
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
