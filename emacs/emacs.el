@@ -81,6 +81,7 @@
 (when (functionp 'async-bytecomp-package-mode) (async-bytecomp-package-mode 1))
 
 ;;;; miscellaneous
+(setq use-dialog-box nil)
 (setq inhibit-startup-screen 1)
 (setq initial-scratch-message nil)
 (setq help-window-select t)         ; always select help window
