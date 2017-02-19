@@ -1,5 +1,4 @@
 (require 'phil-paths)
-(require 'phil-init)
 
 (setq magit-repository-directories
       (list "~" "~/src" "~/local/src" "~/commonrc" user-emacs-directory (concat user-emacs-directory "el-get") "~/work"))

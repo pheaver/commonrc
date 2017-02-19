@@ -1,35 +1,30 @@
-;; ----------------------------------------
+(require 'phil-paths)
 
-;; 0 -> bare minimum
-;; 1 -> somewhere between 0 and 3
-;; 2 -> somewhere between 0 and 3
-;; 3 -> everything (default when daemon)
-;; currently 0 through 2 are all the same, and 3 is the only different one
+;; http://cachestocaches.com/2015/8/getting-started-use-package/
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(package-initialize)
 
-(defvar init-level
-  (if (and (fboundp 'daemonp) (daemonp)) 3 2))
-(defvar init-queue nil)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(defun phil/eval-at-init-level (level body)
-  "Execute FORM when `init-level' becomes at least N, either
-right now or when it is changed later by calling
-`phil/switch-init-level'."
-  (if (>= init-level level)
-      (eval body)
-    (phil/add-to-init-level level body)))
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
 
-(defun phil/add-to-init-level (n form)
-  (let ((entry (cdr (assq n init-queue))))
-    (add-to-list 'entry form 'append)
-    (setq init-queue (cons (cons n entry) (assq-delete-all n init-queue)))))
+;;;; el-get
+(add-to-list 'load-path (concat user-emacs-directory "el-get" "/" "el-get"))
 
-(defun phil/switch-init-level (new-level)
-  (setq init-level new-level)
-  (dolist (n (number-sequence 0 new-level))
-    (dolist (x (assq n init-queue))
-      (eval x))
-    (setq init-queue (assq-delete-all n init-queue))))
+(eval-after-load "el-get"
+  '(add-to-list 'el-get-recipe-path (commonrc-dir "el-get-recipes")))
 
-;; ----------------------------------------
+(when (require 'el-get nil 'noerror)
+  (el-get 'sync))
+
 
 (provide 'phil-init)

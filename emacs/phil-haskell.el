@@ -54,8 +54,6 @@
                           "xargs hasktags -e -x")))
     (and cabal-file (start-process "maketags" "*haskell-make-tags*" shell-file-name shell-command-switch command))))
 
-;; (phil/eval-at-init-level 3 '(add-hook 'haskell-mode-hook 'turn-on-ghc-mod))
-
 (add-hook 'haskell-mode-hook 'turn-on-font-lock)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)

@@ -4,7 +4,7 @@
 
 (add-to-list 'load-path (file-name-directory load-file-name))
 
-(require 'phil-paths)
+(require 'phil-init)
 (require 'phil-utils)
 (require 'phil-packages)
 (require 'phil-buffers)
