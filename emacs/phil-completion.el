@@ -35,23 +35,11 @@
         (all-completions string (tags-completion-table) predicate)
       (try-completion string (tags-completion-table) predicate))))
 
-;; company-mode
-(with-eval-after-load 'company
-  (global-company-mode t)
+(use-package company
+  :defer 3
 
+  :init
   (setq company-minimum-prefix-length 2)
-  (global-set-key (kbd "<M-tab>") 'company-complete)
-  (global-set-key (kbd "C-M-i") 'company-complete)
-
-  ;; (setq company-auto-complete t)
-
-  ;; make TAB complete, then cycle
-  (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "C-e") #'company-other-backend)
-  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-
   (setq company-backends
         '(
           company-files
@@ -59,12 +47,28 @@
           (company-dabbrev-code company-gtags company-etags company-keywords)
           company-dabbrev
           ))
-
   (setq completion-styles '(substring partial-completion emacs22))
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers nil)
-  )
+  ;; (setq company-auto-complete t)
 
-(require 'company nil 'noerror)
+  :config
+  (global-company-mode t)
+
+  :bind (
+         ( "<M-tab>" . company-complete )
+         ( "C-M-i" . company-complete )
+         :map company-mode-map
+         ( "C-:" . helm-company)
+         :map company-active-map
+         ( "C-:" . helm-company)
+         ;; make TAB complete, then cycle
+         ( "TAB" . company-complete-common-or-cycle )
+         ( "<tab>" . company-complete-common-or-cycle )
+         ( "C-e" . company-other-backend )
+         ( "C-n" . company-select-next-or-abort )
+         ( "C-p" . company-select-previous-or-abort )
+         )
+  )
 
 (provide 'phil-completion)

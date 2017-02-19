@@ -5,13 +5,12 @@
 (add-to-list 'load-path (file-name-directory load-file-name))
 
 (require 'phil-init)
+(require 'phil-paths)
 (require 'phil-utils)
-(require 'phil-packages)
-(require 'phil-buffers)
+(require 'phil-navigation)
 (require 'phil-completion)
 (require 'phil-frames)
 (require 'phil-haskell)
-(require 'phil-helm)
 (require 'phil-java)
 (require 'phil-org)
 (require 'phil-scala)
@@ -119,13 +118,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;;;; recentf
-(setq recentf-max-saved-items 500)
-(setq recentf-max-menu-items 60)
-(if (fboundp 'helm-recentf)
-    (global-set-key (kbd "C-c f") 'helm-recentf)
-  (global-set-key (kbd "C-c f") 'recentf-open-files))
-
 ;;;; paredit
 (defun load-paredit-mode ()
   (if (require 'paredit-mode "paredit-mode" t)
@@ -136,33 +128,21 @@
 (add-hook 'lisp-interaction-mode-hook 'load-paredit-mode)
 (add-hook 'scheme-mode-hook           'load-paredit-mode)
 
-;;;; projectile
-(defun init-projectile ()
-  (interactive)
-  (require 'projectile)
-  (projectile-global-mode)
-  (define-key projectile-command-map (kbd "ESC") nil)
-  (define-key projectile-command-map (kbd "M-i") 'helm-multi-swoop-projectile)
-  (with-eval-after-load 'helm
-    (setq projectile-completion-system 'helm))
-  (with-eval-after-load 'helm-projectile
-    (helm-projectile-on))
-  (require 'helm-projectile nil 'noerror)
-  )
-
-(global-set-key (kbd "C-c p") 'init-projectile)
-
 ;;;; undo-tree
 (when (require 'undo-tree "undo-tree" 'noerror)
   (global-undo-tree-mode t))
 (setq undo-tree-visualizer-quit-action 'save-and-restore)
 
 ;;;; browse-kill-ring
-(setq browse-kill-ring-quit-action 'save-and-restore)
-(autoload 'browse-kill-ring "browse-kill-ring")
-(global-set-key (kbd "C-c k") 'browse-kill-ring)
-(eval-after-load "browse-kill-ring"
-  '(browse-kill-ring-default-keybindings))
+(use-package browse-kill-ring
+  :defer 3
+  :init
+  (setq browse-kill-ring-quit-action 'save-and-restore)
+  :config
+  (browse-kill-ring-default-keybindings)
+  :bind
+  ("C-c k" . browse-kill-ring)
+  )
 
 (setq kill-ring-max 200)
 
