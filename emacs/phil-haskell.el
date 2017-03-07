@@ -10,7 +10,10 @@
   (remove-hook 'after-save-hook 'haskell-mode-after-save-handler)
   (add-hook 'after-save-hook 'phil/haskell-make-tags)
   (make-variable-buffer-local 'tags-case-fold-search)
-  (setq tags-case-fold-search nil))
+  (setq tags-case-fold-search nil)
+  (intero-mode)
+  (add-to-list 'company-backends 'company-intero)
+  )
 
 (defun phil/haskell-cleanup-imports-and-return ()
   (interactive)
