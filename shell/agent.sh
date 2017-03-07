@@ -23,9 +23,4 @@ function agent-start
 #    ssh-add ~/.ssh/id_rsa
 }
 
-if [ -n "$DESKTOP_SESSION" ] && type gnome-keyring-daemon >/dev/null 2>&1; then
-    eval $(gnome-keyring-daemon --start)
-    export SSH_AUTH_SOCK
-else
-    cond-source ~/.agent
-fi
+cond-source ~/.agent
