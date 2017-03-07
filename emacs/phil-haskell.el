@@ -18,7 +18,9 @@
 (defun phil/haskell-cleanup-imports-and-return ()
   (interactive)
   (my-haskell-cleanup-imports)
-  (haskell-navigate-imports t))
+  (haskell-navigate-imports t)
+  ;; (pop-to-mark-command)
+  )
 
 (defun phil/haskell-make-tags ()
   (interactive)
@@ -64,8 +66,8 @@
          :map haskell-mode-map
          ( "C-c ." . my-haskell-cleanup-imports )
          ( "<f8>" .  haskell-navigate-imports)
+         ( "M-g i" .  haskell-navigate-imports)
          ( "C-<f8>" . phil/haskell-cleanup-imports-and-return)
-         ;; ( "M-<f8>" . (lambda () (interactive) (haskell-navigate-imports t)))
          ))
 
 
