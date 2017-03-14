@@ -46,7 +46,8 @@ time is displayed."
   (or (notify-terminal-notifier title msg)
       (notify-notify-send title msg)
       (notify-growlnotify title msg sticky)
-      (notify-gntp-send title msg sticky)))
+      (notify-gntp-send title msg sticky))
+  (notify-simplepush title msg))
 
 (defun notify-terminal-notifier (title msg &optional sticky)
   (when (executable-find terminal-notifier-path)
@@ -71,6 +72,11 @@ time is displayed."
 (defun notify-notify-send (title msg)
   (when (executable-find notify-send-path)
     (call-process notify-send-path nil nil nil title msg)))
+
+(defun notify-simplepush (title msg)
+  (let ((key (getenv "SIMPLEPUSH_KEY")))
+    (when (and key (require 'request nil 'noerror))
+      (request (concat "https://api.simplepush.io/send/" key "/" title "/" msg)))))
 
 (defun notify-timer (time msg)
   "At time TIME, notify user with message MSG"

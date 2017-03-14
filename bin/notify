@@ -10,3 +10,8 @@ else
   gntp-send -u "$title" "$message"
 fi
 
+if [ ! -z "$SIMPLEPUSH_KEY" ]; then
+    [ -z "$title" ] && title="()"
+    [ -z "$message" ] && message="()"
+    curl https://api.simplepush.io/send/"$SIMPLEPUSH_KEY"/"$title"/"$message"
+fi
