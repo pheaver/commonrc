@@ -44,7 +44,7 @@ if [ $UID -eq 0 ]; then
 elif [[ ! -z "$EMACS" ]]; then
     # we are running a terminal inside emacs
     export EDITOR="${emacsclient}"
-elif [[ ${emacs_major_version} == "23" || ${emacs_major_version} == "24" ]]; then
+elif [[ ${emacs_major_version} == "23" || ${emacs_major_version} == "24" || ${emacs_major_version} == "25" ]]; then
     alias em="\"${emacsclient}\" -t"
     export EDITOR="${emacsclient} -t"
     export VISUAL="${emacsclient}"
