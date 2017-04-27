@@ -8,7 +8,7 @@
 (defun my-haskell-mode-hook ()
   (make-variable-buffer-local 'after-save-hook)
   (remove-hook 'after-save-hook 'haskell-mode-after-save-handler)
-  (add-hook 'after-save-hook 'phil/haskell-make-tags)
+  ;; (add-hook 'after-save-hook 'phil/haskell-make-tags)
   (make-variable-buffer-local 'tags-case-fold-search)
   (setq tags-case-fold-search nil)
   (intero-mode)

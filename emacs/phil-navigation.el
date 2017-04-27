@@ -1,8 +1,10 @@
 ;;;; recentf
-(setq recentf-max-saved-items 500)
-(setq recentf-max-menu-items 60)
-(if (fboundp 'helm-recentf)
-    (global-set-key (kbd "C-c f") 'helm-recentf)
+(use-package recentf
+  :init
+  (setq recentf-max-saved-items 500)
+  (setq recentf-max-menu-items 60)
+  :config
+  (recentf-mode 1)
   (global-set-key (kbd "C-c f") 'recentf-open-files))
 
 ;;;; ibuffer
@@ -67,19 +69,21 @@
   (setq helm-split-window-default-side 'other)
   (setq helm-candidate-number-limit 250)
   (setq helm-follow-mode-persistent t)
-
+  (setq helm-buffer-max-length 35)
   (require 'helm-config)
-  (helm-mode 1)
+  (helm-mode t)
+  (helm-adaptive-mode t)
 
   ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
   ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
   ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
 
+  (global-set-key (kbd "C-c f") 'helm-recentf)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-  (global-set-key (kbd "C-c h @") 'helm-list-elisp-packages-no-fetch)
+  (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
 
   ;; undo some ido stuff
   (with-eval-after-load 'ido
@@ -109,16 +113,16 @@
 
   :bind (
          ( "C-c o" . helm-swoop )
-         ( "C-c O" . helm-swoop-current-mode )
-         ( "C-c M-o" . helm-mutli-swoop-all )
+         ( "C-c O" . helm-multi-swoop-current-mode )
+         ( "C-c M-o" . helm-multi-swoop-all )
          :map isearch-mode-map
-         ( "M-i" . helm-sweoop-from-isearch )
-         ( "C-c o" . helm-sweoop-from-isearch )
+         ( "M-i" . helm-swoop-from-isearch )
+         ( "C-c o" . helm-swoop-from-isearch )
          :map helm-swoop-map
          ( "M-i" . helm-multi-swoop-current-mode-from-helm-swoop )
          ( "M-I" . helm-multi-swoop-all-from-helm-swoop )
          :map helm-multi-swoop-map
-         ( "M-i" . helm-swoop-all-from-helm-swoop )
+         ( "M-i" . helm-multi-swoop-all-from-helm-swoop )
          )
   )
 
@@ -131,7 +135,9 @@
   :config
   (projectile-global-mode)
   (define-key projectile-command-map (kbd "ESC") nil)
-  (define-key projectile-command-map (kbd "M-i") 'helm-multi-swoop-projectile)
+  (define-key projectile-command-map (kbd "s") 'helm-projectile-ag)
+  (add-to-list 'projectile-other-file-alist '("java" "ui.xml"))
+  (add-to-list 'projectile-other-file-alist '("ui.xml" "java"))
   (with-eval-after-load 'helm
     (setq projectile-completion-system 'helm))
   (require 'helm-projectile nil 'noerror)

@@ -17,8 +17,8 @@
 ;;;; miscellaneous org settings
 (setq org-completion-use-ido t)
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
-;; (setq org-archive-default-command 'org-archive-to-archive-sibling)
-(setq org-archive-default-command 'org-archive-subtree)
+(setq org-archive-default-command 'org-archive-to-archive-sibling)
+;; (setq org-archive-default-command 'org-archive-subtree)
 (setq org-archive-location "%s_archive::") ;; default
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)

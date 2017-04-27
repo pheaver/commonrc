@@ -2,7 +2,7 @@ Xft.antialias: true
 Xft.hinting: true
 Xft.hintstyle: hintslight
 Xft.rgba: rgb
-Emacs.font: Monospace-12
+Emacs.font: DejaVu Sans Mono-10
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme

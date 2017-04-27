@@ -3,9 +3,9 @@
 ;; http://cachestocaches.com/2015/8/getting-started-use-package/
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")))
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -26,5 +26,12 @@
 (when (require 'el-get nil 'noerror)
   (el-get 'sync))
 
+
+(setq my-favorite-packages
+      '(helm helm-ag helm-swoop projectile helm-projectile eclim haskell-mode magit company company-emacs-eclim intero))
+
+(defun install-my-favorite-packages ()
+  (interactive)
+  (mapcar 'package-install my-favorite-packages))
 
 (provide 'phil-init)

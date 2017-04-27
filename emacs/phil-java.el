@@ -13,7 +13,7 @@
   (define-key eclim-mode-map (kbd "M-n") 'eclim-problems-next-same-window)
   (define-key eclim-mode-map (kbd "M-p") 'eclim-problems-previous-same-window)
   (define-key eclim-mode-map (kbd "M-c") 'eclim-problems-correct)
-  (define-key eclim-mode-map (kbd "M-]") 'eclim-java-find-declaration)
+  (define-key eclim-mode-map (kbd "M-.") 'eclim-java-find-declaration)
   (require 'company-emacs-eclim nil t))
 
 (with-eval-after-load 'company-emacs-eclim
