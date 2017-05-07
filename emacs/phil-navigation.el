@@ -107,7 +107,6 @@
   :defer
   :config
   (helm-projectile-on)
-  (global-set-key (kbd "C-c C-.") 'helm-projectile-ag)
   )
 
 (use-package helm-swoop
