@@ -54,6 +54,9 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 (global-set-key (kbd "C-x a t") 'untabify)
 
+(global-set-key (kbd "M-o") 'mode-line-other-buffer)
+(global-set-key (kbd "C-c m") 'mc/edit-lines)
+
 ;;;; more keybindings, for functions defined in phil-utils
 (define-key ctl-x-map "2" 'phil/split-window-vertically)
 (define-key ctl-x-map "3" 'phil/split-window-horizontally)

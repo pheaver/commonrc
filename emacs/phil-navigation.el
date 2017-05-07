@@ -83,7 +83,13 @@
   (global-set-key (kbd "C-c f") 'helm-recentf)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
+
+  ;; https://github.com/emacs-helm/helm/issues/1492
+  (defun helm-buffers-sort-transformer@donot-sort (_ candidates _)
+    candidates)
+  (advice-add 'helm-buffers-sort-transformer :around 'helm-buffers-sort-transformer@donot-sort)
 
   ;; undo some ido stuff
   (with-eval-after-load 'ido
