@@ -63,10 +63,6 @@
   (global-set-key (kbd "C-c h") 'load-helm)
 
   :config
-  (setq helm-full-frame nil)
-  (setq helm-split-window-in-side-p nil)
-  (setq helm-always-two-windows nil)
-  (setq helm-split-window-default-side 'other)
   (setq helm-candidate-number-limit 250)
   (setq helm-follow-mode-persistent t)
   (setq helm-buffer-max-length 35)
@@ -74,15 +70,20 @@
   (helm-mode t)
   (helm-adaptive-mode t)
 
+  ;; each of these 4 takes precedence over the others below it
+  (setq helm-full-frame nil)
+  (setq helm-split-window-in-side-p nil)
+  (setq helm-always-two-windows nil)
+  (setq helm-split-window-default-side 'other)
+
   ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
   ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
   ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
   (global-unset-key (kbd "C-x c"))
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
 
-  (global-set-key (kbd "C-c f") 'helm-recentf)
   (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-x r l") 'helm-filtered-bookmarks)q
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
 
