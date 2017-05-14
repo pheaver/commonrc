@@ -31,9 +31,6 @@ ln -sf ${SHARE}/.ctags ${HOME}/.ctags
 mkdir -p ${HOME}/.config/awesome
 ln -sf ${SHARE}/awesome/rc.lua ${HOME}/.config/awesome/rc.lua
 
-mkdir -p .subversion
-ln -sf ${SHARE}/.subversion/config ${HOME}/.subversion/config
-
 chmod a+x ${SHARE}/bin/*
 chmod a+x ${SHARE}/setup
 

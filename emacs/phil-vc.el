@@ -9,7 +9,7 @@
 (use-package magit
   :init
   (setq magit-repository-directories
-        (list "~/src" "~/local/src" "~/commonrc" user-emacs-directory (concat user-emacs-directory "el-get") "~/work"))
+        (list "~/src" "~/local/src" "~/commonrc" user-emacs-directory "~/work"))
   (setq magit-repository-directories-depth 1)
 
   (setq magit-bury-buffer-function 'magit-mode-quit-window)

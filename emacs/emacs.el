@@ -132,9 +132,11 @@
 (add-hook 'scheme-mode-hook           'load-paredit-mode)
 
 ;;;; undo-tree
-(when (require 'undo-tree "undo-tree" 'noerror)
+(use-package undo-tree
+  :init
+  (setq undo-tree-visualizer-quit-action 'save-and-restore)
+  :config
   (global-undo-tree-mode t))
-(setq undo-tree-visualizer-quit-action 'save-and-restore)
 
 ;;;; browse-kill-ring
 (use-package browse-kill-ring
