@@ -84,7 +84,8 @@
 
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r l") 'helm-filtered-bookmarks)
-  (global-set-key (kbd "C-x b") 'helm-buffers-list)
+  ;; (global-set-key (kbd "C-x b") 'helm-buffers-list)
+  (global-set-key (kbd "C-x b") 'helm-mini)
   (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
 
   ;; https://github.com/emacs-helm/helm/issues/1492
@@ -122,7 +123,6 @@
          ( "C-c O" . helm-multi-swoop-current-mode )
          ( "C-c M-o" . helm-multi-swoop-all )
          :map isearch-mode-map
-         ( "M-i" . helm-swoop-from-isearch )
          ( "C-c o" . helm-swoop-from-isearch )
          :map helm-swoop-map
          ( "M-i" . helm-multi-swoop-current-mode-from-helm-swoop )
