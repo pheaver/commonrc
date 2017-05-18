@@ -3,7 +3,7 @@
 # required variables and functions that should be loaded before anything else
 ################################################################################
 
-test -z ${RC} && RC=~/commonrc
+test -z ${RC} && RC="$( cd "$( dirname "$0" )/.." && pwd || echo $HOME/commonrc)"
 
 test -z $shell && shell=`basename $SHELL`
 
@@ -16,15 +16,6 @@ export SHELL
 function unix {
     [[ -z $MYARCH ]] && export MYARCH=`uname`
     if [[ $MYARCH == Darwin || $MYARCH == FreeBSD ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-function dlink {
-    [[ -z $HOST ]] && export HOST=`hostname`
-    if [[ $HOST == dlink* ]]; then
         return 0
     else
         return 1
@@ -142,6 +133,10 @@ clear-paths () {
 
 ################################################################################
 
-rc-source master.sh
+rc-source paths.sh
+if interactive; then
+    rc-source env.sh
+    rc-source emacs.sh
+fi
 
 ################################################################################

@@ -1,14 +1,10 @@
 #-*-sh-*-
 
-# -------------------------------------
 # environment for interactive shell
 # includes aliases, exports, functions
-# -------------------------------------
 
 rc-source mail.sh
 rc-source agent.sh
-
-# -------------------------------------
 
 # for ack
 export ACK_OPTIONS="--type-set=hsc=.hsc --type-set=quattro=.q --type-set=tquattro=.q.py --type-set=cryptol=.cry --type-set=tcryptol=.cryt --type-set=verilog=.v"
@@ -25,11 +21,7 @@ export TEXMFOUTPUT=/tmp
 
 export RSYNC_RSH=ssh
 
-export QUATTROFLAGS="outdir=${HOME}/outdir outfile=foo lineLength=105"
-
-# -------------------------------------
 # miscellaneous aliases and functions
-
 if unix; then
     alias ls="ls -G"
 elif [[ -z $EMACS ]]; then
@@ -51,8 +43,6 @@ alias lla="ls -A -hl"
 alias lal="ls -A -hl"
 
 alias pd="pushd"
-# alias df="df -h"
-# alias du="du -h"
 
 alias recent="ls -FlAt | head -n 20"
 alias f="find . -iname"
@@ -74,53 +64,29 @@ function colours {
     done
 }
 
-# -----------------------------------------------
 # haskell
-
-function h {
-    ghc --make Setup &&
-    if [[ ! -z "$@" ]]; then ./Setup $@; fi
-}
-
-#alias hmake="runhaskell Setup.hs"
-alias hconf="h configure --user"
-alias hbuild="h build"
-alias hinstall="h build && h install"
-alias hall="hconf && hbuild && hinstall"
-
 alias gentags="/usr/bin/find . -iname \*.\*hs | xargs hasktags -a -e "
+alias i="stack ghci --ghci-options -j4"
+alias b="stack build --fast -j2 --ghc-options -j4"
 
-function use-ghc {
-    version=$1
-    if [ `which ghc-${version}` >/dev/null 2>&1 ]; then
-        export GHC=ghc-${version}
-        export GHC_PKG=ghc-pkg-${version}
-        alias ghc=${GHC}
-        alias ghc-pkg=${GHC_PKG}
-        alias ghci=ghci-${version}
-    else
-        echo "Could not find ghc version ${version}"
-    fi
+# ssh stuff
+alias cheese="ssh 192.168.1.40 -t tmux a"
+
+# trun
+function trun {
+  if [ $# -lt 4 ]; then
+      echo "trun: not enough arguments" >&2
+      return 1
+  fi
+  SESSION="$1"
+  WINDOW="$2"
+  DIR="$3"
+  CMD="$4"
+  tmux has-session -t "$SESSION" 2>/dev/null || tmux new-session -d -s "$SESSION"
+  tmux new-window -d -P -t "$SESSION" -n "$WINDOW" -c "$DIR" "$CMD" \; set-window-option -t "$SESSION:$WINDOW" remain-on-exit on
 }
 
-# -----------------------------------------------
-# tmux, local network, and ssh
-
-alias screen="screen -D -R"
-alias sn="screen"
-
-nas=192.168.1.60
-bob=192.168.1.35
-cheese=192.168.1.40
-
-for x in nas bob cheese; do
-    # TODO use create-or-attach logic
-    alias $x="ssh $x -t tmux a"
-done
-
-# -----------------------------------------------
 # transmission and torrents
-
 function submit_torrents
 {
     # can't figure out an easier way to check if any .torrent files exist,
@@ -129,11 +95,7 @@ function submit_torrents
     rsync -v --remove-source-files *.torrent cheese:/mnt/storage/watch
 }
 
-if dlink; then
-   alias tra="transmission-remote $nas"
-else
-   alias tra="transmission-remote $cheese"
-fi
+alias tra="transmission-remote $cheese"
 
 alias reload-transmission="killall -HUP transmission-daemon"
 
@@ -144,5 +106,3 @@ function tl {
     tra -l | grep -i $1
   fi
 }
-
-################################################################################

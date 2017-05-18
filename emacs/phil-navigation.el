@@ -86,6 +86,7 @@
   (global-set-key (kbd "C-x r l") 'helm-filtered-bookmarks)
   ;; (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "C-x b") 'helm-mini)
+  (global-set-key (kbd "C-c f") 'helm-recentf)
   (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
 
   ;; https://github.com/emacs-helm/helm/issues/1492
@@ -100,11 +101,6 @@
     (setq gnus-completing-read-function 'gnus-ido-completing-read))
   )
 
-(use-package helm-ag
-  :defer
-  :config (setq helm-ag-insert-at-point 'symbol)
-  :bind (( "C-c C-." . helm-ag )))
-
 (use-package helm-projectile
   :defer
   :config
@@ -114,10 +110,6 @@
 (use-package helm-swoop
   :defer
   :init
-  ;; (global-set-key (kbd "M-i") 'helm-swoop)
-  ;; (global-set-key (kbd "C-c M-i") 'helm-multi-swoop-current-mode)
-  ;; (global-set-key (kbd "C-c M-I") 'helm-multi-swoop-all)
-
   :bind (
          ( "C-c o" . helm-swoop )
          ( "C-c O" . helm-multi-swoop-current-mode )
