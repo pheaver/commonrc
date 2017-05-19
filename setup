@@ -28,6 +28,10 @@ ln -sf ${SHARE}/Xmodmap ${HOME}/.Xmodmap
 ln -sf ${SHARE}/Xresources ${HOME}/.Xresources
 ln -sf ${SHARE}/.ctags ${HOME}/.ctags
 
+mkdir -p ${HOME}/.i3
+ln -sf ${SHARE}/i3/config ${HOME}/.i3/config
+ln -sf ${SHARE}/i3/i3blocks ${HOME}/.i3/i3blocks
+
 mkdir -p ${HOME}/.config/awesome
 ln -sf ${SHARE}/awesome/rc.lua ${HOME}/.config/awesome/rc.lua
 
