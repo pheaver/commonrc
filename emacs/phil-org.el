@@ -18,7 +18,6 @@
 (setq org-completion-use-ido t)
 (setq org-export-with-archived-trees nil) ;; nil, t, headline
 (setq org-archive-default-command 'org-archive-to-archive-sibling)
-;; (setq org-archive-default-command 'org-archive-subtree)
 (setq org-archive-location "::* Archive")
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
@@ -35,9 +34,6 @@
 (setq org-special-ctrl-a/e (cons 'reversed t))
 (setq org-special-ctrl-k t)
 (setq org-use-speed-commands t)
-
-;; cycle globally if cursor is at beginning of buffer before headlines
-(setq org-cycle-global-at-bob t)
 
 ;;;; capture
 (setq org-capture-templates
@@ -74,11 +70,6 @@
 
 ;;;; keybindings
 (global-set-key (kbd "C-c C-'") 'find-org-files)
-(global-set-key "\C-cb" 'org-ido-switchb)
 (define-key global-map "\C-cc" 'org-capture)
-;; "C-cl" is bound in tex/latex mode, so we use C-s S-l also
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c L") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
 
 (provide 'phil-org)
