@@ -81,7 +81,7 @@
   ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
   (global-unset-key (kbd "C-x c"))
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
-
+  (global-set-key (kbd "C-c h T") 'helm-timers)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r l") 'helm-filtered-bookmarks)
   ;; (global-set-key (kbd "C-x b") 'helm-buffers-list)

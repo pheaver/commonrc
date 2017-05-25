@@ -151,10 +151,6 @@
 
 (setq kill-ring-max 200)
 
-;;; phil's itimer mode
-(autoload 'itimer-list-timers "itimer" "itimer" t)
-(global-set-key (kbd "C-c T") 'itimer-list-timers)
-
 ;;;; tail
 (autoload 'tail-file "tail" "tail" t)
 
