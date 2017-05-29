@@ -24,7 +24,6 @@ ln -sf ${SHARE}/zshenv ${HOME}/.zshenv
 ln -sf ${SHARE}/.screenrc ${HOME}/.screenrc
 ln -sf ${SHARE}/.tmux.conf ${HOME}/.tmux.conf
 ln -sf ${SHARE}/.gitconfig ${HOME}/.gitconfig
-ln -sf ${SHARE}/Xmodmap ${HOME}/.Xmodmap
 ln -sf ${SHARE}/Xresources ${HOME}/.Xresources
 ln -sf ${SHARE}/.ctags ${HOME}/.ctags
 
