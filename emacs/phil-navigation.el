@@ -124,6 +124,26 @@
          )
   )
 
+;; ivy / swiper
+(use-package swiper
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 10)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq projectile-completion-system 'ivy)
+  ;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (define-key ctl-x-map (kbd "b") 'ivy-switch-buffer)
+  (define-key ctl-x-map (kbd "C-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "M-x") 'counsel-M-x)
+  (define-key ivy-minibuffer-map (kbd "C-SPC") 'ivy-restrict-to-matches)
+
+  ;; (global-set-key (kbd "C-s") 'swiper)
+  (define-key isearch-mode-map (kbd "C-o") 'swiper-from-isearch)
+  (global-set-key (kbd "M-s o") 'swiper)
+  )
+
+
 ;;;; projectile
 (use-package projectile
   :defer
