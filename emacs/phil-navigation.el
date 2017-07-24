@@ -84,8 +84,6 @@
   (global-set-key (kbd "C-c h T") 'helm-timers)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x r l") 'helm-filtered-bookmarks)
-  ;; (global-set-key (kbd "C-x b") 'helm-buffers-list)
-  (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-c f") 'helm-recentf)
   (define-key helm-command-map (kbd "@") 'helm-list-elisp-packages-no-fetch)
 
@@ -129,11 +127,10 @@
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 10)
+  (setq ivy-height 16)
   (setq ivy-count-format "(%d/%d) ")
   (setq projectile-completion-system 'ivy)
   ;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (define-key ctl-x-map (kbd "b") 'ivy-switch-buffer)
   (define-key ctl-x-map (kbd "C-f") 'counsel-find-file)
   ;; (global-set-key (kbd "M-x") 'counsel-M-x)
   (define-key ivy-minibuffer-map (kbd "C-SPC") 'ivy-restrict-to-matches)
@@ -143,6 +140,15 @@
   (global-set-key (kbd "M-s o") 'swiper)
   )
 
+
+(defun phil/switch-buffer ()
+  (interactive)
+  (cond ((featurep 'ivy) (ivy-switch-buffer))
+        ((featurep 'helm) (helm-buffers-list))
+        ((featurep 'ido) (ido-switch-buffer))
+        (t (switch-to-buffer))))
+
+(define-key ctl-x-map (kbd "b") 'phil/switch-buffer)
 
 ;;;; projectile
 (use-package projectile
