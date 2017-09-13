@@ -28,7 +28,7 @@
 
 
 (setq my-favorite-packages
-      '(helm helm-ag helm-swoop projectile helm-projectile eclim haskell-mode magit company company-emacs-eclim intero))
+      '(ivy helm helm-ag helm-swoop projectile helm-projectile eclim haskell-mode magit company company-emacs-eclim intero))
 
 (defun install-my-favorite-packages ()
   (interactive)

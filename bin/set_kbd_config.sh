@@ -10,7 +10,7 @@ setxkbmap -option terminate:ctrl_alt_bksp
 setxkbmap -option ctrl:nocaps
 
 # should remap Caps_Lock as Control_L
-xmodmap ~/.Xmodmap
+# xmodmap ~/.Xmodmap
 
 # make short-pressed Ctrl behave like Escape:
 # xcape -e 'Control_L=Escape'

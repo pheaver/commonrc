@@ -49,6 +49,9 @@
 (global-set-key (kbd "C-x j") 'register-to-point)  ;; also bound to C-x r j
 (global-set-key (kbd "C-x F") 'find-file-at-point)
 
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-u") 'upcase-dwim)
+
 ;;;; miscellaneous keybindings
 (global-set-key (kbd "C-z") 'repeat)
 (global-set-key (kbd "C-x a r") 'align-regexp)
@@ -65,6 +68,8 @@
 (global-set-key "\C-xQ" 'phil/macro-query)
 (global-set-key (kbd "C-M-]") 'phil/bury-buffer)
 (global-set-key (kbd "C-x g") 'revert-buffer-noconfirm)
+
+(set-default 'truncate-lines t)
 
 ;; (eval-after-load "dired"
 ;;   '(define-key dired-mode-map (kbd "C-c C-.") 'phil/dired-cleanup-marked-files))

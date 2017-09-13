@@ -12,6 +12,7 @@ font pango:DejaVu Sans Mono 8
 # Testing
 # ------------------------------------------------------------------------------
 
+bindsym $mod+F8 exec killall zoom
 bindsym $mod+F2 [class="Slack"] focus
 bindsym $mod+Shift+F2 [class="Slack"] move workspace current
 
@@ -23,6 +24,8 @@ bindsym $mod+minus scratchpad show
 
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
+bindsym $mod+i workspace prev_on_output
+bindsym $mod+o workspace next_on_output
 
 # bindsym $mod+Control+j workspace prev_on_output
 # bindsym $mod+Control+semicolon workspace next_on_output
@@ -39,6 +42,7 @@ bindsym $mod+Control+Shift+semicolon move to workspace next_on_output
 for_window [instance="Ediff" class="Emacs.*"] floating enable
 for_window [title="Event Tester"] floating enable # xev
 for_window [class="Blueman-manager"] floating enable
+for_window [title="Google Hangouts"] floating disable
 
 # ------------------------------------------------------------------------------
 # Bindings
