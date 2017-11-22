@@ -61,9 +61,13 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x exit
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? ' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%"
-bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%"
-bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
+# todo why can't i3 see these commands in PATH?
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/commonrc/bin/set_volume.sh +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/commonrc/bin/set_volume.sh -5% >~/out 2>~/err
+bindsym XF86AudioMute exec --no-startup-id ~/commonrc/bin/set_mute.sh toggle
+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # bindsym --release button2 kill
 # bindsym --whole-window $mod+button2 kill
