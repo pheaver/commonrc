@@ -31,17 +31,29 @@
 (load "cl-loaddefs")
 
 ;;;; registers
-(set-register ?i (cons 'file user-init-file))
-(set-register ?e (cons 'file common-init-file))
-(set-register ?E (cons 'file (phil/parent-dir common-init-file)))
-(set-register ?D (cons 'file (dropbox-dir "emacs")))
-(set-register ?l (cons 'file local-rc-file))
-(set-register ?n (cons 'file (dropbox-dir "org" "notes.org")))
-(set-register ?I (cons 'file (dropbox-dir "org" "inbox.org")))
-(set-register ?w (cons 'file (dropbox-dir "org" "work-notes.org")))
-(set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
-(set-register ?a (cons 'file (file-truename "~/.config/awesome/rc.lua")))
-(set-register ?c (cons 'file (file-truename "~/.i3/config")))
+
+;; In case I accidentally override a register (yeah it happens a lot).
+(defun phil/set-registers ()
+  (interactive)
+  (set-register ?i (cons 'file user-init-file))
+  (set-register ?e (cons 'file common-init-file))
+  (set-register ?E (cons 'file (phil/parent-dir common-init-file)))
+  (set-register ?D (cons 'file (dropbox-dir "emacs")))
+  (set-register ?l (cons 'file local-rc-file))
+  (set-register ?n (cons 'file (dropbox-dir "org" "notes.org")))
+  (set-register ?I (cons 'file (dropbox-dir "org" "inbox.org")))
+  (set-register ?w (cons 'file (dropbox-dir "org" "work-notes.org")))
+  (set-register ?s (cons 'file (dropbox-dir "emacs/stuff.el")))
+  (set-register ?a (cons 'file (file-truename "~/.config/awesome/rc.lua")))
+  (set-register ?c (cons 'file (file-truename "~/.i3/config")))
+  )
+
+(defun phil/reset-registers ()
+  (interactive)
+  (setq register-alist nil)
+  (phil/set-registers))
+
+(phil/set-registers)
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
@@ -51,6 +63,7 @@
 
 (global-set-key (kbd "M-l") 'downcase-dwim)
 (global-set-key (kbd "M-u") 'upcase-dwim)
+(global-set-key (kbd "M-c") 'capitalize-dwim)
 
 ;;;; miscellaneous keybindings
 (global-set-key (kbd "C-z") 'repeat)
@@ -180,16 +193,16 @@
 (setq-default ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
-;;;; C and c++ modes
+;;;; indent levels
 (setq-default c-basic-offset 2)
+(setq-default sh-basic-offset 2)
+(setq-default js-indent-level 2)
 
+;;;; C and c++ modes
 (defun my-c-mode-common-hook ()
   (c-set-offset 'substatement-open 0))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-;;;; javascript/json
-(setq js-indent-level 2)
 
 ;;;; shell stuff
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)

@@ -1,12 +1,16 @@
 (defun phil/java-mode-hook ()
-  (c-set-offset 'arglist-intro '+))
+  (c-set-offset 'inexpr-class 0)
+  (c-set-offset 'arglist-intro 4)
+  (c-set-offset 'arglist-close '+)
+  (c-set-offset 'arglist-cont-nonempty 4)
+  )
 
 (add-hook 'java-mode-hook 'phil/java-mode-hook)
 
 (with-eval-after-load 'eclim
   (setq eclim-auto-save t)
-  (setq eclimd-autostart-with-default-workspace t)
-  (setq eclimd-autostart t)
+  (setq eclimd-autostart-with-default-workspace nil)
+  (setq eclimd-autostart nil)
 
   (global-eclim-mode)
 
@@ -25,6 +29,6 @@
   (require 'eclim)
   (message "Loading eclim... done"))
 
-(global-set-key (kbd "C-c C-e") 'load-eclim)
+;; (global-set-key (kbd "C-c C-e") 'load-eclim)
 
 (provide 'phil-java)
