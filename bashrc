@@ -46,3 +46,5 @@ alias re-source="source ~/.bashrc"
 
 # uncomment the following to activate bash-completion:
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
