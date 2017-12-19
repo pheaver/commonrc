@@ -7,12 +7,14 @@
 
 (defun my-haskell-mode-hook ()
   (make-variable-buffer-local 'after-save-hook)
+  (make-variable-buffer-local 'flycheck-check-syntax-automatically)
   (remove-hook 'after-save-hook 'haskell-mode-after-save-handler)
   ;; (add-hook 'after-save-hook 'phil/haskell-make-tags)
   (make-variable-buffer-local 'tags-case-fold-search)
   (setq tags-case-fold-search nil)
   (intero-mode)
   (add-to-list 'company-backends 'company-intero)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
   )
 
 (defun phil/haskell-cleanup-imports-and-return ()
