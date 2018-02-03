@@ -158,8 +158,6 @@ zstyle ':completion:*:complete:-command-::commands' ignored-patterns '*\~'
 #zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 #zstyle ':completion:*' group-name ''
 
-# The following lines were added by compinstall
-
 zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' max-errors 1
@@ -167,7 +165,10 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle :compinstall filename '/home/pweaver/.zshrc'
 
 autoload -Uz compinit
+
+# todo
+# speedup by using compinit -C when possible.
+# https://gist.github.com/ctechols/ca1035271ad134841284
 compinit
-# End of lines added by compinstall
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
