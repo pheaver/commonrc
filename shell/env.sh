@@ -6,6 +6,8 @@
 rc-source mail.sh
 rc-source agent.sh
 
+export TERM=xterm-256color
+
 # for ack
 export ACK_OPTIONS="--type-set=hsc=.hsc --type-set=quattro=.q --type-set=tquattro=.q.py --type-set=cryptol=.cry --type-set=tcryptol=.cryt --type-set=verilog=.v"
 export ACK_PAGER_COLOR="less -R -F"
