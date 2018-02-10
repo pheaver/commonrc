@@ -55,6 +55,8 @@
 
 (phil/set-registers)
 
+(global-unset-key (kbd "C-x C-c")) ;; never again
+
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
 (global-set-key (kbd "C-x /") 'point-to-register)  ;; also bound to C-x r SPC
