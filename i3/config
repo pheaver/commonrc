@@ -24,8 +24,6 @@ bindsym $mod+minus scratchpad show
 
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
-bindsym $mod+i workspace prev_on_output
-bindsym $mod+o workspace next_on_output
 
 # bindsym $mod+Control+j workspace prev_on_output
 # bindsym $mod+Control+semicolon workspace next_on_output

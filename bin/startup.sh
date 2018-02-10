@@ -16,4 +16,6 @@ xfce4-power-manager
 
 dropbox start -i
 
+ulauncher &
+
 # emacs --daemon &
