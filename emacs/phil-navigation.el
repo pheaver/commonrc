@@ -160,11 +160,17 @@
   (projectile-global-mode)
   (define-key projectile-command-map (kbd "ESC") nil)
   (define-key projectile-command-map (kbd "s") 'helm-projectile-ag)
+  (define-key projectile-command-map (kbd "O") 'projectile-open-files)
   (add-to-list 'projectile-other-file-alist '("java" "ui.xml"))
   (add-to-list 'projectile-other-file-alist '("ui.xml" "java"))
   (with-eval-after-load 'helm
     (setq projectile-completion-system 'helm))
   (require 'helm-projectile nil 'noerror)
   )
+
+(defun projectile-open-files ()
+  "Open all project files."
+  (interactive)
+  (mapc 'find-file-noselect (projectile-current-project-files)))
 
 (provide 'phil-navigation)
