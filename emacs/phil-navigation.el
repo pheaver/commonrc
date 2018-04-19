@@ -131,8 +131,6 @@
   (setq ivy-count-format "(%d/%d) ")
   (setq projectile-completion-system 'ivy)
   ;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (define-key ctl-x-map (kbd "C-f") 'counsel-find-file)
-  ;; (global-set-key (kbd "M-x") 'counsel-M-x)
   (define-key ivy-minibuffer-map (kbd "C-SPC") 'ivy-restrict-to-matches)
 
   ;; (global-set-key (kbd "C-s") 'swiper)
@@ -140,6 +138,12 @@
   (global-set-key (kbd "M-s o") 'swiper)
   )
 
+
+(use-package counsel
+  :config
+  (define-key ctl-x-map (kbd "C-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "M-x") 'counsel-M-x)
+  )
 
 (defun phil/switch-buffer ()
   (interactive)
