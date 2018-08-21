@@ -56,6 +56,8 @@
 (phil/set-registers)
 
 (global-unset-key (kbd "C-x C-c")) ;; never again
+(global-set-key (kbd "C-c C-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "C-x k") 'kill-buffer)
 
 (global-set-key (kbd "C-x r v") 'view-register)
 (global-set-key (kbd "C-x r L") 'list-registers)
