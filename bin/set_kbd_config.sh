@@ -13,6 +13,6 @@ setxkbmap -option ctrl:nocaps
 # xmodmap ~/.Xmodmap
 
 # make short-pressed Ctrl behave like Escape:
-if type xcape >/dev/null 2>&1; then
-   xcape -t 200 -e 'Control_L=Escape'
-fi
+# if type xcape >/dev/null 2>&1; then
+#    xcape -t 200 -e 'Control_L=Escape'
+# fi
