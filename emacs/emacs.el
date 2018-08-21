@@ -202,6 +202,9 @@
 (setq-default sh-basic-offset 2)
 (setq-default js-indent-level 2)
 
+;;;; nxml
+(setq nxml-child-indent 4)
+
 ;;;; C and c++ modes
 (defun my-c-mode-common-hook ()
   (c-set-offset 'substatement-open 0))
