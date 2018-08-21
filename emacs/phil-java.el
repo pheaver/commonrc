@@ -24,11 +24,11 @@
 (with-eval-after-load 'company-emacs-eclim
   (company-emacs-eclim-setup))
 
-(defun load-eclim ()
-  (interactive)
-  (message "Loading eclim...")
-  (require 'eclim)
-  (message "Loading eclim... done"))
+;; (defun load-eclim ()
+;;   (interactive)
+;;   (message "Loading eclim...")
+;;   (require 'eclim)
+;;   (message "Loading eclim... done"))
 
 ;; (global-set-key (kbd "C-c C-e") 'load-eclim)
 
