@@ -12,8 +12,7 @@
   ;; (add-hook 'after-save-hook 'phil/haskell-make-tags)
   (make-variable-buffer-local 'tags-case-fold-search)
   (setq tags-case-fold-search nil)
-  (intero-mode)
-  (add-to-list 'company-backends 'company-intero)
+  (add-to-list 'company-backends 'dante-company)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   )
 
@@ -72,5 +71,14 @@
          ( "C-<f8>" . phil/haskell-cleanup-imports-and-return)
          ))
 
+(use-package dante
+  ;; :ensure t
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (setq dante-repl-command-line-methods-alist
+    `( (stack . ,(lambda (root) (dante-repl-by-file root '("stack.yaml") '("stack" "repl" dante-target)))) ))
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  (add-hook 'haskell-mode-hook 'flycheck-mode))
 
 (provide 'phil-haskell)
