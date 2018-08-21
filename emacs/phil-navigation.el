@@ -126,7 +126,7 @@
 (use-package swiper
   :config
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers nil)
   (setq ivy-height 16)
   (setq ivy-count-format "(%d/%d) ")
   (setq projectile-completion-system 'ivy)
@@ -135,7 +135,8 @@
 
   ;; (global-set-key (kbd "C-s") 'swiper)
   (define-key isearch-mode-map (kbd "C-o") 'swiper-from-isearch)
-  (global-set-key (kbd "M-s o") 'swiper)
+  ;; (global-set-key (kbd "M-s o") 'swiper)
+  (global-set-key (kbd "C-c o") 'swiper)
   )
 
 
@@ -163,13 +164,15 @@
   :config
   (projectile-global-mode)
   (define-key projectile-command-map (kbd "ESC") nil)
-  (define-key projectile-command-map (kbd "s") 'helm-projectile-ag)
   (define-key projectile-command-map (kbd "O") 'projectile-open-files)
   (add-to-list 'projectile-other-file-alist '("java" "ui.xml"))
   (add-to-list 'projectile-other-file-alist '("ui.xml" "java"))
   (with-eval-after-load 'helm
     (setq projectile-completion-system 'helm))
-  (require 'helm-projectile nil 'noerror)
+  (if (require 'helm-projectile nil 'noerror)
+      (define-key projectile-command-map (kbd "s") 'helm-projectile-ag)
+    (define-key projectile-command-map (kbd "s") 'counsel-projectile-ag))
+  (global-set-key (kbd "C-c C-f") 'projectile-find-file)
   )
 
 (defun projectile-open-files ()
