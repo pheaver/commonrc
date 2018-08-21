@@ -3,6 +3,7 @@
   (c-set-offset 'arglist-intro 4)
   (c-set-offset 'arglist-close '+)
   (c-set-offset 'arglist-cont-nonempty 4)
+  (c-set-offset 'case-label '+)
   )
 
 (add-hook 'java-mode-hook 'phil/java-mode-hook)
