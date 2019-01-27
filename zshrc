@@ -27,6 +27,10 @@ alias f="noglob find . -iname"
 #    return
 #fi
 
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+    tmux attach-session -t main || tmux new-session -s main
+fi
+
 ####################################################
 # how the login prompt appears
 
